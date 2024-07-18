@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TrainingCenterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TrainingCenter.dbo.AuditTrailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AuditTrailView">
+          <Key>
+            <PropertyRef Name="AuditTrailID" />
+            <PropertyRef Name="ActionTypeID" />
+            <PropertyRef Name="ActionTypeName" />
+            <PropertyRef Name="ActionID" />
+            <PropertyRef Name="ActionName" />
+            <PropertyRef Name="TransactionTime" />
+            <PropertyRef Name="EntityID" />
+            <PropertyRef Name="EntityName" />
+            <PropertyRef Name="EntityRecord" />
+          </Key>
+          <Property Name="AuditTrailID" Type="int" Nullable="false" />
+          <Property Name="ActionTypeID" Type="int" Nullable="false" />
+          <Property Name="ActionTypeName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ActionID" Type="int" Nullable="false" />
+          <Property Name="ActionName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActionsInfo" Type="nvarchar" MaxLength="100" />
+          <Property Name="TransactionTime" Type="datetime" Nullable="false" />
+          <Property Name="EntityID" Type="int" Nullable="false" />
+          <Property Name="EntityName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="EntityInfo" Type="nvarchar" MaxLength="100" />
+          <Property Name="EntityRecord" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TrainingCenter.dbo.AvailableCouresView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AvailableCouresView">
+          <Key>
+            <PropertyRef Name="AvailableCourseID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="IsProgramming" />
+            <PropertyRef Name="IsGroupDays1" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="AvailableCourseID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Requirement_CourseID" Type="int" />
+          <Property Name="IsProgramming" Type="bit" Nullable="false" />
+          <Property Name="IsGroupDays1" Type="bit" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="InstructorID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TrainingCenter.dbo.InstructorsAvailabilityView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="InstructorsAvailabilityView">
+          <Key>
+            <PropertyRef Name="InstructorAvailabilityID" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="IsGroupDays1" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+          </Key>
+          <Property Name="InstructorAvailabilityID" Type="int" Nullable="false" />
+          <Property Name="InstructorID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="HiringDate" Type="date" />
+          <Property Name="IsGroupDays1" Type="bit" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WaitingListView">
+          <Key>
+            <PropertyRef Name="WaitingListID" />
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="StudentName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="AvailableCourseID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="IsProgramming" />
+            <PropertyRef Name="InstructorAvailabilityID" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="InstructorName" />
+            <PropertyRef Name="InstructorEmail" />
+            <PropertyRef Name="InstructorPhone" />
+            <PropertyRef Name="timeSlotID" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+            <PropertyRef Name="IsGroupDays1" />
+          </Key>
+          <Property Name="WaitingListID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="152" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="AvailableCourseID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Requirement_CourseID" Type="int" />
+          <Property Name="IsProgramming" Type="bit" Nullable="false" />
+          <Property Name="InstructorAvailabilityID" Type="int" Nullable="false" />
+          <Property Name="InstructorID" Type="int" Nullable="false" />
+          <Property Name="InstructorName" Type="nvarchar" MaxLength="152" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+          <Property Name="InstructorEmail" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="InstructorPhone" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="timeSlotID" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="IsGroupDays1" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="TrainingCenterModelStoreContainer">
+          <EntitySet Name="AuditTrailView" EntityType="Self.AuditTrailView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AuditTrailView].[AuditTrailID] AS [AuditTrailID], 
+    [AuditTrailView].[ActionTypeID] AS [ActionTypeID], 
+    [AuditTrailView].[ActionTypeName] AS [ActionTypeName], 
+    [AuditTrailView].[DisplayName] AS [DisplayName], 
+    [AuditTrailView].[ActionID] AS [ActionID], 
+    [AuditTrailView].[ActionName] AS [ActionName], 
+    [AuditTrailView].[ActionsInfo] AS [ActionsInfo], 
+    [AuditTrailView].[TransactionTime] AS [TransactionTime], 
+    [AuditTrailView].[EntityID] AS [EntityID], 
+    [AuditTrailView].[EntityName] AS [EntityName], 
+    [AuditTrailView].[EntityInfo] AS [EntityInfo], 
+    [AuditTrailView].[EntityRecord] AS [EntityRecord]
+    FROM [dbo].[AuditTrailView] AS [AuditTrailView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="AvailableCouresView" EntityType="Self.AvailableCouresView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AvailableCouresView].[AvailableCourseID] AS [AvailableCourseID], 
+    [AvailableCouresView].[CourseID] AS [CourseID], 
+    [AvailableCouresView].[CourseName] AS [CourseName], 
+    [AvailableCouresView].[Duration] AS [Duration], 
+    [AvailableCouresView].[Requirement_CourseID] AS [Requirement_CourseID], 
+    [AvailableCouresView].[IsProgramming] AS [IsProgramming], 
+    [AvailableCouresView].[IsGroupDays1] AS [IsGroupDays1], 
+    [AvailableCouresView].[StartTime] AS [StartTime], 
+    [AvailableCouresView].[EndTime] AS [EndTime], 
+    [AvailableCouresView].[InstructorID] AS [InstructorID], 
+    [AvailableCouresView].[FirstName] AS [FirstName], 
+    [AvailableCouresView].[SecondName] AS [SecondName], 
+    [AvailableCouresView].[LastName] AS [LastName]
+    FROM [dbo].[AvailableCouresView] AS [AvailableCouresView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="InstructorsAvailabilityView" EntityType="Self.InstructorsAvailabilityView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [InstructorsAvailabilityView].[InstructorAvailabilityID] AS [InstructorAvailabilityID], 
+    [InstructorsAvailabilityView].[InstructorID] AS [InstructorID], 
+    [InstructorsAvailabilityView].[FirstName] AS [FirstName], 
+    [InstructorsAvailabilityView].[SecondName] AS [SecondName], 
+    [InstructorsAvailabilityView].[LastName] AS [LastName], 
+    [InstructorsAvailabilityView].[Email] AS [Email], 
+    [InstructorsAvailabilityView].[Phone] AS [Phone], 
+    [InstructorsAvailabilityView].[HiringDate] AS [HiringDate], 
+    [InstructorsAvailabilityView].[IsGroupDays1] AS [IsGroupDays1], 
+    [InstructorsAvailabilityView].[StartTime] AS [StartTime], 
+    [InstructorsAvailabilityView].[EndTime] AS [EndTime]
+    FROM [dbo].[InstructorsAvailabilityView] AS [InstructorsAvailabilityView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WaitingListView" EntityType="Self.WaitingListView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WaitingListView].[WaitingListID] AS [WaitingListID], 
+    [WaitingListView].[StudentID] AS [StudentID], 
+    [WaitingListView].[StudentName] AS [StudentName], 
+    [WaitingListView].[Email] AS [Email], 
+    [WaitingListView].[Phone] AS [Phone], 
+    [WaitingListView].[BirthDate] AS [BirthDate], 
+    [WaitingListView].[AvailableCourseID] AS [AvailableCourseID], 
+    [WaitingListView].[CourseID] AS [CourseID], 
+    [WaitingListView].[CourseName] AS [CourseName], 
+    [WaitingListView].[Duration] AS [Duration], 
+    [WaitingListView].[Requirement_CourseID] AS [Requirement_CourseID], 
+    [WaitingListView].[IsProgramming] AS [IsProgramming], 
+    [WaitingListView].[InstructorAvailabilityID] AS [InstructorAvailabilityID], 
+    [WaitingListView].[InstructorID] AS [InstructorID], 
+    [WaitingListView].[InstructorName] AS [InstructorName], 
+    [WaitingListView].[GroupName] AS [GroupName], 
+    [WaitingListView].[InstructorEmail] AS [InstructorEmail], 
+    [WaitingListView].[InstructorPhone] AS [InstructorPhone], 
+    [WaitingListView].[timeSlotID] AS [timeSlotID], 
+    [WaitingListView].[StartTime] AS [StartTime], 
+    [WaitingListView].[EndTime] AS [EndTime], 
+    [WaitingListView].[IsGroupDays1] AS [IsGroupDays1]
+    FROM [dbo].[WaitingListView] AS [WaitingListView]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TrainingCenterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AuditTrailView">
+          <Key>
+            <PropertyRef Name="AuditTrailID" />
+            <PropertyRef Name="ActionTypeID" />
+            <PropertyRef Name="ActionTypeName" />
+            <PropertyRef Name="ActionID" />
+            <PropertyRef Name="ActionName" />
+            <PropertyRef Name="TransactionTime" />
+            <PropertyRef Name="EntityID" />
+            <PropertyRef Name="EntityName" />
+            <PropertyRef Name="EntityRecord" />
+          </Key>
+          <Property Name="AuditTrailID" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ActionID" Type="Int32" Nullable="false" />
+          <Property Name="ActionName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ActionsInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EntityID" Type="Int32" Nullable="false" />
+          <Property Name="EntityName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EntityInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EntityRecord" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AvailableCouresView">
+          <Key>
+            <PropertyRef Name="AvailableCourseID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="IsProgramming" />
+            <PropertyRef Name="IsGroupDays1" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="AvailableCourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Requirement_CourseID" Type="Int32" />
+          <Property Name="IsProgramming" Type="Boolean" Nullable="false" />
+          <Property Name="IsGroupDays1" Type="Boolean" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InstructorsAvailabilityView">
+          <Key>
+            <PropertyRef Name="InstructorAvailabilityID" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="IsGroupDays1" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+          </Key>
+          <Property Name="InstructorAvailabilityID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="HiringDate" Type="DateTime" Precision="0" />
+          <Property Name="IsGroupDays1" Type="Boolean" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="WaitingListView">
+          <Key>
+            <PropertyRef Name="WaitingListID" />
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="StudentName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="AvailableCourseID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="IsProgramming" />
+            <PropertyRef Name="InstructorAvailabilityID" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="InstructorName" />
+            <PropertyRef Name="InstructorEmail" />
+            <PropertyRef Name="InstructorPhone" />
+            <PropertyRef Name="timeSlotID" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+            <PropertyRef Name="IsGroupDays1" />
+          </Key>
+          <Property Name="WaitingListID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="StudentName" Type="String" MaxLength="152" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AvailableCourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Requirement_CourseID" Type="Int32" />
+          <Property Name="IsProgramming" Type="Boolean" Nullable="false" />
+          <Property Name="InstructorAvailabilityID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorName" Type="String" MaxLength="152" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InstructorEmail" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="InstructorPhone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="timeSlotID" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="IsGroupDays1" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="TrainingCenterUIDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AuditTrailViews" EntityType="Self.AuditTrailView" />
+          <EntitySet Name="AvailableCouresViews" EntityType="Self.AvailableCouresView" />
+          <EntitySet Name="InstructorsAvailabilityViews" EntityType="Self.InstructorsAvailabilityView" />
+          <EntitySet Name="WaitingListViews" EntityType="Self.WaitingListView" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TrainingCenterModelStoreContainer" CdmEntityContainer="TrainingCenterUIDbContext">
+          <EntitySetMapping Name="AuditTrailViews">
+            <EntityTypeMapping TypeName="TrainingCenterModel.AuditTrailView">
+              <MappingFragment StoreEntitySet="AuditTrailView">
+                <ScalarProperty Name="AuditTrailID" ColumnName="AuditTrailID" />
+                <ScalarProperty Name="ActionTypeID" ColumnName="ActionTypeID" />
+                <ScalarProperty Name="ActionTypeName" ColumnName="ActionTypeName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ActionsInfo" ColumnName="ActionsInfo" />
+                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+                <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="EntityInfo" ColumnName="EntityInfo" />
+                <ScalarProperty Name="EntityRecord" ColumnName="EntityRecord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvailableCouresViews">
+            <EntityTypeMapping TypeName="TrainingCenterModel.AvailableCouresView">
+              <MappingFragment StoreEntitySet="AvailableCouresView">
+                <ScalarProperty Name="AvailableCourseID" ColumnName="AvailableCourseID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Requirement_CourseID" ColumnName="Requirement_CourseID" />
+                <ScalarProperty Name="IsProgramming" ColumnName="IsProgramming" />
+                <ScalarProperty Name="IsGroupDays1" ColumnName="IsGroupDays1" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InstructorsAvailabilityViews">
+            <EntityTypeMapping TypeName="TrainingCenterModel.InstructorsAvailabilityView">
+              <MappingFragment StoreEntitySet="InstructorsAvailabilityView">
+                <ScalarProperty Name="InstructorAvailabilityID" ColumnName="InstructorAvailabilityID" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
+                <ScalarProperty Name="IsGroupDays1" ColumnName="IsGroupDays1" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaitingListViews">
+            <EntityTypeMapping TypeName="TrainingCenterModel.WaitingListView">
+              <MappingFragment StoreEntitySet="WaitingListView">
+                <ScalarProperty Name="WaitingListID" ColumnName="WaitingListID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="AvailableCourseID" ColumnName="AvailableCourseID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Requirement_CourseID" ColumnName="Requirement_CourseID" />
+                <ScalarProperty Name="IsProgramming" ColumnName="IsProgramming" />
+                <ScalarProperty Name="InstructorAvailabilityID" ColumnName="InstructorAvailabilityID" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="InstructorName" ColumnName="InstructorName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="InstructorEmail" ColumnName="InstructorEmail" />
+                <ScalarProperty Name="InstructorPhone" ColumnName="InstructorPhone" />
+                <ScalarProperty Name="timeSlotID" ColumnName="timeSlotID" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="IsGroupDays1" ColumnName="IsGroupDays1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

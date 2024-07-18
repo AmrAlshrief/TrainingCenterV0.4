@@ -1,0 +1,43 @@
+﻿@model TrainingCenterLib.Entities.InstructorAvailability
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>InstructorAvailability</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IsGroupDays1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsGroupDays1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Instructor.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instructor.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeSlot.TimeSlotID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeSlot.TimeSlotID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InstructorAvailabilityID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

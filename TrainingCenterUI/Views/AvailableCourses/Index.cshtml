@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TrainingCenter.Lib.Entities.AvailableCours>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cours.CourseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstructorAvailability.InstructorAvailabilityID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cours.CourseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InstructorAvailability.InstructorAvailabilityID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AvailableCourseID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AvailableCourseID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AvailableCourseID })
+        </td>
+    </tr>
+}
+
+</table>

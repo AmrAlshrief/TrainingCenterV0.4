@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0a83ad5507e5469fa1187e9dde623d7d" Name="Diagram1">
+        <EntityTypeShape EntityType="TrainingCenterModel.Action" Width="1.5" PointX="7.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.ActionType" Width="1.5" PointX="7.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.AuditTrail" Width="1.5" PointX="10" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.AvailableCours" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.Cours" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.InstructorAvailability" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.Instructor" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.MasterEntity" Width="1.5" PointX="7.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.Room" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.RunningCours" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.Student" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.sysdiagram" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.TimeSlot" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.WaitingList" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.AuditTrailView" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.AvailableCouresView" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.InstructorsAvailabilityView" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.WaitingListView" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="TrainingCenterModel.FK_AuditTrail_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_AuditTrail_ActionType" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_AuditTrail_MasterEntity" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_AvailableCourses_Courses" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_AvailableCourses_InstructorAvailability" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_WaitingList_AvailableCourses" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_Courses_Courses" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_InstructorAvailability_Instructors" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_InstructorAvailability_TimeSlots" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_RunningCourses_Rooms" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_RunningCourses_WaitingList" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingCenterModel.FK_WaitingList_Students" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

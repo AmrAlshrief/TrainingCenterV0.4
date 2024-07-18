@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B969D590-C7F9-4789-87E5-990C28508AF7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TrainingCenterLib</RootNamespace>
+    <AssemblyName>TrainingCenterLib</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Action.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ActionType.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AuditTrail.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AuditTrailView.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AvailableCouresView.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AvailableCours.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Cours.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Instructor.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\InstructorAvailability.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\InstructorsAvailabilityView.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\MasterEntity.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Room.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\RunningCours.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Student.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\sysdiagram.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TimeSlot.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TrainingCenterLibModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrainingCenterLibModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TrainingCenterLibModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TrainingCenterLibModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrainingCenterLibModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\WaitingList.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\WaitingListView.cs">
+      <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Interfaces\IAvailableCourseService.cs" />
+    <Compile Include="Repository\Interfaces\ICourseService.cs" />
+    <Compile Include="Repository\Interfaces\IGenericRepository.cs" />
+    <Compile Include="Repository\Interfaces\IInstructorAvailabilityService.cs" />
+    <Compile Include="Repository\Interfaces\IInstructorService.cs" />
+    <Compile Include="Repository\Interfaces\IRoomService.cs" />
+    <Compile Include="Repository\Interfaces\IRunningCourseService.cs" />
+    <Compile Include="Repository\Interfaces\IStudentServicec.cs" />
+    <Compile Include="Repository\Interfaces\ITimeSlotService.cs" />
+    <Compile Include="Repository\Interfaces\IWaitingListService.cs" />
+    <Compile Include="Repository\Services\InstructorService.cs" />
+    <Compile Include="Repository\Services\StudentService.cs" />
+    <Compile Include="Repository\UserInfo.cs" />
+    <Compile Include="Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Entities\TrainingCenterLibModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TrainingCenterLibModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entities\TrainingCenterLibModel.edmx.diagram">
+      <DependentUpon>TrainingCenterLibModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entities\TrainingCenterLibModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TrainingCenterLibModel.edmx</DependentUpon>
+      <LastGenOutput>TrainingCenterLibModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities\TrainingCenterLibModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TrainingCenterLibModel.edmx</DependentUpon>
+      <LastGenOutput>TrainingCenterLibModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+</Project>

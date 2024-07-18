@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Dashboard</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <a href="/Course/Index" class="btn btn-primary btn-lg btn-block">Courses</a>
+        </div>
+        <div class="col-md-3">
+            <a href="/Students/Index" class="btn btn-primary btn-lg btn-block">Students</a>
+        </div>
+        <div class="col-md-3">
+            <a href="/Dashboard/Instructor" class="btn btn-primary btn-lg btn-block">Instructor Section</a>
+        </div>
+        <div class="col-md-3">
+            <a href="/TimeSlots/Index" class="btn btn-primary btn-lg btn-block">Schedules</a>
+        </div>
+        @Html.ActionLink("Log Out", "LogOff")
+
+    </div>
+</div>
+
+<style>
+    .btn-block {
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+</style>

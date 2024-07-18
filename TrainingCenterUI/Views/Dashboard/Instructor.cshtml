@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Instructor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Instructor</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <a href="/Instructors/Index" class="btn btn-primary btn-lg btn-block">Courses</a>
+        </div>
+    
+        <div class="col-md-3">
+            <a href="/InstructorAvailabilities/Index" class="btn btn-primary btn-lg btn-block">Schedules</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-block {
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+</style>

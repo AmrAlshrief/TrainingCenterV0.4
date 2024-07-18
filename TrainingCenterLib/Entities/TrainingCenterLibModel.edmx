@@ -1,0 +1,1346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TrainingCenterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="ActionID" />
+          </Key>
+          <Property Name="ActionID" Type="int" Nullable="false" />
+          <Property Name="ActionName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ActionType">
+          <Key>
+            <PropertyRef Name="ActionTypeID" />
+          </Key>
+          <Property Name="ActionTypeID" Type="int" Nullable="false" />
+          <Property Name="ActionTypeName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="AuditTrail">
+          <Key>
+            <PropertyRef Name="AuditTrailID" />
+          </Key>
+          <Property Name="AuditTrailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionTypeID" Type="int" Nullable="false" />
+          <Property Name="ActionID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="IpAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionTime" Type="datetime" Nullable="false" />
+          <Property Name="EntityID" Type="int" Nullable="false" />
+          <Property Name="EntityRecord" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="AvailableCourses">
+          <Key>
+            <PropertyRef Name="AvailableCourseID" />
+          </Key>
+          <Property Name="AvailableCourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="InstructorAvailabilityID" Type="int" Nullable="false" />
+          <Property Name="StartAt" Type="date" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Requirement_CourseID" Type="int" />
+          <Property Name="IsProgramming" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UserID" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="InstructorAvailability">
+          <Key>
+            <PropertyRef Name="InstructorAvailabilityID" />
+          </Key>
+          <Property Name="InstructorAvailabilityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InstructorID" Type="int" Nullable="false" />
+          <Property Name="timeSlotID" Type="int" Nullable="false" />
+          <Property Name="IsGroupDays1" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Instructors">
+          <Key>
+            <PropertyRef Name="InstructorID" />
+          </Key>
+          <Property Name="InstructorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="HiringDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MasterEntity">
+          <Key>
+            <PropertyRef Name="EntityID" />
+          </Key>
+          <Property Name="EntityID" Type="int" Nullable="false" />
+          <Property Name="EntityName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Rooms">
+          <Key>
+            <PropertyRef Name="RoomID" />
+          </Key>
+          <Property Name="RoomID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsProgramming" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RunningCourses">
+          <Key>
+            <PropertyRef Name="RunningCourseID" />
+          </Key>
+          <Property Name="RunningCourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WaitingListID" Type="int" Nullable="false" />
+          <Property Name="StartAt" Type="date" />
+          <Property Name="EndAt" Type="date" />
+          <Property Name="RoomID" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="BirthDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TimeSlots">
+          <Key>
+            <PropertyRef Name="TimeSlotID" />
+          </Key>
+          <Property Name="TimeSlotID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WaitingList">
+          <Key>
+            <PropertyRef Name="WaitingListID" />
+          </Key>
+          <Property Name="WaitingListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="AvailableCourseID" Type="int" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsPaid" Type="bit" Nullable="false" />
+          <Property Name="IsCash" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TrainingCenter.dbo.AuditTrailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AuditTrailView">
+          <Key>
+            <PropertyRef Name="AuditTrailID" />
+            <PropertyRef Name="ActionTypeID" />
+            <PropertyRef Name="ActionTypeName" />
+            <PropertyRef Name="ActionID" />
+            <PropertyRef Name="ActionName" />
+            <PropertyRef Name="TransactionTime" />
+            <PropertyRef Name="EntityID" />
+            <PropertyRef Name="EntityName" />
+            <PropertyRef Name="EntityRecord" />
+          </Key>
+          <Property Name="AuditTrailID" Type="int" Nullable="false" />
+          <Property Name="ActionTypeID" Type="int" Nullable="false" />
+          <Property Name="ActionTypeName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ActionID" Type="int" Nullable="false" />
+          <Property Name="ActionName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActionsInfo" Type="nvarchar" MaxLength="100" />
+          <Property Name="TransactionTime" Type="datetime" Nullable="false" />
+          <Property Name="EntityID" Type="int" Nullable="false" />
+          <Property Name="EntityName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="EntityInfo" Type="nvarchar" MaxLength="100" />
+          <Property Name="EntityRecord" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TrainingCenter.dbo.AvailableCouresView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AvailableCouresView">
+          <Key>
+            <PropertyRef Name="AvailableCourseID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="IsProgramming" />
+            <PropertyRef Name="IsGroupDays1" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="AvailableCourseID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Requirement_CourseID" Type="int" />
+          <Property Name="IsProgramming" Type="bit" Nullable="false" />
+          <Property Name="IsGroupDays1" Type="bit" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="InstructorID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TrainingCenter.dbo.InstructorsAvailabilityView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="InstructorsAvailabilityView">
+          <Key>
+            <PropertyRef Name="InstructorAvailabilityID" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="IsGroupDays1" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+          </Key>
+          <Property Name="InstructorAvailabilityID" Type="int" Nullable="false" />
+          <Property Name="InstructorID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="HiringDate" Type="date" />
+          <Property Name="IsGroupDays1" Type="bit" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WaitingListView">
+          <Key>
+            <PropertyRef Name="WaitingListID" />
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="StudentName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="AvailableCourseID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="IsProgramming" />
+            <PropertyRef Name="InstructorAvailabilityID" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="InstructorName" />
+            <PropertyRef Name="InstructorEmail" />
+            <PropertyRef Name="InstructorPhone" />
+            <PropertyRef Name="timeSlotID" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+            <PropertyRef Name="IsGroupDays1" />
+          </Key>
+          <Property Name="WaitingListID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="152" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="AvailableCourseID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Requirement_CourseID" Type="int" />
+          <Property Name="IsProgramming" Type="bit" Nullable="false" />
+          <Property Name="InstructorAvailabilityID" Type="int" Nullable="false" />
+          <Property Name="InstructorID" Type="int" Nullable="false" />
+          <Property Name="InstructorName" Type="nvarchar" MaxLength="152" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+          <Property Name="InstructorEmail" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="InstructorPhone" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="timeSlotID" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="IsGroupDays1" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AuditTrail_Action">
+          <End Role="Action" Type="Self.Action" Multiplicity="1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="ActionID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuditTrail_ActionType">
+          <End Role="ActionType" Type="Self.ActionType" Multiplicity="1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionType">
+              <PropertyRef Name="ActionTypeID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="ActionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuditTrail_MasterEntity">
+          <End Role="MasterEntity" Type="Self.MasterEntity" Multiplicity="1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterEntity">
+              <PropertyRef Name="EntityID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="EntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvailableCourses_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="AvailableCourses" Type="Self.AvailableCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="AvailableCourses">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvailableCourses_InstructorAvailability">
+          <End Role="InstructorAvailability" Type="Self.InstructorAvailability" Multiplicity="1" />
+          <End Role="AvailableCourses" Type="Self.AvailableCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InstructorAvailability">
+              <PropertyRef Name="InstructorAvailabilityID" />
+            </Principal>
+            <Dependent Role="AvailableCourses">
+              <PropertyRef Name="InstructorAvailabilityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="Courses1" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Courses1">
+              <PropertyRef Name="Requirement_CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorAvailability_Instructors">
+          <End Role="Instructors" Type="Self.Instructors" Multiplicity="1" />
+          <End Role="InstructorAvailability" Type="Self.InstructorAvailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructors">
+              <PropertyRef Name="InstructorID" />
+            </Principal>
+            <Dependent Role="InstructorAvailability">
+              <PropertyRef Name="InstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorAvailability_TimeSlots">
+          <End Role="TimeSlots" Type="Self.TimeSlots" Multiplicity="1" />
+          <End Role="InstructorAvailability" Type="Self.InstructorAvailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeSlots">
+              <PropertyRef Name="TimeSlotID" />
+            </Principal>
+            <Dependent Role="InstructorAvailability">
+              <PropertyRef Name="timeSlotID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RunningCourses_Rooms">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="1" />
+          <End Role="RunningCourses" Type="Self.RunningCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="RunningCourses">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RunningCourses_WaitingList">
+          <End Role="WaitingList" Type="Self.WaitingList" Multiplicity="1" />
+          <End Role="RunningCourses" Type="Self.RunningCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WaitingList">
+              <PropertyRef Name="WaitingListID" />
+            </Principal>
+            <Dependent Role="RunningCourses">
+              <PropertyRef Name="WaitingListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaitingList_AvailableCourses">
+          <End Role="AvailableCourses" Type="Self.AvailableCourses" Multiplicity="1" />
+          <End Role="WaitingList" Type="Self.WaitingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvailableCourses">
+              <PropertyRef Name="AvailableCourseID" />
+            </Principal>
+            <Dependent Role="WaitingList">
+              <PropertyRef Name="AvailableCourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaitingList_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="WaitingList" Type="Self.WaitingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="WaitingList">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingCenterModelStoreContainer">
+          <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionType" EntityType="Self.ActionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditTrail" EntityType="Self.AuditTrail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AvailableCourses" EntityType="Self.AvailableCourses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InstructorAvailability" EntityType="Self.InstructorAvailability" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instructors" EntityType="Self.Instructors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterEntity" EntityType="Self.MasterEntity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RunningCourses" EntityType="Self.RunningCourses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeSlots" EntityType="Self.TimeSlots" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WaitingList" EntityType="Self.WaitingList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditTrailView" EntityType="Self.AuditTrailView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AuditTrailView].[AuditTrailID] AS [AuditTrailID], 
+    [AuditTrailView].[ActionTypeID] AS [ActionTypeID], 
+    [AuditTrailView].[ActionTypeName] AS [ActionTypeName], 
+    [AuditTrailView].[DisplayName] AS [DisplayName], 
+    [AuditTrailView].[ActionID] AS [ActionID], 
+    [AuditTrailView].[ActionName] AS [ActionName], 
+    [AuditTrailView].[ActionsInfo] AS [ActionsInfo], 
+    [AuditTrailView].[TransactionTime] AS [TransactionTime], 
+    [AuditTrailView].[EntityID] AS [EntityID], 
+    [AuditTrailView].[EntityName] AS [EntityName], 
+    [AuditTrailView].[EntityInfo] AS [EntityInfo], 
+    [AuditTrailView].[EntityRecord] AS [EntityRecord]
+    FROM [dbo].[AuditTrailView] AS [AuditTrailView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="AvailableCouresView" EntityType="Self.AvailableCouresView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AvailableCouresView].[AvailableCourseID] AS [AvailableCourseID], 
+    [AvailableCouresView].[CourseID] AS [CourseID], 
+    [AvailableCouresView].[CourseName] AS [CourseName], 
+    [AvailableCouresView].[Duration] AS [Duration], 
+    [AvailableCouresView].[Requirement_CourseID] AS [Requirement_CourseID], 
+    [AvailableCouresView].[IsProgramming] AS [IsProgramming], 
+    [AvailableCouresView].[IsGroupDays1] AS [IsGroupDays1], 
+    [AvailableCouresView].[StartTime] AS [StartTime], 
+    [AvailableCouresView].[EndTime] AS [EndTime], 
+    [AvailableCouresView].[InstructorID] AS [InstructorID], 
+    [AvailableCouresView].[FirstName] AS [FirstName], 
+    [AvailableCouresView].[SecondName] AS [SecondName], 
+    [AvailableCouresView].[LastName] AS [LastName]
+    FROM [dbo].[AvailableCouresView] AS [AvailableCouresView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="InstructorsAvailabilityView" EntityType="Self.InstructorsAvailabilityView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [InstructorsAvailabilityView].[InstructorAvailabilityID] AS [InstructorAvailabilityID], 
+    [InstructorsAvailabilityView].[InstructorID] AS [InstructorID], 
+    [InstructorsAvailabilityView].[FirstName] AS [FirstName], 
+    [InstructorsAvailabilityView].[SecondName] AS [SecondName], 
+    [InstructorsAvailabilityView].[LastName] AS [LastName], 
+    [InstructorsAvailabilityView].[Email] AS [Email], 
+    [InstructorsAvailabilityView].[Phone] AS [Phone], 
+    [InstructorsAvailabilityView].[HiringDate] AS [HiringDate], 
+    [InstructorsAvailabilityView].[IsGroupDays1] AS [IsGroupDays1], 
+    [InstructorsAvailabilityView].[StartTime] AS [StartTime], 
+    [InstructorsAvailabilityView].[EndTime] AS [EndTime]
+    FROM [dbo].[InstructorsAvailabilityView] AS [InstructorsAvailabilityView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WaitingListView" EntityType="Self.WaitingListView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WaitingListView].[WaitingListID] AS [WaitingListID], 
+    [WaitingListView].[StudentID] AS [StudentID], 
+    [WaitingListView].[StudentName] AS [StudentName], 
+    [WaitingListView].[Email] AS [Email], 
+    [WaitingListView].[Phone] AS [Phone], 
+    [WaitingListView].[BirthDate] AS [BirthDate], 
+    [WaitingListView].[AvailableCourseID] AS [AvailableCourseID], 
+    [WaitingListView].[CourseID] AS [CourseID], 
+    [WaitingListView].[CourseName] AS [CourseName], 
+    [WaitingListView].[Duration] AS [Duration], 
+    [WaitingListView].[Requirement_CourseID] AS [Requirement_CourseID], 
+    [WaitingListView].[IsProgramming] AS [IsProgramming], 
+    [WaitingListView].[InstructorAvailabilityID] AS [InstructorAvailabilityID], 
+    [WaitingListView].[InstructorID] AS [InstructorID], 
+    [WaitingListView].[InstructorName] AS [InstructorName], 
+    [WaitingListView].[GroupName] AS [GroupName], 
+    [WaitingListView].[InstructorEmail] AS [InstructorEmail], 
+    [WaitingListView].[InstructorPhone] AS [InstructorPhone], 
+    [WaitingListView].[timeSlotID] AS [timeSlotID], 
+    [WaitingListView].[StartTime] AS [StartTime], 
+    [WaitingListView].[EndTime] AS [EndTime], 
+    [WaitingListView].[IsGroupDays1] AS [IsGroupDays1]
+    FROM [dbo].[WaitingListView] AS [WaitingListView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AuditTrail_Action" Association="Self.FK_AuditTrail_Action">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="AuditTrail" EntitySet="AuditTrail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuditTrail_ActionType" Association="Self.FK_AuditTrail_ActionType">
+            <End Role="ActionType" EntitySet="ActionType" />
+            <End Role="AuditTrail" EntitySet="AuditTrail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuditTrail_MasterEntity" Association="Self.FK_AuditTrail_MasterEntity">
+            <End Role="MasterEntity" EntitySet="MasterEntity" />
+            <End Role="AuditTrail" EntitySet="AuditTrail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvailableCourses_Courses" Association="Self.FK_AvailableCourses_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="AvailableCourses" EntitySet="AvailableCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvailableCourses_InstructorAvailability" Association="Self.FK_AvailableCourses_InstructorAvailability">
+            <End Role="InstructorAvailability" EntitySet="InstructorAvailability" />
+            <End Role="AvailableCourses" EntitySet="AvailableCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Courses" Association="Self.FK_Courses_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Courses1" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorAvailability_Instructors" Association="Self.FK_InstructorAvailability_Instructors">
+            <End Role="Instructors" EntitySet="Instructors" />
+            <End Role="InstructorAvailability" EntitySet="InstructorAvailability" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorAvailability_TimeSlots" Association="Self.FK_InstructorAvailability_TimeSlots">
+            <End Role="TimeSlots" EntitySet="TimeSlots" />
+            <End Role="InstructorAvailability" EntitySet="InstructorAvailability" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RunningCourses_Rooms" Association="Self.FK_RunningCourses_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="RunningCourses" EntitySet="RunningCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RunningCourses_WaitingList" Association="Self.FK_RunningCourses_WaitingList">
+            <End Role="WaitingList" EntitySet="WaitingList" />
+            <End Role="RunningCourses" EntitySet="RunningCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaitingList_AvailableCourses" Association="Self.FK_WaitingList_AvailableCourses">
+            <End Role="AvailableCourses" EntitySet="AvailableCourses" />
+            <End Role="WaitingList" EntitySet="WaitingList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaitingList_Students" Association="Self.FK_WaitingList_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="WaitingList" EntitySet="WaitingList" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TrainingCenterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="ActionID" />
+          </Key>
+          <Property Name="ActionID" Type="Int32" Nullable="false" />
+          <Property Name="ActionName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AuditTrails" Relationship="Self.FK_AuditTrail_Action" FromRole="Action" ToRole="AuditTrail" />
+        </EntityType>
+        <EntityType Name="ActionType">
+          <Key>
+            <PropertyRef Name="ActionTypeID" />
+          </Key>
+          <Property Name="ActionTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AuditTrails" Relationship="Self.FK_AuditTrail_ActionType" FromRole="ActionType" ToRole="AuditTrail" />
+        </EntityType>
+        <EntityType Name="AuditTrail">
+          <Key>
+            <PropertyRef Name="AuditTrailID" />
+          </Key>
+          <Property Name="AuditTrailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ActionID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EntityID" Type="Int32" Nullable="false" />
+          <Property Name="EntityRecord" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Action" Relationship="Self.FK_AuditTrail_Action" FromRole="AuditTrail" ToRole="Action" />
+          <NavigationProperty Name="ActionType" Relationship="Self.FK_AuditTrail_ActionType" FromRole="AuditTrail" ToRole="ActionType" />
+          <NavigationProperty Name="MasterEntity" Relationship="Self.FK_AuditTrail_MasterEntity" FromRole="AuditTrail" ToRole="MasterEntity" />
+        </EntityType>
+        <EntityType Name="AvailableCours">
+          <Key>
+            <PropertyRef Name="AvailableCourseID" />
+          </Key>
+          <Property Name="AvailableCourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorAvailabilityID" Type="Int32" Nullable="false" />
+          <Property Name="StartAt" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Cours" Relationship="Self.FK_AvailableCourses_Courses" FromRole="AvailableCourses" ToRole="Courses" />
+          <NavigationProperty Name="InstructorAvailability" Relationship="Self.FK_AvailableCourses_InstructorAvailability" FromRole="AvailableCourses" ToRole="InstructorAvailability" />
+          <NavigationProperty Name="WaitingLists" Relationship="Self.FK_WaitingList_AvailableCourses" FromRole="AvailableCourses" ToRole="WaitingList" />
+        </EntityType>
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Requirement_CourseID" Type="Int32" />
+          <Property Name="IsProgramming" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UserID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="AvailableCourses" Relationship="Self.FK_AvailableCourses_Courses" FromRole="Courses" ToRole="AvailableCourses" />
+          <NavigationProperty Name="Courses1" Relationship="Self.FK_Courses_Courses" FromRole="Courses" ToRole="Courses1" />
+          <NavigationProperty Name="Cours1" Relationship="Self.FK_Courses_Courses" FromRole="Courses1" ToRole="Courses" />
+        </EntityType>
+        <EntityType Name="InstructorAvailability">
+          <Key>
+            <PropertyRef Name="InstructorAvailabilityID" />
+          </Key>
+          <Property Name="InstructorAvailabilityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="timeSlotID" Type="Int32" Nullable="false" />
+          <Property Name="IsGroupDays1" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AvailableCourses" Relationship="Self.FK_AvailableCourses_InstructorAvailability" FromRole="InstructorAvailability" ToRole="AvailableCourses" />
+          <NavigationProperty Name="Instructor" Relationship="Self.FK_InstructorAvailability_Instructors" FromRole="InstructorAvailability" ToRole="Instructors" />
+          <NavigationProperty Name="TimeSlot" Relationship="Self.FK_InstructorAvailability_TimeSlots" FromRole="InstructorAvailability" ToRole="TimeSlots" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="InstructorID" />
+          </Key>
+          <Property Name="InstructorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="HiringDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="InstructorAvailabilities" Relationship="Self.FK_InstructorAvailability_Instructors" FromRole="Instructors" ToRole="InstructorAvailability" />
+        </EntityType>
+        <EntityType Name="MasterEntity">
+          <Key>
+            <PropertyRef Name="EntityID" />
+          </Key>
+          <Property Name="EntityID" Type="Int32" Nullable="false" />
+          <Property Name="EntityName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AuditTrails" Relationship="Self.FK_AuditTrail_MasterEntity" FromRole="MasterEntity" ToRole="AuditTrail" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomID" />
+          </Key>
+          <Property Name="RoomID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsProgramming" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RunningCourses" Relationship="Self.FK_RunningCourses_Rooms" FromRole="Rooms" ToRole="RunningCourses" />
+        </EntityType>
+        <EntityType Name="RunningCours">
+          <Key>
+            <PropertyRef Name="RunningCourseID" />
+          </Key>
+          <Property Name="RunningCourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WaitingListID" Type="Int32" Nullable="false" />
+          <Property Name="StartAt" Type="DateTime" Precision="0" />
+          <Property Name="EndAt" Type="DateTime" Precision="0" />
+          <Property Name="RoomID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_RunningCourses_Rooms" FromRole="RunningCourses" ToRole="Rooms" />
+          <NavigationProperty Name="WaitingList" Relationship="Self.FK_RunningCourses_WaitingList" FromRole="RunningCourses" ToRole="WaitingList" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WaitingLists" Relationship="Self.FK_WaitingList_Students" FromRole="Students" ToRole="WaitingList" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TimeSlot">
+          <Key>
+            <PropertyRef Name="TimeSlotID" />
+          </Key>
+          <Property Name="TimeSlotID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="InstructorAvailabilities" Relationship="Self.FK_InstructorAvailability_TimeSlots" FromRole="TimeSlots" ToRole="InstructorAvailability" />
+        </EntityType>
+        <EntityType Name="WaitingList">
+          <Key>
+            <PropertyRef Name="WaitingListID" />
+          </Key>
+          <Property Name="WaitingListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="AvailableCourseID" Type="Int32" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsPaid" Type="Boolean" Nullable="false" />
+          <Property Name="IsCash" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AvailableCours" Relationship="Self.FK_WaitingList_AvailableCourses" FromRole="WaitingList" ToRole="AvailableCourses" />
+          <NavigationProperty Name="RunningCourses" Relationship="Self.FK_RunningCourses_WaitingList" FromRole="WaitingList" ToRole="RunningCourses" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_WaitingList_Students" FromRole="WaitingList" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="AuditTrailView">
+          <Key>
+            <PropertyRef Name="AuditTrailID" />
+            <PropertyRef Name="ActionTypeID" />
+            <PropertyRef Name="ActionTypeName" />
+            <PropertyRef Name="ActionID" />
+            <PropertyRef Name="ActionName" />
+            <PropertyRef Name="TransactionTime" />
+            <PropertyRef Name="EntityID" />
+            <PropertyRef Name="EntityName" />
+            <PropertyRef Name="EntityRecord" />
+          </Key>
+          <Property Name="AuditTrailID" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ActionID" Type="Int32" Nullable="false" />
+          <Property Name="ActionName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ActionsInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EntityID" Type="Int32" Nullable="false" />
+          <Property Name="EntityName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EntityInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EntityRecord" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AvailableCouresView">
+          <Key>
+            <PropertyRef Name="AvailableCourseID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="IsProgramming" />
+            <PropertyRef Name="IsGroupDays1" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="AvailableCourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Requirement_CourseID" Type="Int32" />
+          <Property Name="IsProgramming" Type="Boolean" Nullable="false" />
+          <Property Name="IsGroupDays1" Type="Boolean" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InstructorsAvailabilityView">
+          <Key>
+            <PropertyRef Name="InstructorAvailabilityID" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="IsGroupDays1" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+          </Key>
+          <Property Name="InstructorAvailabilityID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="HiringDate" Type="DateTime" Precision="0" />
+          <Property Name="IsGroupDays1" Type="Boolean" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="WaitingListView">
+          <Key>
+            <PropertyRef Name="WaitingListID" />
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="StudentName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="AvailableCourseID" />
+            <PropertyRef Name="CourseID" />
+            <PropertyRef Name="CourseName" />
+            <PropertyRef Name="IsProgramming" />
+            <PropertyRef Name="InstructorAvailabilityID" />
+            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="InstructorName" />
+            <PropertyRef Name="InstructorEmail" />
+            <PropertyRef Name="InstructorPhone" />
+            <PropertyRef Name="timeSlotID" />
+            <PropertyRef Name="StartTime" />
+            <PropertyRef Name="EndTime" />
+            <PropertyRef Name="IsGroupDays1" />
+          </Key>
+          <Property Name="WaitingListID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="StudentName" Type="String" MaxLength="152" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AvailableCourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Requirement_CourseID" Type="Int32" />
+          <Property Name="IsProgramming" Type="Boolean" Nullable="false" />
+          <Property Name="InstructorAvailabilityID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorID" Type="Int32" Nullable="false" />
+          <Property Name="InstructorName" Type="String" MaxLength="152" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InstructorEmail" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="InstructorPhone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="timeSlotID" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="IsGroupDays1" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AuditTrail_Action">
+          <End Role="Action" Type="Self.Action" Multiplicity="1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="ActionID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuditTrail_ActionType">
+          <End Role="ActionType" Type="Self.ActionType" Multiplicity="1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionType">
+              <PropertyRef Name="ActionTypeID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="ActionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuditTrail_MasterEntity">
+          <End Role="MasterEntity" Type="Self.MasterEntity" Multiplicity="1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterEntity">
+              <PropertyRef Name="EntityID" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="EntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvailableCourses_Courses">
+          <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+          <End Role="AvailableCourses" Type="Self.AvailableCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="AvailableCourses">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvailableCourses_InstructorAvailability">
+          <End Role="InstructorAvailability" Type="Self.InstructorAvailability" Multiplicity="1" />
+          <End Role="AvailableCourses" Type="Self.AvailableCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InstructorAvailability">
+              <PropertyRef Name="InstructorAvailabilityID" />
+            </Principal>
+            <Dependent Role="AvailableCourses">
+              <PropertyRef Name="InstructorAvailabilityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaitingList_AvailableCourses">
+          <End Role="AvailableCourses" Type="Self.AvailableCours" Multiplicity="1" />
+          <End Role="WaitingList" Type="Self.WaitingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvailableCourses">
+              <PropertyRef Name="AvailableCourseID" />
+            </Principal>
+            <Dependent Role="WaitingList">
+              <PropertyRef Name="AvailableCourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Courses">
+          <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+          <End Role="Courses1" Type="Self.Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Courses1">
+              <PropertyRef Name="Requirement_CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorAvailability_Instructors">
+          <End Role="Instructors" Type="Self.Instructor" Multiplicity="1" />
+          <End Role="InstructorAvailability" Type="Self.InstructorAvailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructors">
+              <PropertyRef Name="InstructorID" />
+            </Principal>
+            <Dependent Role="InstructorAvailability">
+              <PropertyRef Name="InstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructorAvailability_TimeSlots">
+          <End Role="TimeSlots" Type="Self.TimeSlot" Multiplicity="1" />
+          <End Role="InstructorAvailability" Type="Self.InstructorAvailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeSlots">
+              <PropertyRef Name="TimeSlotID" />
+            </Principal>
+            <Dependent Role="InstructorAvailability">
+              <PropertyRef Name="timeSlotID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RunningCourses_Rooms">
+          <End Role="Rooms" Type="Self.Room" Multiplicity="1" />
+          <End Role="RunningCourses" Type="Self.RunningCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="RunningCourses">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RunningCourses_WaitingList">
+          <End Role="WaitingList" Type="Self.WaitingList" Multiplicity="1" />
+          <End Role="RunningCourses" Type="Self.RunningCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WaitingList">
+              <PropertyRef Name="WaitingListID" />
+            </Principal>
+            <Dependent Role="RunningCourses">
+              <PropertyRef Name="WaitingListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaitingList_Students">
+          <End Role="Students" Type="Self.Student" Multiplicity="1" />
+          <End Role="WaitingList" Type="Self.WaitingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="WaitingList">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingCenterLibDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actions" EntityType="Self.Action" />
+          <EntitySet Name="ActionTypes" EntityType="Self.ActionType" />
+          <EntitySet Name="AuditTrails" EntityType="Self.AuditTrail" />
+          <EntitySet Name="AvailableCourses" EntityType="Self.AvailableCours" />
+          <EntitySet Name="Courses" EntityType="Self.Cours" />
+          <EntitySet Name="InstructorAvailabilities" EntityType="Self.InstructorAvailability" />
+          <EntitySet Name="Instructors" EntityType="Self.Instructor" />
+          <EntitySet Name="MasterEntities" EntityType="Self.MasterEntity" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="RunningCourses" EntityType="Self.RunningCours" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TimeSlots" EntityType="Self.TimeSlot" />
+          <EntitySet Name="WaitingLists" EntityType="Self.WaitingList" />
+          <EntitySet Name="AuditTrailViews" EntityType="Self.AuditTrailView" />
+          <EntitySet Name="AvailableCouresViews" EntityType="Self.AvailableCouresView" />
+          <EntitySet Name="InstructorsAvailabilityViews" EntityType="Self.InstructorsAvailabilityView" />
+          <EntitySet Name="WaitingListViews" EntityType="Self.WaitingListView" />
+          <AssociationSet Name="FK_AuditTrail_Action" Association="Self.FK_AuditTrail_Action">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="AuditTrail" EntitySet="AuditTrails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuditTrail_ActionType" Association="Self.FK_AuditTrail_ActionType">
+            <End Role="ActionType" EntitySet="ActionTypes" />
+            <End Role="AuditTrail" EntitySet="AuditTrails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuditTrail_MasterEntity" Association="Self.FK_AuditTrail_MasterEntity">
+            <End Role="MasterEntity" EntitySet="MasterEntities" />
+            <End Role="AuditTrail" EntitySet="AuditTrails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvailableCourses_Courses" Association="Self.FK_AvailableCourses_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="AvailableCourses" EntitySet="AvailableCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvailableCourses_InstructorAvailability" Association="Self.FK_AvailableCourses_InstructorAvailability">
+            <End Role="InstructorAvailability" EntitySet="InstructorAvailabilities" />
+            <End Role="AvailableCourses" EntitySet="AvailableCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaitingList_AvailableCourses" Association="Self.FK_WaitingList_AvailableCourses">
+            <End Role="AvailableCourses" EntitySet="AvailableCourses" />
+            <End Role="WaitingList" EntitySet="WaitingLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Courses" Association="Self.FK_Courses_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Courses1" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorAvailability_Instructors" Association="Self.FK_InstructorAvailability_Instructors">
+            <End Role="Instructors" EntitySet="Instructors" />
+            <End Role="InstructorAvailability" EntitySet="InstructorAvailabilities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructorAvailability_TimeSlots" Association="Self.FK_InstructorAvailability_TimeSlots">
+            <End Role="TimeSlots" EntitySet="TimeSlots" />
+            <End Role="InstructorAvailability" EntitySet="InstructorAvailabilities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RunningCourses_Rooms" Association="Self.FK_RunningCourses_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="RunningCourses" EntitySet="RunningCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RunningCourses_WaitingList" Association="Self.FK_RunningCourses_WaitingList">
+            <End Role="WaitingList" EntitySet="WaitingLists" />
+            <End Role="RunningCourses" EntitySet="RunningCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaitingList_Students" Association="Self.FK_WaitingList_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="WaitingList" EntitySet="WaitingLists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TrainingCenterModelStoreContainer" CdmEntityContainer="TrainingCenterLibDbContext">
+          <EntitySetMapping Name="Actions">
+            <EntityTypeMapping TypeName="TrainingCenterModel.Action">
+              <MappingFragment StoreEntitySet="Action">
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActionTypes">
+            <EntityTypeMapping TypeName="TrainingCenterModel.ActionType">
+              <MappingFragment StoreEntitySet="ActionType">
+                <ScalarProperty Name="ActionTypeID" ColumnName="ActionTypeID" />
+                <ScalarProperty Name="ActionTypeName" ColumnName="ActionTypeName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditTrails">
+            <EntityTypeMapping TypeName="TrainingCenterModel.AuditTrail">
+              <MappingFragment StoreEntitySet="AuditTrail">
+                <ScalarProperty Name="AuditTrailID" ColumnName="AuditTrailID" />
+                <ScalarProperty Name="ActionTypeID" ColumnName="ActionTypeID" />
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+                <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+                <ScalarProperty Name="EntityRecord" ColumnName="EntityRecord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvailableCourses">
+            <EntityTypeMapping TypeName="TrainingCenterModel.AvailableCours">
+              <MappingFragment StoreEntitySet="AvailableCourses">
+                <ScalarProperty Name="AvailableCourseID" ColumnName="AvailableCourseID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="InstructorAvailabilityID" ColumnName="InstructorAvailabilityID" />
+                <ScalarProperty Name="StartAt" ColumnName="StartAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="TrainingCenterModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Requirement_CourseID" ColumnName="Requirement_CourseID" />
+                <ScalarProperty Name="IsProgramming" ColumnName="IsProgramming" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InstructorAvailabilities">
+            <EntityTypeMapping TypeName="TrainingCenterModel.InstructorAvailability">
+              <MappingFragment StoreEntitySet="InstructorAvailability">
+                <ScalarProperty Name="InstructorAvailabilityID" ColumnName="InstructorAvailabilityID" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="timeSlotID" ColumnName="timeSlotID" />
+                <ScalarProperty Name="IsGroupDays1" ColumnName="IsGroupDays1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instructors">
+            <EntityTypeMapping TypeName="TrainingCenterModel.Instructor">
+              <MappingFragment StoreEntitySet="Instructors">
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterEntities">
+            <EntityTypeMapping TypeName="TrainingCenterModel.MasterEntity">
+              <MappingFragment StoreEntitySet="MasterEntity">
+                <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="TrainingCenterModel.Room">
+              <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsProgramming" ColumnName="IsProgramming" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RunningCourses">
+            <EntityTypeMapping TypeName="TrainingCenterModel.RunningCours">
+              <MappingFragment StoreEntitySet="RunningCourses">
+                <ScalarProperty Name="RunningCourseID" ColumnName="RunningCourseID" />
+                <ScalarProperty Name="WaitingListID" ColumnName="WaitingListID" />
+                <ScalarProperty Name="StartAt" ColumnName="StartAt" />
+                <ScalarProperty Name="EndAt" ColumnName="EndAt" />
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="TrainingCenterModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TrainingCenterModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeSlots">
+            <EntityTypeMapping TypeName="TrainingCenterModel.TimeSlot">
+              <MappingFragment StoreEntitySet="TimeSlots">
+                <ScalarProperty Name="TimeSlotID" ColumnName="TimeSlotID" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaitingLists">
+            <EntityTypeMapping TypeName="TrainingCenterModel.WaitingList">
+              <MappingFragment StoreEntitySet="WaitingList">
+                <ScalarProperty Name="WaitingListID" ColumnName="WaitingListID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="AvailableCourseID" ColumnName="AvailableCourseID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="IsCash" ColumnName="IsCash" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditTrailViews">
+            <EntityTypeMapping TypeName="TrainingCenterModel.AuditTrailView">
+              <MappingFragment StoreEntitySet="AuditTrailView">
+                <ScalarProperty Name="AuditTrailID" ColumnName="AuditTrailID" />
+                <ScalarProperty Name="ActionTypeID" ColumnName="ActionTypeID" />
+                <ScalarProperty Name="ActionTypeName" ColumnName="ActionTypeName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ActionsInfo" ColumnName="ActionsInfo" />
+                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+                <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="EntityInfo" ColumnName="EntityInfo" />
+                <ScalarProperty Name="EntityRecord" ColumnName="EntityRecord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvailableCouresViews">
+            <EntityTypeMapping TypeName="TrainingCenterModel.AvailableCouresView">
+              <MappingFragment StoreEntitySet="AvailableCouresView">
+                <ScalarProperty Name="AvailableCourseID" ColumnName="AvailableCourseID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Requirement_CourseID" ColumnName="Requirement_CourseID" />
+                <ScalarProperty Name="IsProgramming" ColumnName="IsProgramming" />
+                <ScalarProperty Name="IsGroupDays1" ColumnName="IsGroupDays1" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InstructorsAvailabilityViews">
+            <EntityTypeMapping TypeName="TrainingCenterModel.InstructorsAvailabilityView">
+              <MappingFragment StoreEntitySet="InstructorsAvailabilityView">
+                <ScalarProperty Name="InstructorAvailabilityID" ColumnName="InstructorAvailabilityID" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
+                <ScalarProperty Name="IsGroupDays1" ColumnName="IsGroupDays1" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaitingListViews">
+            <EntityTypeMapping TypeName="TrainingCenterModel.WaitingListView">
+              <MappingFragment StoreEntitySet="WaitingListView">
+                <ScalarProperty Name="WaitingListID" ColumnName="WaitingListID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="AvailableCourseID" ColumnName="AvailableCourseID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Requirement_CourseID" ColumnName="Requirement_CourseID" />
+                <ScalarProperty Name="IsProgramming" ColumnName="IsProgramming" />
+                <ScalarProperty Name="InstructorAvailabilityID" ColumnName="InstructorAvailabilityID" />
+                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+                <ScalarProperty Name="InstructorName" ColumnName="InstructorName" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="InstructorEmail" ColumnName="InstructorEmail" />
+                <ScalarProperty Name="InstructorPhone" ColumnName="InstructorPhone" />
+                <ScalarProperty Name="timeSlotID" ColumnName="timeSlotID" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="IsGroupDays1" ColumnName="IsGroupDays1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

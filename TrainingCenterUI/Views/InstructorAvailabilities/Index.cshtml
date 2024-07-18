@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TrainingCenterLib.Entities.InstructorAvailability>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IsGroupDays1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Instructor.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeSlot.TimeSlotID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsGroupDays1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Instructor.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeSlot.TimeSlotID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.InstructorAvailabilityID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.InstructorAvailabilityID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.InstructorAvailabilityID })
+        </td>
+    </tr>
+}
+
+</table>
