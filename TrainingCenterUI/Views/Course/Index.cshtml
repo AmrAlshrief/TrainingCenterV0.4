@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TrainingCenter.Lib.Entities.Cours>
+﻿@model IEnumerable<TrainingCenterLib.Entities.Cours>
 
 @{
     ViewBag.Title = "Index";
@@ -22,13 +22,7 @@
             @Html.DisplayNameFor(model => model.IsProgramming)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.CreatedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cours1.CourseName)
@@ -48,14 +42,9 @@
             @Html.DisplayFor(modelItem => item.IsProgramming)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsDeleted)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
+        
         @*<td>
             @Html.DisplayFor(modelItem => item.Courses1.)
         </td>*@
