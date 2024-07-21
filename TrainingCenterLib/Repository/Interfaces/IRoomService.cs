@@ -7,12 +7,12 @@ using TrainingCenterLib.Entities;
 
 namespace TrainingCenterLib.Repository.Interfaces
 {
-    internal interface IRoomService
+    public interface IRoomService
     {
         Task<List<Room>> GetAllRoomsAsync();
         Task<Room> GetRoomByIdAsync(int id);
-        Task CreateRoomAsync(Room room);
-        Task UpdateRoomAsync(Room room);
-        Task DeleteRoomAsync(int id);
+        Task CreateRoomAsync(Room room, int UserId);
+        Task UpdateRoomAsync(Room room, int UserId);
+        Task DeleteRoomAsync(int id, int UserId);
     }
 }

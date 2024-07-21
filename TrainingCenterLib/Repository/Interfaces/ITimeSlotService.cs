@@ -10,9 +10,8 @@ namespace TrainingCenterLib.Repository.Interfaces
     internal interface ITimeSlotService
     {
         Task<IEnumerable<TimeSlot>> GetAllAsync();
-        Task AddTimeAsync(TimeSlot timeSlot);
-        void AddTime(TimeSlot timeSlot);
-        Task UpdateTimeAsync(TimeSlot timeSlot);
-        Task DeleteTimeAsync(int timeId);
+        Task AddTimeAsync(TimeSlot timeSlot, int UserId);
+        Task UpdateTimeAsync(TimeSlot timeSlot, int UserId);
+        Task DeleteTimeAsync(int timeId, int UserId);
     }
 }

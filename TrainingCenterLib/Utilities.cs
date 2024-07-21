@@ -13,7 +13,7 @@ namespace TrainingCenterLib.Repository
         Student = 3, 
         Room = 4,
         TimeSlot = 5,
-        InstructorAvailabilitity = 6,
+        InstructorAvailability = 6,
         AvailableCourse = 7,
         WaitingList = 8,
         RunningCourse = 9
@@ -55,7 +55,9 @@ namespace TrainingCenterLib.Repository
         AddStudent = 25,
         UpdateStudent = 26,
         DeleteStudent = 27,
-
+        AddAvailableCourse = 28,
+        UpdateAvailableCourse = 29,
+        DeleteAvailableCourse = 30,
     }
     internal class Utilities
     {

@@ -11,8 +11,8 @@ namespace TrainingCenterLib.Repository.Interfaces
     {
         Task<IEnumerable<InstructorAvailability>> GetAllInstructorAvailabilitiesAsync();
         Task<InstructorAvailability> GetInstructorAvailabilityByIdAsync(int id);
-        Task CreateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability);
-        Task UpdateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability);
-        Task DeleteInstructorAvailabilityAsync(int id);
+        Task CreateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability, int UserId);
+        Task UpdateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability, int UserId);
+        Task DeleteInstructorAvailabilityAsync(int id, int UserId);
     }
 }

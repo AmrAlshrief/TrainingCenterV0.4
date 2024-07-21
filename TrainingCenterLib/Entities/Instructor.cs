@@ -11,6 +11,7 @@ namespace TrainingCenterLib.Entities
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using TrainingCenterLib.Repository;
 
     public partial class Instructor
@@ -20,16 +21,34 @@ namespace TrainingCenterLib.Entities
         {
             this.InstructorAvailabilities = new HashSet<InstructorAvailability>();
             this.UserID = UserInfo.GlobalUserID;
-            this.CreatedAt = DateTime.Now;
+            this.HiringDate = DateTime.Now;
             this.CreatedAt = DateTime.Now;
 
         }
 
         public int InstructorID { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Second Name")]
         public string SecondName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [StringLength(100)]
         public string Email { get; set; }
+
+        [Phone]
+        [StringLength(15)]
         public string Phone { get; set; }
         public Nullable<System.DateTime> HiringDate { get; set; }
         public bool IsDeleted { get; set; }

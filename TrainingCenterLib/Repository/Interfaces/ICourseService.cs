@@ -7,12 +7,15 @@ using TrainingCenterLib.Entities;
 
 namespace TrainingCenterLib.Repository.Interfaces
 {
-    internal interface ICourseService
+    public interface ICourseService
     {
-        Task<List<Cours>> GetAllCoursesAsync();
+        Task<IEnumerable<Cours>> GetAllProgCoursesAsync();
+        Task<IEnumerable<Cours>> GetAllLanguageCoursesAsync();
         Task<Cours> GetCourseByIdAsync(int id);
-        Task CreateCourseAsync(Cours course);
-        Task UpdateCourseAsync(Cours course);
-        Task DeleteCourseAsync(int id);
+        Task CreateCourseAsync(Cours course, int UserId);
+        Task UpdateCourseAsync(Cours course, int UserId);
+        Task SoftDeleteCourseAsync(int id, int UserId);
+        Task<int> GetNumberOfCoursesAsync();
+
     }
 }

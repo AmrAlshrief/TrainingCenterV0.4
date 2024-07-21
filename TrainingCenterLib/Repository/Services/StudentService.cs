@@ -67,26 +67,38 @@ namespace TrainingCenterLib.Repository
 
         public async Task AddStudentAsync(Student student, int UserId)
         {
-             using (var context = new TrainingCenterLibDbContext())
+            try 
             {
-                 using (var transaction =  context.Database.BeginTransaction())
+                using (var context = new TrainingCenterLibDbContext())
                 {
-                    try
+                    using (var transaction = context.Database.BeginTransaction())
                     {
-                        //student.CreatedAt = DateTime.Now;
-                        context.Students.Add(student);
-                        UserInfo.CreateAudit(ActionType.Add, Action.AddStudent, UserId, MasterEntity.Student, "Add Student");
-                        await context.SaveChangesAsync();
-                        transaction.Commit();
-                    }
-                    catch(Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw new Exception(ex.Message);
+
+                        try
+                        {
+                            student.CreatedAt = DateTime.Now;
+                            context.Students.Add(student);
+                            UserInfo.CreateAudit(ActionType.Add, Action.AddStudent, UserId, MasterEntity.Student, "Add Student");
+                            await context.SaveChangesAsync();
+                            transaction.Commit();
+                        }
+                        catch (Exception ex) 
+                        {
+                            transaction.Rollback();
+                            throw new Exception(ex.Message);
+
+                        }
 
                     }
                 }
+            }catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+
             }
+
+
         }
 
         public void AddStudent(Student student)
@@ -171,6 +183,21 @@ namespace TrainingCenterLib.Repository
                 }
 
             }  
+        }
+
+        public async Task<int> GetNumberOfStudentsAsync()
+        {
+            using (var context = new TrainingCenterLibDbContext())
+            {
+                try
+                {
+                    return await context.Students.Where(s => !s.IsDeleted).CountAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
         }
     }
     

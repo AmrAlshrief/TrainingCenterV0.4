@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TrainingCenterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TrainingCenterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TrainingCenter.dbo.AuditTrailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AuditTrailView">
@@ -31,6 +31,26 @@ warning 6002: The table/view 'TrainingCenter.dbo.AuditTrailView' does not have a
           <Property Name="EntityName" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="EntityInfo" Type="nvarchar" MaxLength="100" />
           <Property Name="EntityRecord" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TrainingCenter.dbo.AuditTrailView2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AuditTrailView2">
+          <Key>
+            <PropertyRef Name="AuditTrailID" />
+            <PropertyRef Name="ActionTypeName" />
+            <PropertyRef Name="ActionName" />
+            <PropertyRef Name="EntityName" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="TransactionTime" />
+          </Key>
+          <Property Name="AuditTrailID" Type="int" Nullable="false" />
+          <Property Name="ActionTypeName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ActionName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="EntityName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="IpAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionTime" Type="datetime" Nullable="false" />
+          <Property Name="EntityRecord" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TrainingCenter.dbo.AvailableCouresView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -151,6 +171,18 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
     [AuditTrailView].[EntityRecord] AS [EntityRecord]
     FROM [dbo].[AuditTrailView] AS [AuditTrailView]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="AuditTrailView2" EntityType="Self.AuditTrailView2" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AuditTrailView2].[AuditTrailID] AS [AuditTrailID], 
+    [AuditTrailView2].[ActionTypeName] AS [ActionTypeName], 
+    [AuditTrailView2].[ActionName] AS [ActionName], 
+    [AuditTrailView2].[EntityName] AS [EntityName], 
+    [AuditTrailView2].[UserID] AS [UserID], 
+    [AuditTrailView2].[IpAddress] AS [IpAddress], 
+    [AuditTrailView2].[TransactionTime] AS [TransactionTime], 
+    [AuditTrailView2].[EntityRecord] AS [EntityRecord]
+    FROM [dbo].[AuditTrailView2] AS [AuditTrailView2]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="AvailableCouresView" EntityType="Self.AvailableCouresView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [AvailableCouresView].[AvailableCourseID] AS [AvailableCourseID], 
@@ -210,8 +242,7 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
     FROM [dbo].[WaitingListView] AS [WaitingListView]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TrainingCenterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -341,7 +372,26 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
           <EntitySet Name="AvailableCouresViews" EntityType="Self.AvailableCouresView" />
           <EntitySet Name="InstructorsAvailabilityViews" EntityType="Self.InstructorsAvailabilityView" />
           <EntitySet Name="WaitingListViews" EntityType="Self.WaitingListView" />
+          <EntitySet Name="AuditTrailView2" EntityType="TrainingCenterModel.AuditTrailView2" />
         </EntityContainer>
+        <EntityType Name="AuditTrailView2">
+          <Key>
+            <PropertyRef Name="AuditTrailID" />
+            <PropertyRef Name="ActionTypeName" />
+            <PropertyRef Name="ActionName" />
+            <PropertyRef Name="EntityName" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="TransactionTime" />
+          </Key>
+          <Property Name="AuditTrailID" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ActionName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="EntityName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EntityRecord" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -427,6 +477,20 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="IsGroupDays1" ColumnName="IsGroupDays1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditTrailView2">
+            <EntityTypeMapping TypeName="TrainingCenterModel.AuditTrailView2">
+              <MappingFragment StoreEntitySet="AuditTrailView2">
+                <ScalarProperty Name="EntityRecord" ColumnName="EntityRecord" />
+                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ActionTypeName" ColumnName="ActionTypeName" />
+                <ScalarProperty Name="AuditTrailID" ColumnName="AuditTrailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

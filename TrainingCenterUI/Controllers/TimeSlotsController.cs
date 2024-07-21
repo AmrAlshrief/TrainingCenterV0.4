@@ -8,12 +8,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrainingCenterLib.Entities;
+using TrainingCenterLib.Repository.Services;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TrainingCenterUI.Controllers
 {
     public class TimeSlotsController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly TimeSlotService _timeSlotService;
+
+        public TimeSlotsController() 
+        {
+            _timeSlotService = new TimeSlotService();
+        }
 
         // GET: TimeSlots
         public async Task<ActionResult> Index()
@@ -43,8 +51,7 @@ namespace TrainingCenterUI.Controllers
         }
 
         // POST: TimeSlots/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "TimeSlotID,StartTime,EndTime")] TimeSlot timeSlot)
@@ -75,8 +82,6 @@ namespace TrainingCenterUI.Controllers
         }
 
         // POST: TimeSlots/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "TimeSlotID,StartTime,EndTime")] TimeSlot timeSlot)

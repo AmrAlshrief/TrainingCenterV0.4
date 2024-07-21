@@ -150,5 +150,20 @@ namespace TrainingCenterLib.Repository.Services
                 }
             }
         }
+
+        public async Task<int> GetNumberOfInstructorsAsync()
+        {
+            using (var context = new TrainingCenterLibDbContext())
+            {
+                try
+                {
+                    return await context.Instructors.Where(s => !s.IsDeleted).CountAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
     }
 }

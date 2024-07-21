@@ -20,7 +20,7 @@ namespace TrainingCenterUI.Controllers
         public async Task<ActionResult> Index()
         {
 
-            var courses = db.Courses.Include(c => c.Courses1);;
+            var courses = db.Courses.Include(c => c.Courses1);
             return View(await courses.ToListAsync());
         }
 

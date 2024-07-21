@@ -15,5 +15,6 @@ namespace TrainingCenterLib.Repository.Interfaces
         //void AddInstructor(Instructor instructor);
         Task UpdateInstructorAsync(Instructor instructor, int UserId);
         Task SoftDeleteInstructorAsync(int instructorId, int UserId);
+        Task<int> GetNumberOfInstructorsAsync();
     }
 }

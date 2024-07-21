@@ -8,14 +8,25 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrainingCenterLib.Entities;
+using TrainingCenterLib.Repository.Services;
+using WebMatrix.WebData;
 
 namespace TrainingCenterUI.Controllers
 {
     public class WaitingListsController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly WaitingListService _waitingListService;
+        private readonly int _UserId;
 
         // GET: WaitingLists
+
+        public WaitingListsController() 
+        {
+            _UserId = WebSecurity.CurrentUserId;
+            _waitingListService = new WaitingListService(_UserId);
+
+        }
         public async Task<ActionResult> Index()
         {
             var waitingLists = db.WaitingLists.Include(w => w.AvailableCours).Include(w => w.Student);
@@ -40,22 +51,21 @@ namespace TrainingCenterUI.Controllers
         // GET: WaitingLists/Create
         public ActionResult Create()
         {
-            ViewBag.AvailableCourseID = new SelectList(db.AvailableCourses, "AvailableCourseID", "AvailableCourseID");
+            var courses = _waitingListService.GetCourseName();
+            ViewBag.AvailableCourseID = new SelectList(courses, "AvailableCourseID", "CourseName");
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName");
-            return View();
+            WaitingList waitingList = new WaitingList();
+            return View(waitingList);
         }
 
-        // POST: WaitingLists/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "WaitingListID,StudentID,AvailableCourseID,GroupName,IsPaid,IsCash")] WaitingList waitingList)
         {
             if (ModelState.IsValid)
             {
-                db.WaitingLists.Add(waitingList);
-                await db.SaveChangesAsync();
+                await _waitingListService.CreateWaitingListAsync(waitingList);
                 return RedirectToAction("Index");
             }
 
@@ -82,16 +92,13 @@ namespace TrainingCenterUI.Controllers
         }
 
         // POST: WaitingLists/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "WaitingListID,StudentID,AvailableCourseID,GroupName,IsPaid,IsCash")] WaitingList waitingList)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(waitingList).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await _waitingListService.UpdateWaitingListAsync(waitingList);
                 return RedirectToAction("Index");
             }
             ViewBag.AvailableCourseID = new SelectList(db.AvailableCourses, "AvailableCourseID", "AvailableCourseID", waitingList.AvailableCourseID);
@@ -119,9 +126,7 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            WaitingList waitingList = await db.WaitingLists.FindAsync(id);
-            db.WaitingLists.Remove(waitingList);
-            await db.SaveChangesAsync();
+            await _waitingListService.DeleteWaitingListAsync(id);
             return RedirectToAction("Index");
         }
 

@@ -9,6 +9,7 @@
         <EntityTypeShape EntityType="TrainingCenterModel.AvailableCouresView" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingCenterModel.InstructorsAvailabilityView" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingCenterModel.WaitingListView" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.AuditTrailView2" Width="1.5" PointX="0.75" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
