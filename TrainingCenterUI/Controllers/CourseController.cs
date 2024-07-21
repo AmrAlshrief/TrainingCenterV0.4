@@ -20,7 +20,14 @@ namespace TrainingCenterUI.Controllers
         public async Task<ActionResult> Index()
         {
 
-            var courses = db.Courses.Include(c => c.Courses1);
+            var courses = db.Courses.Include(c => c.Courses1).Where(c=> c.CourseName != "N/A");
+            return View(await courses.ToListAsync());
+        }
+
+        public async Task<ActionResult> IndexForLanguage()
+        {
+
+            var courses = db.Courses.Include(c => c.Courses1).Where(c => c.IsProgramming == false); ;
             return View(await courses.ToListAsync());
         }
 
@@ -48,8 +55,7 @@ namespace TrainingCenterUI.Controllers
         }
 
         // POST: Course/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "CourseID,CourseName,Duration,Requirement_CourseID,IsProgramming,UserID")] Cours cours)

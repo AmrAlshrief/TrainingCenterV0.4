@@ -35,13 +35,7 @@
             @Html.DisplayFor(model => model.IsProgramming)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
+       
 
         <dt>
             @Html.DisplayNameFor(model => model.CreatedAt)
@@ -71,5 +65,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.CourseID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "IndexForProgramming")
 </p>
