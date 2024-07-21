@@ -9,6 +9,6 @@ namespace TrainingCenterLib.Repository
     public class CourseDto
     {
         public int AvailableCourseID { get; set; }
-        public string CoureName { get;  set; }
+        public string CourseName { get;  set; }
     }
 }

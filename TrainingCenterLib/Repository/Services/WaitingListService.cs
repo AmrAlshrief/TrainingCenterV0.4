@@ -112,7 +112,7 @@ namespace TrainingCenterLib.Repository.Services
         }
 
         
-        public IQueryable<CourseDto> GetCourseName() 
+        public List<CourseDto> GetCourseName() 
         {
             using(var context = new TrainingCenterLibDbContext()) 
             {
@@ -123,10 +123,10 @@ namespace TrainingCenterLib.Repository.Services
                                   select new CourseDto
                                   {
                                       AvailableCourseID = ac.AvailableCourseID,
-                                      CoureName = c.CourseName
+                                      CourseName = c.CourseName
                                   };
 
-                    return courses;
+                    return courses.ToList();
                 }
                 catch (Exception ex) 
                 {

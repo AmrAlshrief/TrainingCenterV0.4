@@ -42,7 +42,8 @@ namespace TrainingCenterUI.Controllers
         {
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
             ViewBag.InstructorAvailabilityID = new SelectList(db.InstructorAvailabilities, "InstructorAvailabilityID", "InstructorAvailabilityID");
-            return View();
+            AvailableCours availableCourse = new AvailableCours();
+            return View(availableCourse);
         }
 
         // POST: AvailableCourses/Create
