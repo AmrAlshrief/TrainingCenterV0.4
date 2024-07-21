@@ -8,9 +8,9 @@ using TrainingCenterLib.Entities;
 
 namespace TrainingCenterLib.Repository.Interfaces
 {
-    public class AvailableCourseService : IAvailableCourseService   
+    public class AvailableCourseService : IAvailableCourseService
     {
-        public async Task<IEnumerable<AvailableCours>> GetAllCoursesAsync()
+        public async Task<IEnumerable<AvailableCours>> GetAllAvailableCoursesAsync()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace TrainingCenterLib.Repository.Interfaces
 
         }
 
-        Task<AvailableCours> IAvailableCourseService.GetAvailableCourseByIdAsync(int id)
+        Task<AvailableCours> GetAvailableCourseByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -107,6 +107,11 @@ namespace TrainingCenterLib.Repository.Interfaces
                     }
                 }
             }
+        }
+
+        Task<AvailableCours> IAvailableCourseService.GetAvailableCourseByIdAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

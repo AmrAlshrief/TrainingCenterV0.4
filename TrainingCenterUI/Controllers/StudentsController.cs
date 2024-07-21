@@ -24,8 +24,8 @@ namespace TrainingCenterUI.Controllers
         public StudentsController() 
         {
             _Db = new TrainingCenterLibDbContext();
-            _StudentService = new StudentService();
             _UserId = WebSecurity.CurrentUserId;
+            _StudentService = new StudentService(_UserId);
         }
         public async Task<ActionResult> Index()
         {
@@ -89,7 +89,7 @@ namespace TrainingCenterUI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await _StudentService.AddStudentAsync(student, _UserId);
+                    await _StudentService.AddStudentAsync(student);
                     return RedirectToAction("Index");
                 }
 
@@ -136,7 +136,7 @@ namespace TrainingCenterUI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await _StudentService.UpdateStudentAsync(student, _UserId);
+                    await _StudentService.UpdateStudentAsync(student);
                     return RedirectToAction("Index");
                 }
                 return View(student);
@@ -179,7 +179,7 @@ namespace TrainingCenterUI.Controllers
         {
             if (Session["login"] != null) 
             {
-                await _StudentService.SoftDeleteStudentAsync(id, _UserId);
+                await _StudentService.SoftDeleteStudentAsync(id);
                 return RedirectToAction("Index");
             } 
             else 

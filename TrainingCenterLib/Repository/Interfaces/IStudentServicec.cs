@@ -17,6 +17,5 @@ namespace TrainingCenterLib.Repository.Interfaces
         Task UpdateStudentAsync(Student student);
         Task SoftDeleteStudentAsync(int studentId);
         Task<int> GetNumberOfStudentsAsync();
-        IQueryable<Cours> GetCourseName();
     }
 }

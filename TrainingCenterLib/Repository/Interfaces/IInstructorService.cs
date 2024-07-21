@@ -11,10 +11,10 @@ namespace TrainingCenterLib.Repository.Interfaces
     {
         Task<IEnumerable<Instructor>> GetAllAsync();
         Task <Instructor> FindInstructorByPhoneNumberAsync(string phoneNumber);
-        Task AddInstructorAsync(Instructor instructor, int UserId);
+        Task AddInstructorAsync(Instructor instructor);
         //void AddInstructor(Instructor instructor);
-        Task UpdateInstructorAsync(Instructor instructor, int UserId);
-        Task SoftDeleteInstructorAsync(int instructorId, int UserId);
+        Task UpdateInstructorAsync(Instructor instructor);
+        Task SoftDeleteInstructorAsync(int instructorId);
         Task<int> GetNumberOfInstructorsAsync();
     }
 }

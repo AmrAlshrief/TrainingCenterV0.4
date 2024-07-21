@@ -11,6 +11,13 @@ namespace TrainingCenterLib.Repository.Services
 {
     public class RunningCourseService : IRunningCourseService
     {
+        private readonly int _UserId;
+
+        public RunningCourseService(int userId) 
+        {
+            _UserId = userId;
+        }
+
         public async Task<IEnumerable<RunningCours>> GetAllRunningCoursesAsync()
         {
             using (var context = new TrainingCenterLibDbContext())
@@ -26,11 +33,7 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        Task<RunningCours> GetRunningCourseByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-        public async Task CreateRunningCourseAsync(RunningCours runningCourse, int UserId)
+        public async Task CreateRunningCourseAsync(RunningCours runningCourse)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -42,7 +45,7 @@ namespace TrainingCenterLib.Repository.Services
                         runningCourse.CreatedAt = DateTime.Now;
                         context.RunningCourses.Add(runningCourse);
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Add, Action.AddRunningCourse, UserId, MasterEntity.RunningCourse, "Running Course Added");
+                        UserInfo.CreateAudit(ActionType.Add, Action.AddRunningCourse, _UserId, MasterEntity.RunningCourse, "Running Course Added");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -54,7 +57,7 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        public async Task UpdateRunningCourseAsync(RunningCours runningCourse, int UserId)
+        public async Task UpdateRunningCourseAsync(RunningCours runningCourse)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -64,7 +67,7 @@ namespace TrainingCenterLib.Repository.Services
                     {
                         context.Entry(runningCourse).State = EntityState.Modified;
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateRunningCourse, UserId, MasterEntity.RunningCourse, "Running Course Info Updated");
+                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateRunningCourse, _UserId, MasterEntity.RunningCourse, "Running Course Info Updated");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -76,7 +79,7 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        public async Task DeleteRunningCourseAsync(int id, int UserId)
+        public async Task DeleteRunningCourseAsync(int id)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -91,7 +94,7 @@ namespace TrainingCenterLib.Repository.Services
                         }
                         context.RunningCourses.Remove(RunningCourse);
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteRunningCourse, UserId, MasterEntity.RunningCourse, "Running Course Deleted");
+                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteRunningCourse, _UserId, MasterEntity.RunningCourse, "Running Course Deleted");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -103,8 +106,14 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        
+        Task<List<RunningCours>> IRunningCourseService.GetAllRunningCoursesAsync()
+        {
+            throw new NotImplementedException();
+        }
 
-        
+        Task<RunningCours> IRunningCourseService.GetRunningCourseByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

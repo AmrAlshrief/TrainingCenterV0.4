@@ -12,7 +12,17 @@ namespace TrainingCenterLib.Repository
 {
     public class StudentService : IStudentService
     {
-        
+        private readonly int _UserId;
+
+        public StudentService(int userId) 
+        {
+            _UserId = userId;
+        }
+
+        public StudentService()
+        {
+           
+        }
 
         public async Task<IEnumerable<Student>> GetAllAsync()
         {
@@ -65,7 +75,7 @@ namespace TrainingCenterLib.Repository
         }
 
 
-        public async Task AddStudentAsync(Student student, int UserId)
+        public async Task AddStudentAsync(Student student)
         {
             try 
             {
@@ -78,7 +88,7 @@ namespace TrainingCenterLib.Repository
                         {
                             student.CreatedAt = DateTime.Now;
                             context.Students.Add(student);
-                            UserInfo.CreateAudit(ActionType.Add, Action.AddStudent, UserId, MasterEntity.Student, "Add Student");
+                            UserInfo.CreateAudit(ActionType.Add, Action.AddStudent, _UserId, MasterEntity.Student, "Add Student");
                             await context.SaveChangesAsync();
                             transaction.Commit();
                         }
@@ -115,7 +125,9 @@ namespace TrainingCenterLib.Repository
                      // student.CreatedAt = DateTime.Now;
                       context.Students.Add(student);
                       context.SaveChangesAsync();
-                      transaction.Commit();
+                       UserInfo.CreateAudit(ActionType.Add, Action.AddStudent, _UserId, MasterEntity.Student, "Add Student");
+
+                        transaction.Commit();
                     }
                     catch(Exception ex) 
                     {
@@ -129,7 +141,7 @@ namespace TrainingCenterLib.Repository
         }
 
 
-        public async Task UpdateStudentAsync(Student student, int UserId)
+        public async Task UpdateStudentAsync(Student student)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -138,7 +150,7 @@ namespace TrainingCenterLib.Repository
                     try
                     {
                         context.Entry(student).State = EntityState.Modified;
-                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateStudent, UserId, MasterEntity.Student, "Update Student");
+                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateStudent, _UserId, MasterEntity.Student, "Update Student");
                         await context.SaveChangesAsync();
                         transaction.Commit();
                     }
@@ -153,7 +165,7 @@ namespace TrainingCenterLib.Repository
         }
 
 
-        public async Task SoftDeleteStudentAsync(int studentId, int UserId)
+        public async Task SoftDeleteStudentAsync(int studentId)
         {
 
             using (var context = new TrainingCenterLibDbContext())
@@ -170,7 +182,7 @@ namespace TrainingCenterLib.Repository
 
                         student.IsDeleted = true;
 
-                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteStudent, UserId, MasterEntity.Student, "Delete Student");
+                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteStudent, _UserId, MasterEntity.Student, "Delete Student");
                         await context.SaveChangesAsync();
 
                         transaction.Commit();

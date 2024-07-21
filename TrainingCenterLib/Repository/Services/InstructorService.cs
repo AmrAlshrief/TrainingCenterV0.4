@@ -12,6 +12,17 @@ namespace TrainingCenterLib.Repository.Services
 {
     public class InstructorService : IInstructorService
     {
+        private readonly int _UserId;
+
+        public InstructorService(int userId) 
+        {
+            _UserId = userId;
+        }
+
+        public InstructorService()
+        {
+            
+        }
         public async Task<IEnumerable<Instructor>> GetAllAsync()
         {
             using (var context = new TrainingCenterLibDbContext())
@@ -53,7 +64,7 @@ namespace TrainingCenterLib.Repository.Services
 
         }
 
-        public async Task AddInstructorAsync(Instructor instructor, int UserId)
+        public async Task AddInstructorAsync(Instructor instructor)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -65,7 +76,7 @@ namespace TrainingCenterLib.Repository.Services
                         instructor.HiringDate = DateTime.Now;
                         context.Instructors.Add(instructor);
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Add, Action.AddInstructor, UserId, MasterEntity.Instructor, "Instructor Added");
+                        UserInfo.CreateAudit(ActionType.Add, Action.AddInstructor, _UserId, MasterEntity.Instructor, "Instructor Added");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -101,7 +112,7 @@ namespace TrainingCenterLib.Repository.Services
         //    }
         //}
 
-        public async Task UpdateInstructorAsync(Instructor instructor, int UserId)
+        public async Task UpdateInstructorAsync(Instructor instructor)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -111,7 +122,7 @@ namespace TrainingCenterLib.Repository.Services
                     {
                         context.Entry(instructor).State = EntityState.Modified;
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateInstructor, UserId, MasterEntity.Instructor, "Instructor Info Updated");
+                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateInstructor, _UserId, MasterEntity.Instructor, "Instructor Info Updated");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -123,7 +134,7 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        public async Task SoftDeleteInstructorAsync(int instructorId, int UserId)
+        public async Task SoftDeleteInstructorAsync(int instructorId)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -139,7 +150,7 @@ namespace TrainingCenterLib.Repository.Services
 
                         instructor.IsDeleted = true;
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteInstructor, UserId, MasterEntity.Instructor, "Instructor Deleted");
+                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteInstructor, _UserId, MasterEntity.Instructor, "Instructor Deleted");
                         transaction.Commit();
                     }
                     catch (Exception ex)

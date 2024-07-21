@@ -11,7 +11,12 @@ namespace TrainingCenterLib.Repository.Services
 {
     public class InstructorAvailabilityService : IInstructorAvailabilityService
     {
-        
+        private readonly int _UserId;
+
+        public InstructorAvailabilityService(int userId) 
+        {
+            _UserId = userId;
+        }
 
         public async Task<IEnumerable<InstructorAvailability>> GetAllInstructorAvailabilitiesAsync()
         {
@@ -28,12 +33,8 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        Task<InstructorAvailability> GetInstructorAvailabilityByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public async Task CreateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability, int UserId)
+        public async Task CreateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -44,7 +45,7 @@ namespace TrainingCenterLib.Repository.Services
 
                         context.InstructorAvailabilities.Add(instructorAvailability);
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Add, Action.AddInstructorTimeForCourse, UserId, MasterEntity.InstructorAvailability, "Instructor Availability Added");
+                        UserInfo.CreateAudit(ActionType.Add, Action.AddInstructorTimeForCourse, _UserId, MasterEntity.InstructorAvailability, "Instructor Availability Added");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -56,7 +57,7 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        public async Task UpdateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability, int UserId)
+        public async Task UpdateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -66,7 +67,7 @@ namespace TrainingCenterLib.Repository.Services
                     {
                         context.Entry(instructorAvailability).State = EntityState.Modified;
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateInstructorTimeForCourse, UserId, MasterEntity.InstructorAvailability, "Instructor Availability Info Updated");
+                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateInstructorTimeForCourse, _UserId, MasterEntity.InstructorAvailability, "Instructor Availability Info Updated");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -80,7 +81,7 @@ namespace TrainingCenterLib.Repository.Services
 
         
 
-        public async Task DeleteInstructorAvailabilityAsync(int id,int UserId)
+        public async Task DeleteInstructorAvailabilityAsync(int id)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -97,7 +98,7 @@ namespace TrainingCenterLib.Repository.Services
                         context.InstructorAvailabilities.Remove(InstructorAvailability);
 
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteInstructorTime, UserId, MasterEntity.InstructorAvailability, "Instructor Availability Deleted");
+                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteInstructorTime, _UserId, MasterEntity.InstructorAvailability, "Instructor Availability Deleted");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -107,6 +108,11 @@ namespace TrainingCenterLib.Repository.Services
                     }
                 }
             }
+        }
+
+        Task<InstructorAvailability> IInstructorAvailabilityService.GetInstructorAvailabilityByIdAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
