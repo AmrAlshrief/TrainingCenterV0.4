@@ -18,3 +18,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.btn {
+    border-radius: 50px;
+}
