@@ -14,6 +14,13 @@ namespace TrainingCenterUI.Controllers
     public class InstructorAvailabilitiesController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly InstructorAvailabilityService _instructorAvailabilityService;
+        private readonly int _UserId;
+
+        public InstructorAvailabilitiesController()
+        {
+            _instructorAvailabilityService = new InstructorAvailabilityService();
+        }
 
         // GET: InstructorAvailabilities
         public async Task<ActionResult> Index()
