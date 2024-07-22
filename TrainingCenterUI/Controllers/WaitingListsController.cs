@@ -63,6 +63,15 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "WaitingListID,StudentID,AvailableCourseID,GroupName,IsPaid,IsCash")] WaitingList waitingList)
         {
+            var isAlreadyEnrolled = _waitingListService.IsAlreadyEnrolled(waitingList.StudentID, waitingList.AvailableCourseID);
+
+            if (isAlreadyEnrolled)
+            {
+                ModelState.AddModelError("", "You cannot enroll twice in the same course.");
+                TempData["ErrorMessage"] = "You cannot enroll twice in the same course.";
+                
+                return RedirectToAction("Create");
+            }
             if (ModelState.IsValid)
             {
                 await _waitingListService.CreateWaitingListAsync(waitingList);
@@ -86,6 +95,8 @@ namespace TrainingCenterUI.Controllers
             {
                 return HttpNotFound();
             }
+
+
             ViewBag.AvailableCourseID = new SelectList(db.AvailableCourses, "AvailableCourseID", "AvailableCourseID", waitingList.AvailableCourseID);
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", waitingList.StudentID);
             return View(waitingList);

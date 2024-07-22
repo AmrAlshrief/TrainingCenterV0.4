@@ -134,6 +134,25 @@ namespace TrainingCenterLib.Repository.Services
                 }
             }
         }
-        
+
+        public bool IsAlreadyEnrolled(int StudentId, int AvailableCourseId) 
+        {
+            using (var context = new TrainingCenterLibDbContext()) 
+            {
+                try
+                {
+                    return context.WaitingLists.Any(e => e.StudentID == StudentId && e.AvailableCourseID == AvailableCourseId);
+                }
+                catch
+                {
+                }
+
+                return false;
+            }
+            
+            
+        }
+
+
     }
 }

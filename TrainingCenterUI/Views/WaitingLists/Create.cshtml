@@ -8,10 +8,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>WaitingList</h4>
         <hr />
@@ -68,10 +68,22 @@
     </div>
 }
 
+
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
+
+    <script>
+    $(document).ready(function() {
+        var errorMessage = '@TempData["ErrorMessage"]';;
+        if (errorMessage) {
+            alert(errorMessage);
+        }
+    });
+    </script>
+
     @Scripts.Render("~/bundles/jqueryval")
 }

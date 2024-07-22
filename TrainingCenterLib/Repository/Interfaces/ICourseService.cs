@@ -11,6 +11,9 @@ namespace TrainingCenterLib.Repository.Interfaces
     {
         Task<IEnumerable<Cours>> GetAllProgCoursesAsync();
         Task<IEnumerable<Cours>> GetAllLanguageCoursesAsync();
+        List<Cours> GetCourses(Predicate<Cours> filter);
+        List<Cours> GetAllProgrammingCourses();
+        List<Cours> GetAllLanguageCourses();
         Task<Cours> GetCourseByIdAsync(int id);
         Task CreateCourseAsync(Cours course, int UserId);
         Task UpdateCourseAsync(Cours course, int UserId);

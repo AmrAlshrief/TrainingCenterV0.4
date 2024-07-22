@@ -14,5 +14,6 @@ namespace TrainingCenterLib.Repository.Interfaces
         Task CreateWaitingListAsync(WaitingList waitingList);
         Task UpdateWaitingListAsync(WaitingList waitingList);
         Task DeleteWaitingListAsync(int id);
+        bool IsAlreadyEnrolled(int studentId, int AvailableCourseId);
     }
 }

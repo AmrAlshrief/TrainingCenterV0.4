@@ -176,5 +176,62 @@ namespace TrainingCenterLib.Repository.Services
                 }
             }
         }
+
+        public List<Cours> GetCourses(Predicate<Cours> filter)
+        {
+            using (var context = new TrainingCenterLibDbContext())
+            {
+                try
+                {
+                    var courses = context.Courses.ToList(); 
+                    var filteredCourses = courses.Where(c => filter(c)).ToList();
+                   
+                    return courses;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public List<Cours> GetAllProgrammingCourses()
+        {
+            //return GetCourses(c => c.IsProgramming);
+
+            using (var context = new TrainingCenterLibDbContext())
+            {
+                try
+                {
+                    var filteredCourses = context.Courses.Where(c => c.IsProgramming).ToList();
+
+                    return filteredCourses;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public List<Cours> GetAllLanguageCourses()
+        {
+            //return GetCourses(c => c.IsProgramming != true);
+
+            using (var context = new TrainingCenterLibDbContext())
+            {
+                try
+                {
+                    
+                    var filteredCourses = context.Courses.Where(c => !c.IsProgramming).ToList();
+
+                    return filteredCourses;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
     }
 }

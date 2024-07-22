@@ -28,7 +28,7 @@ namespace TrainingCenterUI.Controllers
         public async Task<ActionResult> Index()
         {
 
-            var courses = db.Courses.Include(c => c.Courses1).Where(c=> c.CourseName != "N/A" && c.IsProgramming == true);
+            var courses = db.Courses.Include(c => c.Courses1).Where(c=> c.CourseName != "N/A" && c.IsProgramming);
             return View(await courses.ToListAsync());
         }
 
@@ -58,6 +58,19 @@ namespace TrainingCenterUI.Controllers
         public ActionResult Create()
         {
             Cours course = new Cours();
+
+            //if (course.IsProgramming == true)
+            //{
+            //    var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
+            //    ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", course.Requirement_CourseID);
+            //    
+            //}
+            //else
+            //{
+            //    var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
+            //    ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", course.Requirement_CourseID);
+            //    return View(course);
+            //}
             ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
             return View(course);
         }
@@ -75,8 +88,17 @@ namespace TrainingCenterUI.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
+            if (cours.IsProgramming == true)
+            {
+                var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
+                ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+            }
+            else
+            {
+                var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
+                ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+            }
+            //ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
             return View(cours);
         }
 
@@ -92,13 +114,24 @@ namespace TrainingCenterUI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
+
+            if (cours.IsProgramming == true)
+            {
+                var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
+                ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+            }
+            else 
+            {
+                var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
+                ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+            }
+
+            //ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
             return View(cours);
         }
 
         // POST: Course/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+  
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "CourseID,CourseName,Duration,Requirement_CourseID,IsProgramming,IsDeleted,CreatedAt,UserID")] Cours cours)
@@ -110,7 +143,17 @@ namespace TrainingCenterUI.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
+            if (cours.IsProgramming == true ) 
+            {
+                var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
+                ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+            }
+            else 
+            {
+                var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
+                ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+            }
+            
             return View(cours);
         }
 
