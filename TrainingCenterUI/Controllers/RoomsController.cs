@@ -14,13 +14,6 @@ namespace TrainingCenterUI.Controllers
     public class RoomsController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
-        private readonly RoomService _roomService;
-        private readonly int _UserId;
-
-        public RoomsController()
-        {
-            _roomService = new RoomService();
-        }
 
         // GET: Rooms
         public async Task<ActionResult> Index()

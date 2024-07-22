@@ -15,13 +15,6 @@ namespace TrainingCenterUI.Controllers
     public class CourseController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
-        private readonly CourseService _courseService;
-        private readonly int _UserId;
-
-        public CourseController()
-        {
-            _courseService = new CourseService();
-        }
 
         // GET: Course
         public async Task<ActionResult> Index()

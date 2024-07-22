@@ -14,15 +14,6 @@ namespace TrainingCenterUI.Controllers
     public class AvailableCoursesController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
-        private readonly AvailableCourse _avaliableCourseService; // Need fix
-        private readonly int _UserId;
-
-        public AvailableCoursesController()
-        {
-            _avaliableCourseService = new AvaliableCourseService();
-        }
-
-        private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
 
         // GET: AvailableCourses
         public async Task<ActionResult> Index()
