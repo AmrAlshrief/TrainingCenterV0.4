@@ -9,25 +9,33 @@ using System.Web;
 using System.Web.Mvc;
 using TrainingCenterLib.Entities;
 using Antlr.Runtime;
+using TrainingCenterLib.Repository.Services;
 
 namespace TrainingCenterUI.Controllers
 {
     public class CourseController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly CourseService _CourseService;
+        private readonly int _UserId;
+
+        public CourseController() 
+        {
+            _CourseService = new CourseService();
+        }
 
         // GET: Course
         public async Task<ActionResult> Index()
         {
 
-            var courses = db.Courses.Include(c => c.Courses1).Where(c=> c.CourseName != "N/A");
+            var courses = db.Courses.Include(c => c.Courses1).Where(c=> c.CourseName != "N/A" && c.IsProgramming == true);
             return View(await courses.ToListAsync());
         }
 
         public async Task<ActionResult> IndexForLanguage()
         {
 
-            var courses = db.Courses.Include(c => c.Courses1).Where(c => c.IsProgramming == false); ;
+            var courses = db.Courses.Include(c => c.Courses1).Where(c => c.CourseName != "N/A" &&  c.IsProgramming == false);
             return View(await courses.ToListAsync());
         }
 
@@ -97,6 +105,7 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.Entry(cours).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -128,7 +137,15 @@ namespace TrainingCenterUI.Controllers
             Cours cours = await db.Courses.FindAsync(id);
             db.Courses.Remove(cours);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (cours.IsProgramming) 
+            {
+                return RedirectToAction("Index");
+            }
+            else 
+            {
+                return RedirectToAction("IndexForLanguage");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

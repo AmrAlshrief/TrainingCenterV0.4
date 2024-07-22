@@ -30,7 +30,7 @@ namespace TrainingCenterUI.Controllers
         public async Task<ActionResult> UsersReport()
         {
             // Fetch the data for the report
-            var reportData = await _Db.AuditTrailViews2.ToListAsync();
+            var reportData = await _Db.AuditTrailView2.ToListAsync();
 
             var dataTable = new DataTable();
             dataTable.Columns.Add("AuditTrailID", typeof(int));
