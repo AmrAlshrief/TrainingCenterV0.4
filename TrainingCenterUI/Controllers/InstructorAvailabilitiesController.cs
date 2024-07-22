@@ -63,7 +63,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.InstructorAvailabilities.Add(instructorAvailability);
                 //////await db.SaveChangesAsync();
                 ///
-                await CreateInstructorAvailabilityAsync(instructorAvailability);
+                await _instructorsAvailabilityService.CreateInstructorAvailabilityAsync(instructorAvailability);
                 return RedirectToAction("Index");
             }
 
@@ -101,7 +101,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.Entry(instructorAvailability).State = EntityState.Modified;
                 //////await db.SaveChangesAsync();
                 ///
-                await UpdateInstructorAvailabilityAsync(instructorAvailability); 
+                await _instructorsAvailabilityService.UpdateInstructorAvailabilityAsync(instructorAvailability); 
                 return RedirectToAction("Index");
             }
             ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "FirstName", instructorAvailability.InstructorID);
@@ -133,7 +133,7 @@ namespace TrainingCenterUI.Controllers
             //////db.InstructorAvailabilities.Remove(instructorAvailability);
             //////await db.SaveChangesAsync();
             ///
-            await DeleteInstructorAvailabilityAsync(id);
+            await _instructorsAvailabilityService.DeleteInstructorAvailabilityAsync(id);
             return RedirectToAction("Index");
         }
 

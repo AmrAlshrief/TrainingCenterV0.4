@@ -20,7 +20,7 @@ namespace TrainingCenterUI.Controllers
         public RunningCoursesController()
         {
             _UserId = WebSecurity.CurrentUserId;
-            _roomService = new RoomService();
+            _runningCourseService = new RunningCourseService();
         }
 
         // GET: RunningCourses
@@ -66,7 +66,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.RunningCourses.Add(runningCourse);
                 //////await db.SaveChangesAsync();
                 ///
-                await CreateRunningCourseAsync(runningCours);
+                await _runningCourseService.CreateRunningCourseAsync(runningCours);
                 return RedirectToAction("Index");
             }
 
@@ -104,7 +104,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.Entry(runningCours).State = EntityState.Modified;
                 //////await db.SaveChangesAsync();
                 ///
-                await UpdateRunningCourseAsync(runningCours);
+                await _runningCourseService.UpdateRunningCourseAsync(runningCours);
                 return RedirectToAction("Index");
             }
             ViewBag.RoomID = new SelectList(db.Rooms, "RoomID", "Name", runningCours.RoomID);
@@ -136,7 +136,7 @@ namespace TrainingCenterUI.Controllers
             ////db.RunningCourses.Remove(runningCours);
             ////await db.SaveChangesAsync();
             ///
-            await DeleteRunningCourseAsync(id);
+            await _runningCourseService.DeleteRunningCourseAsync(id);
             return RedirectToAction("Index");
         }
 

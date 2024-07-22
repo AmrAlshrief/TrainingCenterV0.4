@@ -74,7 +74,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.Courses.Add(cours);
                 //////await db.SaveChangesAsync();
 
-                await CreateCourseAsync(cours, UserId);
+                await _CourseService.CreateCourseAsync(cours, UserId);
                 return RedirectToAction("Index");
             }
 
@@ -111,7 +111,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.Entry(cours).State = EntityState.Modified;
                 //////await db.SaveChangesAsync();
 
-                await UpdateCourseAsync(cours, UserId);
+                await _CourseService.UpdateCourseAsync(cours, UserId);
                 return RedirectToAction("Index");
             }
             ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
@@ -142,7 +142,7 @@ namespace TrainingCenterUI.Controllers
             ////db.Courses.Remove(cours);
             ////await db.SaveChangesAsync();
             ///
-            await SoftDeleteCourseAsync(id, UserId);
+            await _CourseService.SoftDeleteCourseAsync(id, UserId);
             if (cours.IsProgramming) 
             {
                 return RedirectToAction("Index");

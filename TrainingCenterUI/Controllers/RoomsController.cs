@@ -62,7 +62,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.Rooms.Add(room);
                 //////await db.SaveChangesAsync();
                 ///
-                await CreateRoomAsync(room, UserId);
+                await _roomService.CreateRoomAsync(room, UserId);
                 return RedirectToAction("Index");
             }
 
@@ -96,7 +96,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.Entry(room).State = EntityState.Modified;
                 //////await db.SaveChangesAsync();
                 ///
-                await UpdateRoomAsync(room, UserId);
+                await _roomService.UpdateRoomAsync(room, UserId);
                 return RedirectToAction("Index");
             }
             return View(room);
@@ -126,7 +126,7 @@ namespace TrainingCenterUI.Controllers
             ////db.Rooms.Remove(room);
             ////await db.SaveChangesAsync();
             ///
-            await DeleteRoomAsync(id, UserId); 
+            await _roomService.DeleteRoomAsync(id, UserId); 
             return RedirectToAction("Index");
         }
 

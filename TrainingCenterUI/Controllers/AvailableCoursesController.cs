@@ -65,7 +65,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.AvailableCourses.Add(availableCours);
                 //////await db.SaveChangesAsync();
 
-                await CreateAvailableCourseAsync(availableCours, UserId);
+                await _CourseService.CreateAvailableCourseAsync(availableCours, UserId);
                 return RedirectToAction("Index");
             }
 
@@ -102,7 +102,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.Entry(availableCours).State = EntityState.Modified;
                 //////await db.SaveChangesAsync();
 
-                await UpdateAvailableCourseAsync(availableCours, UserId);
+                await _CourseService.UpdateAvailableCourseAsync(availableCours, UserId);
                 return RedirectToAction("Index");
             }
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", availableCours.CourseID);
@@ -134,7 +134,7 @@ namespace TrainingCenterUI.Controllers
             //////db.AvailableCourses.Remove(availableCours);
             //////await db.SaveChangesAsync();
             
-            await DeleteAvailableCourseAsync(id, UserId);
+            await _CourseService.DeleteAvailableCourseAsync(id, UserId);
             return RedirectToAction("Index");
         }
 

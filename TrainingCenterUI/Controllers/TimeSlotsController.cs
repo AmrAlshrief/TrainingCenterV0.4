@@ -62,7 +62,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.TimeSlots.Add(timeSlot);
                 //////await db.SaveChangesAsync();
                 ///
-                await AddTimeAsync(timeSlot, UserId);
+                await _timeSlotService.AddTimeAsync(timeSlot, UserId);
                 return RedirectToAction("Index");
             }
 
@@ -94,7 +94,7 @@ namespace TrainingCenterUI.Controllers
                 //////db.Entry(timeSlot).State = EntityState.Modified;
                 //////await db.SaveChangesAsync();
                 ///
-                await UpdateTimeAsync(timeSlot, UserId);
+                await _timeSlotService.UpdateTimeAsync(timeSlot, UserId);
                 return RedirectToAction("Index");
             }
             return View(timeSlot);
@@ -124,7 +124,7 @@ namespace TrainingCenterUI.Controllers
             //////db.TimeSlots.Remove(timeSlot);
             //////await db.SaveChangesAsync();
             ///
-            await DeleteTimeAsync(id, UserId);
+            await _timeSlotService.DeleteTimeAsync(id, UserId);
             return RedirectToAction("Index");
         }
 
