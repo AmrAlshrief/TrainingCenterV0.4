@@ -33,9 +33,7 @@
         <th>
             @Html.DisplayNameFor(model => model.CreatedAt)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
+        
         <th></th>
     </tr>
 
@@ -62,9 +60,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
+ 
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.InstructorID }) |
             @Html.ActionLink("Details", "Details", new { id=item.InstructorID }) |

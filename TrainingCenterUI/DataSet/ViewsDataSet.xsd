@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ViewsDataSet" targetNamespace="http://tempuri.org/ViewsDataSet.xsd" xmlns:mstns="http://tempuri.org/ViewsDataSet.xsd" xmlns="http://tempuri.org/ViewsDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection ConnectionStringObject="Data Source=amr\mssqlserver2;Initial Catalog=TrainingCenter;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True;Application Name=EntityFramework" IsAppSettingsProperty="false" Modifier="Assembly" Name="TrainingCenterSecurityDbContext (TrainingCenterUI)" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AuditTrailView2TableAdapter" GeneratorDataComponentClassName="AuditTrailView2TableAdapter" Name="AuditTrailView2" UserDataComponentName="AuditTrailView2TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TrainingCenterSecurityDbContext (TrainingCenterUI)" DbObjectName="TrainingCenter.dbo.AuditTrailView2" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT AuditTrailID, ActionTypeName, ActionName, EntityName, UserID, IpAddress, TransactionTime, EntityRecord FROM dbo.AuditTrailView2</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="AuditTrailID" DataSetColumn="AuditTrailID" />
+              <Mapping SourceColumn="ActionTypeName" DataSetColumn="ActionTypeName" />
+              <Mapping SourceColumn="ActionName" DataSetColumn="ActionName" />
+              <Mapping SourceColumn="EntityName" DataSetColumn="EntityName" />
+              <Mapping SourceColumn="UserID" DataSetColumn="UserID" />
+              <Mapping SourceColumn="IpAddress" DataSetColumn="IpAddress" />
+              <Mapping SourceColumn="TransactionTime" DataSetColumn="TransactionTime" />
+              <Mapping SourceColumn="EntityRecord" DataSetColumn="EntityRecord" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AvailableCouresViewTableAdapter" GeneratorDataComponentClassName="AvailableCouresViewTableAdapter" Name="AvailableCouresView" UserDataComponentName="AvailableCouresViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TrainingCenterSecurityDbContext (TrainingCenterUI)" DbObjectName="TrainingCenter.dbo.AvailableCouresView" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT AvailableCourseID, CourseID, CourseName, Duration, Requirement_CourseID, IsProgramming, IsGroupDays1, StartTime, EndTime, InstructorID, FirstName, SecondName, LastName FROM dbo.AvailableCouresView</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="AvailableCourseID" DataSetColumn="AvailableCourseID" />
+              <Mapping SourceColumn="CourseID" DataSetColumn="CourseID" />
+              <Mapping SourceColumn="CourseName" DataSetColumn="CourseName" />
+              <Mapping SourceColumn="Duration" DataSetColumn="Duration" />
+              <Mapping SourceColumn="Requirement_CourseID" DataSetColumn="Requirement_CourseID" />
+              <Mapping SourceColumn="IsProgramming" DataSetColumn="IsProgramming" />
+              <Mapping SourceColumn="IsGroupDays1" DataSetColumn="IsGroupDays1" />
+              <Mapping SourceColumn="StartTime" DataSetColumn="StartTime" />
+              <Mapping SourceColumn="EndTime" DataSetColumn="EndTime" />
+              <Mapping SourceColumn="InstructorID" DataSetColumn="InstructorID" />
+              <Mapping SourceColumn="FirstName" DataSetColumn="FirstName" />
+              <Mapping SourceColumn="SecondName" DataSetColumn="SecondName" />
+              <Mapping SourceColumn="LastName" DataSetColumn="LastName" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="InstructorsAvailabilityViewTableAdapter" GeneratorDataComponentClassName="InstructorsAvailabilityViewTableAdapter" Name="InstructorsAvailabilityView" UserDataComponentName="InstructorsAvailabilityViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TrainingCenterSecurityDbContext (TrainingCenterUI)" DbObjectName="TrainingCenter.dbo.InstructorsAvailabilityView" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT InstructorAvailabilityID, InstructorID, FirstName, SecondName, LastName, Email, Phone, HiringDate, IsGroupDays1, StartTime, EndTime FROM dbo.InstructorsAvailabilityView</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="InstructorAvailabilityID" DataSetColumn="InstructorAvailabilityID" />
+              <Mapping SourceColumn="InstructorID" DataSetColumn="InstructorID" />
+              <Mapping SourceColumn="FirstName" DataSetColumn="FirstName" />
+              <Mapping SourceColumn="SecondName" DataSetColumn="SecondName" />
+              <Mapping SourceColumn="LastName" DataSetColumn="LastName" />
+              <Mapping SourceColumn="Email" DataSetColumn="Email" />
+              <Mapping SourceColumn="Phone" DataSetColumn="Phone" />
+              <Mapping SourceColumn="HiringDate" DataSetColumn="HiringDate" />
+              <Mapping SourceColumn="IsGroupDays1" DataSetColumn="IsGroupDays1" />
+              <Mapping SourceColumn="StartTime" DataSetColumn="StartTime" />
+              <Mapping SourceColumn="EndTime" DataSetColumn="EndTime" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="WaitingListViewTableAdapter" GeneratorDataComponentClassName="WaitingListViewTableAdapter" Name="WaitingListView" UserDataComponentName="WaitingListViewTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="TrainingCenterSecurityDbContext (TrainingCenterUI)" DbObjectName="TrainingCenter.dbo.WaitingListView" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT WaitingListID, StudentID, StudentName, Email, Phone, BirthDate, AvailableCourseID, CourseID, CourseName, Duration, Requirement_CourseID, IsProgramming, InstructorAvailabilityID, InstructorID, InstructorName, GroupName, InstructorEmail, InstructorPhone, timeSlotID, StartTime, EndTime, IsGroupDays1 FROM dbo.WaitingListView</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="WaitingListID" DataSetColumn="WaitingListID" />
+              <Mapping SourceColumn="StudentID" DataSetColumn="StudentID" />
+              <Mapping SourceColumn="StudentName" DataSetColumn="StudentName" />
+              <Mapping SourceColumn="Email" DataSetColumn="Email" />
+              <Mapping SourceColumn="Phone" DataSetColumn="Phone" />
+              <Mapping SourceColumn="BirthDate" DataSetColumn="BirthDate" />
+              <Mapping SourceColumn="AvailableCourseID" DataSetColumn="AvailableCourseID" />
+              <Mapping SourceColumn="CourseID" DataSetColumn="CourseID" />
+              <Mapping SourceColumn="CourseName" DataSetColumn="CourseName" />
+              <Mapping SourceColumn="Duration" DataSetColumn="Duration" />
+              <Mapping SourceColumn="Requirement_CourseID" DataSetColumn="Requirement_CourseID" />
+              <Mapping SourceColumn="IsProgramming" DataSetColumn="IsProgramming" />
+              <Mapping SourceColumn="InstructorAvailabilityID" DataSetColumn="InstructorAvailabilityID" />
+              <Mapping SourceColumn="InstructorID" DataSetColumn="InstructorID" />
+              <Mapping SourceColumn="InstructorName" DataSetColumn="InstructorName" />
+              <Mapping SourceColumn="GroupName" DataSetColumn="GroupName" />
+              <Mapping SourceColumn="InstructorEmail" DataSetColumn="InstructorEmail" />
+              <Mapping SourceColumn="InstructorPhone" DataSetColumn="InstructorPhone" />
+              <Mapping SourceColumn="timeSlotID" DataSetColumn="timeSlotID" />
+              <Mapping SourceColumn="StartTime" DataSetColumn="StartTime" />
+              <Mapping SourceColumn="EndTime" DataSetColumn="EndTime" />
+              <Mapping SourceColumn="IsGroupDays1" DataSetColumn="IsGroupDays1" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ViewsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="ViewsDataSet" msprop:Generator_DataSetName="ViewsDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="AuditTrailView2" msprop:Generator_RowEvHandlerName="AuditTrailView2RowChangeEventHandler" msprop:Generator_RowDeletedName="AuditTrailView2RowDeleted" msprop:Generator_RowDeletingName="AuditTrailView2RowDeleting" msprop:Generator_RowEvArgName="AuditTrailView2RowChangeEvent" msprop:Generator_TablePropName="AuditTrailView2" msprop:Generator_RowChangedName="AuditTrailView2RowChanged" msprop:Generator_RowChangingName="AuditTrailView2RowChanging" msprop:Generator_TableClassName="AuditTrailView2DataTable" msprop:Generator_RowClassName="AuditTrailView2Row" msprop:Generator_TableVarName="tableAuditTrailView2" msprop:Generator_UserTableName="AuditTrailView2">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AuditTrailID" msprop:Generator_ColumnPropNameInRow="AuditTrailID" msprop:Generator_ColumnPropNameInTable="AuditTrailIDColumn" msprop:Generator_ColumnVarNameInTable="columnAuditTrailID" msprop:Generator_UserColumnName="AuditTrailID" type="xs:int" />
+              <xs:element name="ActionTypeName" msprop:Generator_ColumnPropNameInRow="ActionTypeName" msprop:Generator_ColumnPropNameInTable="ActionTypeNameColumn" msprop:Generator_ColumnVarNameInTable="columnActionTypeName" msprop:Generator_UserColumnName="ActionTypeName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ActionName" msprop:Generator_ColumnPropNameInRow="ActionName" msprop:Generator_ColumnPropNameInTable="ActionNameColumn" msprop:Generator_ColumnVarNameInTable="columnActionName" msprop:Generator_UserColumnName="ActionName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EntityName" msprop:Generator_ColumnPropNameInRow="EntityName" msprop:Generator_ColumnPropNameInTable="EntityNameColumn" msprop:Generator_ColumnVarNameInTable="columnEntityName" msprop:Generator_UserColumnName="EntityName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UserID" msprop:Generator_ColumnPropNameInRow="UserID" msprop:Generator_ColumnPropNameInTable="UserIDColumn" msprop:Generator_ColumnVarNameInTable="columnUserID" msprop:Generator_UserColumnName="UserID" type="xs:int" />
+              <xs:element name="IpAddress" msprop:Generator_ColumnPropNameInRow="IpAddress" msprop:Generator_ColumnPropNameInTable="IpAddressColumn" msprop:Generator_ColumnVarNameInTable="columnIpAddress" msprop:Generator_UserColumnName="IpAddress" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TransactionTime" msprop:Generator_ColumnPropNameInRow="TransactionTime" msprop:Generator_ColumnPropNameInTable="TransactionTimeColumn" msprop:Generator_ColumnVarNameInTable="columnTransactionTime" msprop:Generator_UserColumnName="TransactionTime" type="xs:dateTime" />
+              <xs:element name="EntityRecord" msprop:Generator_ColumnPropNameInRow="EntityRecord" msprop:Generator_ColumnPropNameInTable="EntityRecordColumn" msprop:Generator_ColumnVarNameInTable="columnEntityRecord" msprop:Generator_UserColumnName="EntityRecord" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AvailableCouresView" msprop:Generator_RowEvHandlerName="AvailableCouresViewRowChangeEventHandler" msprop:Generator_RowDeletedName="AvailableCouresViewRowDeleted" msprop:Generator_RowDeletingName="AvailableCouresViewRowDeleting" msprop:Generator_RowEvArgName="AvailableCouresViewRowChangeEvent" msprop:Generator_TablePropName="AvailableCouresView" msprop:Generator_RowChangedName="AvailableCouresViewRowChanged" msprop:Generator_RowChangingName="AvailableCouresViewRowChanging" msprop:Generator_TableClassName="AvailableCouresViewDataTable" msprop:Generator_RowClassName="AvailableCouresViewRow" msprop:Generator_TableVarName="tableAvailableCouresView" msprop:Generator_UserTableName="AvailableCouresView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AvailableCourseID" msprop:Generator_ColumnPropNameInRow="AvailableCourseID" msprop:Generator_ColumnPropNameInTable="AvailableCourseIDColumn" msprop:Generator_ColumnVarNameInTable="columnAvailableCourseID" msprop:Generator_UserColumnName="AvailableCourseID" type="xs:int" />
+              <xs:element name="CourseID" msprop:Generator_ColumnPropNameInRow="CourseID" msprop:Generator_ColumnPropNameInTable="CourseIDColumn" msprop:Generator_ColumnVarNameInTable="columnCourseID" msprop:Generator_UserColumnName="CourseID" type="xs:int" />
+              <xs:element name="CourseName" msprop:Generator_ColumnPropNameInRow="CourseName" msprop:Generator_ColumnPropNameInTable="CourseNameColumn" msprop:Generator_ColumnVarNameInTable="columnCourseName" msprop:Generator_UserColumnName="CourseName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Duration" msprop:Generator_ColumnPropNameInRow="Duration" msprop:Generator_ColumnPropNameInTable="DurationColumn" msprop:Generator_ColumnVarNameInTable="columnDuration" msprop:Generator_UserColumnName="Duration" type="xs:int" minOccurs="0" />
+              <xs:element name="Requirement_CourseID" msprop:Generator_ColumnPropNameInRow="Requirement_CourseID" msprop:Generator_ColumnPropNameInTable="Requirement_CourseIDColumn" msprop:Generator_ColumnVarNameInTable="columnRequirement_CourseID" msprop:Generator_UserColumnName="Requirement_CourseID" type="xs:int" minOccurs="0" />
+              <xs:element name="IsProgramming" msprop:Generator_ColumnPropNameInRow="IsProgramming" msprop:Generator_ColumnPropNameInTable="IsProgrammingColumn" msprop:Generator_ColumnVarNameInTable="columnIsProgramming" msprop:Generator_UserColumnName="IsProgramming" type="xs:boolean" />
+              <xs:element name="IsGroupDays1" msprop:Generator_ColumnPropNameInRow="IsGroupDays1" msprop:Generator_ColumnPropNameInTable="IsGroupDays1Column" msprop:Generator_ColumnVarNameInTable="columnIsGroupDays1" msprop:Generator_UserColumnName="IsGroupDays1" type="xs:boolean" />
+              <xs:element name="StartTime" msprop:Generator_ColumnPropNameInRow="StartTime" msprop:Generator_ColumnPropNameInTable="StartTimeColumn" msprop:Generator_ColumnVarNameInTable="columnStartTime" msprop:Generator_UserColumnName="StartTime" type="xs:duration" />
+              <xs:element name="EndTime" msprop:Generator_ColumnPropNameInRow="EndTime" msprop:Generator_ColumnPropNameInTable="EndTimeColumn" msprop:Generator_ColumnVarNameInTable="columnEndTime" msprop:Generator_UserColumnName="EndTime" type="xs:duration" />
+              <xs:element name="InstructorID" msprop:Generator_ColumnPropNameInRow="InstructorID" msprop:Generator_ColumnPropNameInTable="InstructorIDColumn" msprop:Generator_ColumnVarNameInTable="columnInstructorID" msprop:Generator_UserColumnName="InstructorID" type="xs:int" />
+              <xs:element name="FirstName" msprop:Generator_ColumnPropNameInRow="FirstName" msprop:Generator_ColumnPropNameInTable="FirstNameColumn" msprop:Generator_ColumnVarNameInTable="columnFirstName" msprop:Generator_UserColumnName="FirstName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SecondName" msprop:Generator_ColumnPropNameInRow="SecondName" msprop:Generator_ColumnPropNameInTable="SecondNameColumn" msprop:Generator_ColumnVarNameInTable="columnSecondName" msprop:Generator_UserColumnName="SecondName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LastName" msprop:Generator_ColumnPropNameInRow="LastName" msprop:Generator_ColumnPropNameInTable="LastNameColumn" msprop:Generator_ColumnVarNameInTable="columnLastName" msprop:Generator_UserColumnName="LastName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="InstructorsAvailabilityView" msprop:Generator_RowEvHandlerName="InstructorsAvailabilityViewRowChangeEventHandler" msprop:Generator_RowDeletedName="InstructorsAvailabilityViewRowDeleted" msprop:Generator_RowDeletingName="InstructorsAvailabilityViewRowDeleting" msprop:Generator_RowEvArgName="InstructorsAvailabilityViewRowChangeEvent" msprop:Generator_TablePropName="InstructorsAvailabilityView" msprop:Generator_RowChangedName="InstructorsAvailabilityViewRowChanged" msprop:Generator_RowChangingName="InstructorsAvailabilityViewRowChanging" msprop:Generator_TableClassName="InstructorsAvailabilityViewDataTable" msprop:Generator_RowClassName="InstructorsAvailabilityViewRow" msprop:Generator_TableVarName="tableInstructorsAvailabilityView" msprop:Generator_UserTableName="InstructorsAvailabilityView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InstructorAvailabilityID" msprop:Generator_ColumnPropNameInRow="InstructorAvailabilityID" msprop:Generator_ColumnPropNameInTable="InstructorAvailabilityIDColumn" msprop:Generator_ColumnVarNameInTable="columnInstructorAvailabilityID" msprop:Generator_UserColumnName="InstructorAvailabilityID" type="xs:int" />
+              <xs:element name="InstructorID" msprop:Generator_ColumnPropNameInRow="InstructorID" msprop:Generator_ColumnPropNameInTable="InstructorIDColumn" msprop:Generator_ColumnVarNameInTable="columnInstructorID" msprop:Generator_UserColumnName="InstructorID" type="xs:int" />
+              <xs:element name="FirstName" msprop:Generator_ColumnPropNameInRow="FirstName" msprop:Generator_ColumnPropNameInTable="FirstNameColumn" msprop:Generator_ColumnVarNameInTable="columnFirstName" msprop:Generator_UserColumnName="FirstName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SecondName" msprop:Generator_ColumnPropNameInRow="SecondName" msprop:Generator_ColumnPropNameInTable="SecondNameColumn" msprop:Generator_ColumnVarNameInTable="columnSecondName" msprop:Generator_UserColumnName="SecondName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LastName" msprop:Generator_ColumnPropNameInRow="LastName" msprop:Generator_ColumnPropNameInTable="LastNameColumn" msprop:Generator_ColumnVarNameInTable="columnLastName" msprop:Generator_UserColumnName="LastName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Email" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_UserColumnName="Email">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Phone" msprop:Generator_ColumnPropNameInRow="Phone" msprop:Generator_ColumnPropNameInTable="PhoneColumn" msprop:Generator_ColumnVarNameInTable="columnPhone" msprop:Generator_UserColumnName="Phone">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="HiringDate" msprop:Generator_ColumnPropNameInRow="HiringDate" msprop:Generator_ColumnPropNameInTable="HiringDateColumn" msprop:Generator_ColumnVarNameInTable="columnHiringDate" msprop:Generator_UserColumnName="HiringDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IsGroupDays1" msprop:Generator_ColumnPropNameInRow="IsGroupDays1" msprop:Generator_ColumnPropNameInTable="IsGroupDays1Column" msprop:Generator_ColumnVarNameInTable="columnIsGroupDays1" msprop:Generator_UserColumnName="IsGroupDays1" type="xs:boolean" />
+              <xs:element name="StartTime" msprop:Generator_ColumnPropNameInRow="StartTime" msprop:Generator_ColumnPropNameInTable="StartTimeColumn" msprop:Generator_ColumnVarNameInTable="columnStartTime" msprop:Generator_UserColumnName="StartTime" type="xs:duration" />
+              <xs:element name="EndTime" msprop:Generator_ColumnPropNameInRow="EndTime" msprop:Generator_ColumnPropNameInTable="EndTimeColumn" msprop:Generator_ColumnVarNameInTable="columnEndTime" msprop:Generator_UserColumnName="EndTime" type="xs:duration" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="WaitingListView" msprop:Generator_RowEvHandlerName="WaitingListViewRowChangeEventHandler" msprop:Generator_RowDeletedName="WaitingListViewRowDeleted" msprop:Generator_RowDeletingName="WaitingListViewRowDeleting" msprop:Generator_RowEvArgName="WaitingListViewRowChangeEvent" msprop:Generator_TablePropName="WaitingListView" msprop:Generator_RowChangedName="WaitingListViewRowChanged" msprop:Generator_RowChangingName="WaitingListViewRowChanging" msprop:Generator_TableClassName="WaitingListViewDataTable" msprop:Generator_RowClassName="WaitingListViewRow" msprop:Generator_TableVarName="tableWaitingListView" msprop:Generator_UserTableName="WaitingListView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="WaitingListID" msprop:Generator_ColumnPropNameInRow="WaitingListID" msprop:Generator_ColumnPropNameInTable="WaitingListIDColumn" msprop:Generator_ColumnVarNameInTable="columnWaitingListID" msprop:Generator_UserColumnName="WaitingListID" type="xs:int" />
+              <xs:element name="StudentID" msprop:Generator_ColumnPropNameInRow="StudentID" msprop:Generator_ColumnPropNameInTable="StudentIDColumn" msprop:Generator_ColumnVarNameInTable="columnStudentID" msprop:Generator_UserColumnName="StudentID" type="xs:int" />
+              <xs:element name="StudentName" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="StudentName" msprop:Generator_ColumnPropNameInTable="StudentNameColumn" msprop:Generator_ColumnVarNameInTable="columnStudentName" msprop:Generator_UserColumnName="StudentName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="152" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Email" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_UserColumnName="Email">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Phone" msprop:Generator_ColumnPropNameInRow="Phone" msprop:Generator_ColumnPropNameInTable="PhoneColumn" msprop:Generator_ColumnVarNameInTable="columnPhone" msprop:Generator_UserColumnName="Phone">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BirthDate" msprop:Generator_ColumnPropNameInRow="BirthDate" msprop:Generator_ColumnPropNameInTable="BirthDateColumn" msprop:Generator_ColumnVarNameInTable="columnBirthDate" msprop:Generator_UserColumnName="BirthDate" type="xs:dateTime" />
+              <xs:element name="AvailableCourseID" msprop:Generator_ColumnPropNameInRow="AvailableCourseID" msprop:Generator_ColumnPropNameInTable="AvailableCourseIDColumn" msprop:Generator_ColumnVarNameInTable="columnAvailableCourseID" msprop:Generator_UserColumnName="AvailableCourseID" type="xs:int" />
+              <xs:element name="CourseID" msprop:Generator_ColumnPropNameInRow="CourseID" msprop:Generator_ColumnPropNameInTable="CourseIDColumn" msprop:Generator_ColumnVarNameInTable="columnCourseID" msprop:Generator_UserColumnName="CourseID" type="xs:int" />
+              <xs:element name="CourseName" msprop:Generator_ColumnPropNameInRow="CourseName" msprop:Generator_ColumnPropNameInTable="CourseNameColumn" msprop:Generator_ColumnVarNameInTable="columnCourseName" msprop:Generator_UserColumnName="CourseName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Duration" msprop:Generator_ColumnPropNameInRow="Duration" msprop:Generator_ColumnPropNameInTable="DurationColumn" msprop:Generator_ColumnVarNameInTable="columnDuration" msprop:Generator_UserColumnName="Duration" type="xs:int" minOccurs="0" />
+              <xs:element name="Requirement_CourseID" msprop:Generator_ColumnPropNameInRow="Requirement_CourseID" msprop:Generator_ColumnPropNameInTable="Requirement_CourseIDColumn" msprop:Generator_ColumnVarNameInTable="columnRequirement_CourseID" msprop:Generator_UserColumnName="Requirement_CourseID" type="xs:int" minOccurs="0" />
+              <xs:element name="IsProgramming" msprop:Generator_ColumnPropNameInRow="IsProgramming" msprop:Generator_ColumnPropNameInTable="IsProgrammingColumn" msprop:Generator_ColumnVarNameInTable="columnIsProgramming" msprop:Generator_UserColumnName="IsProgramming" type="xs:boolean" />
+              <xs:element name="InstructorAvailabilityID" msprop:Generator_ColumnPropNameInRow="InstructorAvailabilityID" msprop:Generator_ColumnPropNameInTable="InstructorAvailabilityIDColumn" msprop:Generator_ColumnVarNameInTable="columnInstructorAvailabilityID" msprop:Generator_UserColumnName="InstructorAvailabilityID" type="xs:int" />
+              <xs:element name="InstructorID" msprop:Generator_ColumnPropNameInRow="InstructorID" msprop:Generator_ColumnPropNameInTable="InstructorIDColumn" msprop:Generator_ColumnVarNameInTable="columnInstructorID" msprop:Generator_UserColumnName="InstructorID" type="xs:int" />
+              <xs:element name="InstructorName" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="InstructorName" msprop:Generator_ColumnPropNameInTable="InstructorNameColumn" msprop:Generator_ColumnVarNameInTable="columnInstructorName" msprop:Generator_UserColumnName="InstructorName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="152" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="GroupName" msprop:Generator_ColumnPropNameInRow="GroupName" msprop:Generator_ColumnPropNameInTable="GroupNameColumn" msprop:Generator_ColumnVarNameInTable="columnGroupName" msprop:Generator_UserColumnName="GroupName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="InstructorEmail" msprop:Generator_ColumnPropNameInRow="InstructorEmail" msprop:Generator_ColumnPropNameInTable="InstructorEmailColumn" msprop:Generator_ColumnVarNameInTable="columnInstructorEmail" msprop:Generator_UserColumnName="InstructorEmail">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="InstructorPhone" msprop:Generator_ColumnPropNameInRow="InstructorPhone" msprop:Generator_ColumnPropNameInTable="InstructorPhoneColumn" msprop:Generator_ColumnVarNameInTable="columnInstructorPhone" msprop:Generator_UserColumnName="InstructorPhone">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="timeSlotID" msprop:Generator_ColumnPropNameInRow="timeSlotID" msprop:Generator_ColumnPropNameInTable="timeSlotIDColumn" msprop:Generator_ColumnVarNameInTable="columntimeSlotID" msprop:Generator_UserColumnName="timeSlotID" type="xs:int" />
+              <xs:element name="StartTime" msprop:Generator_ColumnPropNameInRow="StartTime" msprop:Generator_ColumnPropNameInTable="StartTimeColumn" msprop:Generator_ColumnVarNameInTable="columnStartTime" msprop:Generator_UserColumnName="StartTime" type="xs:duration" />
+              <xs:element name="EndTime" msprop:Generator_ColumnPropNameInRow="EndTime" msprop:Generator_ColumnPropNameInTable="EndTimeColumn" msprop:Generator_ColumnVarNameInTable="columnEndTime" msprop:Generator_UserColumnName="EndTime" type="xs:duration" />
+              <xs:element name="IsGroupDays1" msprop:Generator_ColumnPropNameInRow="IsGroupDays1" msprop:Generator_ColumnPropNameInTable="IsGroupDays1Column" msprop:Generator_ColumnVarNameInTable="columnIsGroupDays1" msprop:Generator_UserColumnName="IsGroupDays1" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:AuditTrailView2" />
+      <xs:field xpath="mstns:AuditTrailID" />
+    </xs:unique>
+    <xs:unique name="WaitingListView_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:WaitingListView" />
+      <xs:field xpath="mstns:WaitingListID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

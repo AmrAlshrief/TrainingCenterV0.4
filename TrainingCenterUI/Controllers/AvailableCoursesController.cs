@@ -42,7 +42,8 @@ namespace TrainingCenterUI.Controllers
         {
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
             ViewBag.InstructorAvailabilityID = new SelectList(db.InstructorAvailabilities, "InstructorAvailabilityID", "InstructorAvailabilityID");
-            return View();
+            AvailableCours availableCourse = new AvailableCours();
+            return View(availableCourse);
         }
 
         // POST: AvailableCourses/Create
@@ -81,8 +82,7 @@ namespace TrainingCenterUI.Controllers
         }
 
         // POST: AvailableCourses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "AvailableCourseID,CourseID,InstructorAvailabilityID,StartAt")] AvailableCours availableCours)

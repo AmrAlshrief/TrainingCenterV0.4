@@ -9,10 +9,10 @@ namespace TrainingCenterLib.Repository.Interfaces
 {
     internal interface IAvailableCourseService
     {
-        Task<List<AvailableCours>> GetAllAvailableCoursesAsync();
+        Task<IEnumerable<AvailableCours>> GetAllAvailableCoursesAsync();
         Task<AvailableCours> GetAvailableCourseByIdAsync(int id);
-        Task CreateAvailableCourseAsync(AvailableCours availableCours);
-        Task UpdateAvailableCourseAsync(AvailableCours availableCours);
-        Task DeleteAvailableCourseAsync(int id);
+        Task CreateAvailableCourseAsync(AvailableCours availableCours, int UserId);
+        Task UpdateAvailableCourseAsync(AvailableCours availableCours, int UserId);
+        Task DeleteAvailableCourseAsync(int id, int UserId);
     }
 }

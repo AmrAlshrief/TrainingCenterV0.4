@@ -14,6 +14,11 @@ namespace TrainingCenterLib.Entities
     
     public partial class RunningCours
     {
+
+        public RunningCours() 
+        {
+            this.CreatedAt = DateTime.Now;
+        }
         public int RunningCourseID { get; set; }
         public int WaitingListID { get; set; }
         public Nullable<System.DateTime> StartAt { get; set; }

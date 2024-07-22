@@ -24,8 +24,8 @@ namespace TrainingCenterUI.Controllers
         public InstructorsController() 
         {
             _db = new TrainingCenterLibDbContext();
-            _InstructorService = new InstructorService();
             _UserID = WebSecurity.CurrentUserId;
+            _InstructorService = new InstructorService(_UserID);
 
         }
 
@@ -90,7 +90,7 @@ namespace TrainingCenterUI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await _InstructorService.AddInstructorAsync(instructor, _UserID);
+                    await _InstructorService.AddInstructorAsync(instructor);
 
                     return RedirectToAction("Index");
                 }
@@ -137,7 +137,7 @@ namespace TrainingCenterUI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await _InstructorService.UpdateInstructorAsync(instructor, _UserID);
+                    await _InstructorService.UpdateInstructorAsync(instructor);
                     //db.Entry(instructor).State = EntityState.Modified;
                     //await db.SaveChangesAsync();
                     return RedirectToAction("Index");
@@ -185,7 +185,7 @@ namespace TrainingCenterUI.Controllers
                 var instructor = await _db.Instructors.FindAsync(id);
                 if (instructor != null)
                 {
-                    await _InstructorService.SoftDeleteInstructorAsync(id, _UserID);
+                    await _InstructorService.SoftDeleteInstructorAsync(id);
            
                 }
                 return RedirectToAction("Index");

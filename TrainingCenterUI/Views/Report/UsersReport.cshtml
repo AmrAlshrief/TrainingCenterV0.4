@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "UsersReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Audit Trail Report</h1>
+
+<button id="generateReportButton">Generate Report</button>
+<br />
+<br />
+<iframe id="reportFrame" width="100%" height="600px"></iframe>
+
+@section scripts {
+    <script>
+        document.getElementById("generateReportButton").addEventListener("click", function () {
+            var iframe = document.getElementById("reportFrame");
+            iframe.src = "@Url.Action("UsersReport", "Report")";
+        });
+    </script>
+}

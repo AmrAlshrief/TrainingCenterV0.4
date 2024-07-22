@@ -92,6 +92,7 @@
     <Compile Include="Entities\RunningCours.cs">
       <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\StatisticViewModel.cs" />
     <Compile Include="Entities\Student.cs">
       <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
     </Compile>
@@ -122,8 +123,11 @@
     <Compile Include="Entities\WaitingListView.cs">
       <DependentUpon>TrainingCenterLibModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\CourseDto.cs" />
+    <Compile Include="Repository\CustomValidate\CustomBirthDateValidation.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Services\AvailableCourseService.cs" />
     <Compile Include="Repository\Interfaces\IAvailableCourseService.cs" />
     <Compile Include="Repository\Interfaces\ICourseService.cs" />
     <Compile Include="Repository\Interfaces\IGenericRepository.cs" />
@@ -134,8 +138,14 @@
     <Compile Include="Repository\Interfaces\IStudentServicec.cs" />
     <Compile Include="Repository\Interfaces\ITimeSlotService.cs" />
     <Compile Include="Repository\Interfaces\IWaitingListService.cs" />
+    <Compile Include="Repository\Services\CourseService.cs" />
+    <Compile Include="Repository\Services\InstructorAvailabilityService.cs" />
     <Compile Include="Repository\Services\InstructorService.cs" />
+    <Compile Include="Repository\Services\RoomService.cs" />
+    <Compile Include="Repository\Services\RunningCourseService.cs" />
     <Compile Include="Repository\Services\StudentService.cs" />
+    <Compile Include="Repository\Services\TimeSlotService.cs" />
+    <Compile Include="Repository\Services\WaitingListService.cs" />
     <Compile Include="Repository\UserInfo.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>

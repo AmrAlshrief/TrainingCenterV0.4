@@ -29,5 +29,6 @@ namespace TrainingCenterUI.Entities
         public virtual DbSet<AvailableCouresView> AvailableCouresViews { get; set; }
         public virtual DbSet<InstructorsAvailabilityView> InstructorsAvailabilityViews { get; set; }
         public virtual DbSet<WaitingListView> WaitingListViews { get; set; }
+        public virtual DbSet<AuditTrailView2> AuditTrailView2 { get; set; }
     }
 }

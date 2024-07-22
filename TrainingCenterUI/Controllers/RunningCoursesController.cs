@@ -42,7 +42,8 @@ namespace TrainingCenterUI.Controllers
         {
             ViewBag.RoomID = new SelectList(db.Rooms, "RoomID", "Name");
             ViewBag.WaitingListID = new SelectList(db.WaitingLists, "WaitingListID", "GroupName");
-            return View();
+            RunningCours runningCourse = new RunningCours();
+            return View(runningCourse);
         }
 
         // POST: RunningCourses/Create
@@ -50,18 +51,18 @@ namespace TrainingCenterUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RunningCourseID,WaitingListID,StartAt,EndAt,RoomID,CreatedAt,UserID")] RunningCours runningCours)
+        public async Task<ActionResult> Create([Bind(Include = "RunningCourseID,WaitingListID,StartAt,EndAt,RoomID,CreatedAt,UserID")] RunningCours runningCourse)
         {
             if (ModelState.IsValid)
             {
-                db.RunningCourses.Add(runningCours);
+                db.RunningCourses.Add(runningCourse);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RoomID = new SelectList(db.Rooms, "RoomID", "Name", runningCours.RoomID);
-            ViewBag.WaitingListID = new SelectList(db.WaitingLists, "WaitingListID", "GroupName", runningCours.WaitingListID);
-            return View(runningCours);
+            ViewBag.RoomID = new SelectList(db.Rooms, "RoomID", "Name", runningCourse.RoomID);
+            ViewBag.WaitingListID = new SelectList(db.WaitingLists, "WaitingListID", "GroupName", runningCourse.WaitingListID);
+            return View(runningCourse);
         }
 
         // GET: RunningCourses/Edit/5

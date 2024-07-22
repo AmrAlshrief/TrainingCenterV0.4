@@ -7,7 +7,7 @@ using TrainingCenterLib.Entities;
 
 namespace TrainingCenterLib.Repository.Interfaces
 {
-    internal interface IRunningCourseService
+    public interface IRunningCourseService
     {
         Task<List<RunningCours>> GetAllRunningCoursesAsync();
         Task<RunningCours> GetRunningCourseByIdAsync(int id);

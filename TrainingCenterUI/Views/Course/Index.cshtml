@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TrainingCenter.Lib.Entities.Cours>
+﻿@model IEnumerable<TrainingCenterLib.Entities.Cours>
 
 @{
     ViewBag.Title = "Index";
@@ -18,17 +18,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Duration)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsProgramming)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.CreatedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cours1.CourseName)
@@ -44,21 +36,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Duration)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsProgramming)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDeleted)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
+        
         <td>
-            @Html.DisplayFor(modelItem => item.UserID)
+            @Html.DisplayFor(modelItem => item.CourseName)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Courses1.)
-        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CourseID }) |
             @Html.ActionLink("Details", "Details", new { id=item.CourseID }) |

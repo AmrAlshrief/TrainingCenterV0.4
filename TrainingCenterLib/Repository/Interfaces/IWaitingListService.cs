@@ -9,10 +9,11 @@ namespace TrainingCenterLib.Repository.Interfaces
 {
     internal interface IWaitingListService
     {
-        Task<List<WaitingList>> GetAllWaitingListsAsync();
+        Task<IEnumerable<WaitingList>> GetAllWaitingListsAsync();
         Task<WaitingList> GetWaitingListByIdAsync(int id);
         Task CreateWaitingListAsync(WaitingList waitingList);
         Task UpdateWaitingListAsync(WaitingList waitingList);
         Task DeleteWaitingListAsync(int id);
+        bool IsAlreadyEnrolled(int studentId, int AvailableCourseId);
     }
 }
