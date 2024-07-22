@@ -14,12 +14,7 @@ namespace TrainingCenterUI.Controllers
     public class TimeSlotsController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
-        private readonly TimeSlotService _timeSlotService;
 
-        public TimeSlotsController()
-        {
-            _timeSlotService = new TimeSlotService();
-        }
         // GET: TimeSlots
         public async Task<ActionResult> Index()
         {
