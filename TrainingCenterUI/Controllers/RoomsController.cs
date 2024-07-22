@@ -14,7 +14,14 @@ namespace TrainingCenterUI.Controllers
     public class RoomsController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly RoomService _roomService;
+        private readonly int _UserId;
 
+        public RoomsController()
+        {
+            _UserId = WebSecurity.CurrentUserId;
+            _roomService = new RoomService();
+        }
         // GET: Rooms
         public async Task<ActionResult> Index()
         {
@@ -52,8 +59,10 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Rooms.Add(room);
-                await db.SaveChangesAsync();
+                //////db.Rooms.Add(room);
+                //////await db.SaveChangesAsync();
+                ///
+                await CreateRoomAsync(room, UserId);
                 return RedirectToAction("Index");
             }
 
@@ -84,8 +93,10 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(room).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                //////db.Entry(room).State = EntityState.Modified;
+                //////await db.SaveChangesAsync();
+                ///
+                await UpdateRoomAsync(room, UserId);
                 return RedirectToAction("Index");
             }
             return View(room);
@@ -111,9 +122,11 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Room room = await db.Rooms.FindAsync(id);
-            db.Rooms.Remove(room);
-            await db.SaveChangesAsync();
+            ////Room room = await db.Rooms.FindAsync(id);
+            ////db.Rooms.Remove(room);
+            ////await db.SaveChangesAsync();
+            ///
+            await DeleteRoomAsync(id, UserId); 
             return RedirectToAction("Index");
         }
 

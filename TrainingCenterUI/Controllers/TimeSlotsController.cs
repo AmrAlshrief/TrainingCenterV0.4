@@ -20,6 +20,7 @@ namespace TrainingCenterUI.Controllers
 
         public TimeSlotsController() 
         {
+            _UserId = WebSecurity.CurrentUserId;
             _timeSlotService = new TimeSlotService();
         }
 
@@ -58,8 +59,10 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.TimeSlots.Add(timeSlot);
-                await db.SaveChangesAsync();
+                //////db.TimeSlots.Add(timeSlot);
+                //////await db.SaveChangesAsync();
+                ///
+                await AddTimeAsync(timeSlot, UserId);
                 return RedirectToAction("Index");
             }
 
@@ -88,8 +91,10 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(timeSlot).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                //////db.Entry(timeSlot).State = EntityState.Modified;
+                //////await db.SaveChangesAsync();
+                ///
+                await UpdateTimeAsync(timeSlot, UserId);
                 return RedirectToAction("Index");
             }
             return View(timeSlot);
@@ -115,9 +120,11 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            TimeSlot timeSlot = await db.TimeSlots.FindAsync(id);
-            db.TimeSlots.Remove(timeSlot);
-            await db.SaveChangesAsync();
+            //////TimeSlot timeSlot = await db.TimeSlots.FindAsync(id);
+            //////db.TimeSlots.Remove(timeSlot);
+            //////await db.SaveChangesAsync();
+            ///
+            await DeleteTimeAsync(id, UserId);
             return RedirectToAction("Index");
         }
 

@@ -14,6 +14,14 @@ namespace TrainingCenterUI.Controllers
     public class RunningCoursesController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly RunningCourseService _runningCourseService;
+        private readonly int _UserId;
+
+        public RunningCoursesController()
+        {
+            _UserId = WebSecurity.CurrentUserId;
+            _roomService = new RoomService();
+        }
 
         // GET: RunningCourses
         public async Task<ActionResult> Index()
@@ -55,8 +63,10 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.RunningCourses.Add(runningCourse);
-                await db.SaveChangesAsync();
+                //////db.RunningCourses.Add(runningCourse);
+                //////await db.SaveChangesAsync();
+                ///
+                await CreateRunningCourseAsync(runningCours);
                 return RedirectToAction("Index");
             }
 
@@ -91,8 +101,10 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(runningCours).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                //////db.Entry(runningCours).State = EntityState.Modified;
+                //////await db.SaveChangesAsync();
+                ///
+                await UpdateRunningCourseAsync(runningCours);
                 return RedirectToAction("Index");
             }
             ViewBag.RoomID = new SelectList(db.Rooms, "RoomID", "Name", runningCours.RoomID);
@@ -120,9 +132,11 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            RunningCours runningCours = await db.RunningCourses.FindAsync(id);
-            db.RunningCourses.Remove(runningCours);
-            await db.SaveChangesAsync();
+            ////RunningCours runningCours = await db.RunningCourses.FindAsync(id);
+            ////db.RunningCourses.Remove(runningCours);
+            ////await db.SaveChangesAsync();
+            ///
+            await DeleteRunningCourseAsync(id);
             return RedirectToAction("Index");
         }
 

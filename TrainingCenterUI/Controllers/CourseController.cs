@@ -70,9 +70,11 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                cours.CreatedAt = DateTime.Now;
-                db.Courses.Add(cours);
-                await db.SaveChangesAsync();
+                //////cours.CreatedAt = DateTime.Now;
+                //////db.Courses.Add(cours);
+                //////await db.SaveChangesAsync();
+
+                await CreateCourseAsync(cours, UserId);
                 return RedirectToAction("Index");
             }
 
@@ -105,9 +107,11 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                db.Entry(cours).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+
+                //////db.Entry(cours).State = EntityState.Modified;
+                //////await db.SaveChangesAsync();
+
+                await UpdateCourseAsync(cours, UserId);
                 return RedirectToAction("Index");
             }
             ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
@@ -134,9 +138,11 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Cours cours = await db.Courses.FindAsync(id);
-            db.Courses.Remove(cours);
-            await db.SaveChangesAsync();
+            ////Cours cours = await db.Courses.FindAsync(id);
+            ////db.Courses.Remove(cours);
+            ////await db.SaveChangesAsync();
+            ///
+            await SoftDeleteCourseAsync(id, UserId);
             if (cours.IsProgramming) 
             {
                 return RedirectToAction("Index");

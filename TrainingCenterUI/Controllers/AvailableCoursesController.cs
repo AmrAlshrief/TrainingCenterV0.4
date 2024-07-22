@@ -14,6 +14,14 @@ namespace TrainingCenterUI.Controllers
     public class AvailableCoursesController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly AvailableCourseService _availableCourseService;
+        private readonly int _UserId;
+
+        public AvailableCoursesController()
+        {
+            _UserId = WebSecurity.CurrentUserId;
+            _CourseService = new CourseService();
+        }
 
         // GET: AvailableCourses
         public async Task<ActionResult> Index()
@@ -54,8 +62,10 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AvailableCourses.Add(availableCours);
-                await db.SaveChangesAsync();
+                //////db.AvailableCourses.Add(availableCours);
+                //////await db.SaveChangesAsync();
+
+                await CreateAvailableCourseAsync(availableCours, UserId);
                 return RedirectToAction("Index");
             }
 
@@ -89,8 +99,10 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(availableCours).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                //////db.Entry(availableCours).State = EntityState.Modified;
+                //////await db.SaveChangesAsync();
+
+                await UpdateAvailableCourseAsync(availableCours, UserId);
                 return RedirectToAction("Index");
             }
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName", availableCours.CourseID);
@@ -118,9 +130,11 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            AvailableCours availableCours = await db.AvailableCourses.FindAsync(id);
-            db.AvailableCourses.Remove(availableCours);
-            await db.SaveChangesAsync();
+            //////AvailableCours availableCours = await db.AvailableCourses.FindAsync(id);
+            //////db.AvailableCourses.Remove(availableCours);
+            //////await db.SaveChangesAsync();
+            
+            await DeleteAvailableCourseAsync(id, UserId);
             return RedirectToAction("Index");
         }
 
