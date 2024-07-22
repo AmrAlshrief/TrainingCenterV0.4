@@ -14,7 +14,17 @@ namespace TrainingCenterUI.Controllers
     public class WaitingListsController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly WaitingListService _waitingListService;
+        private readonly int _UserId;
 
+        // GET: WaitingLists
+
+        public WaitingListsController()
+        {
+            _UserId = WebSecurity.CurrentUserId;
+            _waitingListService = new WaitingListService(_UserId);
+
+        }
         // GET: WaitingLists
         public async Task<ActionResult> Index()
         {
