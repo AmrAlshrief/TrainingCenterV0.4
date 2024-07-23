@@ -38,7 +38,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
@@ -46,4 +47,18 @@
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
+
+    <div id="error-message" class="alert alert-danger" style="display:none;">
+        @TempData["ErrorMessage"]
+    </div>
 </div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var errorMessage = '@TempData["ErrorMessage"]';
+            if (errorMessage) {
+                $('#error-message').text(errorMessage).show();
+            }
+        });
+    </script>
+}

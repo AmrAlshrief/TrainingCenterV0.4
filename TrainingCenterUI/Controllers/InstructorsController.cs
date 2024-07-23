@@ -12,6 +12,7 @@ using TrainingCenterLib.Repository.Interfaces;
 using TrainingCenterLib.Entities;
 using TrainingCenterLib.Repository;
 using WebMatrix.WebData;
+using System.Data.Entity.Validation;
 
 namespace TrainingCenterUI.Controllers
 {
@@ -91,8 +92,12 @@ namespace TrainingCenterUI.Controllers
                 if (ModelState.IsValid)
                 {
                     await _InstructorService.AddInstructorAsync(instructor);
-
-                    return RedirectToAction("Index");
+                    if (!_InstructorService.IsValid || instructor == null)
+                    {
+                        ModelState.AddModelError("", "Unable to Update Instructor.");
+                        TempData["ErrorMessage"] = "Unable to Update Instructor";
+                        RedirectToAction("Index");
+                    }
                 }
                 return View(instructor);
             }
@@ -108,6 +113,7 @@ namespace TrainingCenterUI.Controllers
         {
             if (Session["login"] != null)
             {
+                
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -135,12 +141,17 @@ namespace TrainingCenterUI.Controllers
         {
             if (Session["login"] != null)
             {
+               
+                
                 if (ModelState.IsValid)
                 {
                     await _InstructorService.UpdateInstructorAsync(instructor);
-                    //db.Entry(instructor).State = EntityState.Modified;
-                    //await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    if (!_InstructorService.IsValid || instructor == null)
+                    {
+                        ModelState.AddModelError("", "Unable to Update Instructor.");
+                        TempData["ErrorMessage"] = "Unable to Update Instructor";
+                        RedirectToAction("Index");
+                    }
                 }
                 return View(instructor);
             }
@@ -178,16 +189,47 @@ namespace TrainingCenterUI.Controllers
         // POST: Instructors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
+           
             if (Session["login"] != null)
             {
-                var instructor = await _db.Instructors.FindAsync(id);
-                if (instructor != null)
-                {
-                    await _InstructorService.SoftDeleteInstructorAsync(id);
-           
-                }
+               
+                
+                    try
+                    {
+                        var instructor = _db.Instructors.FindAsync(id);
+                        if (instructor != null)
+                        {
+                            _InstructorService.SoftDeleteInstructor(id);
+
+                        }
+                        if (!_InstructorService.IsValid || instructor == null)
+                        {
+                            ModelState.AddModelError("", "You cannot enroll twice in the same course.");
+                            TempData["ErrorMessage"] = "Unable to Delete Instructor";
+                            RedirectToAction("Index");
+                        }
+                        return RedirectToAction("Index");
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                        // Join the error messages into a single string
+                        var fullErrorMessage = string.Join("; ", errorMessages);
+
+                        // Combine the original exception message with the new one
+                        var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                        TempData["ErrorMessage"] = exceptionMessage;
+
+                    }
+  
+              
+
                 return RedirectToAction("Index");
             }
             else

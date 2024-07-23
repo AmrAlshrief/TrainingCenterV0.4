@@ -115,5 +115,25 @@ namespace TrainingCenterLib.Repository.Services
         {
             throw new NotImplementedException();
         }
+
+        public bool IsAttachedToAnother(int id) 
+        {
+            using(var context = new TrainingCenterLibDbContext()) 
+            {
+                try
+                {
+                    var availableCourse =  context.AvailableCourses.Find(id);
+
+                    bool isReferenced = context.AvailableCourses.Any(x => x.InstructorAvailabilityID == id);
+
+                    return availableCourse != null && isReferenced;
+                }
+                catch (Exception ex) 
+                {
+                }
+            }
+
+            return false;
+        }
     }
 }

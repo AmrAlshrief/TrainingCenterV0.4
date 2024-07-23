@@ -20,7 +20,6 @@ namespace TrainingCenterLib.Entities
         public Instructor()
         {
             this.InstructorAvailabilities = new HashSet<InstructorAvailability>();
-            this.UserID = UserInfo.GlobalUserID;
             this.HiringDate = DateTime.Now;
             this.CreatedAt = DateTime.Now;
 
@@ -48,7 +47,7 @@ namespace TrainingCenterLib.Entities
         public string Email { get; set; }
 
         [Phone]
-        [StringLength(15)]
+        [StringLength(30)]
         public string Phone { get; set; }
         public Nullable<System.DateTime> HiringDate { get; set; }
         public bool IsDeleted { get; set; }

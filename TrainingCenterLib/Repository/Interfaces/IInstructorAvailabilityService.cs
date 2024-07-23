@@ -14,5 +14,6 @@ namespace TrainingCenterLib.Repository.Interfaces
         Task CreateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability);
         Task UpdateInstructorAvailabilityAsync(InstructorAvailability instructorAvailability);
         Task DeleteInstructorAvailabilityAsync(int id);
+        bool IsAttachedToAnother(int id);
     }
 }

@@ -28,7 +28,6 @@ namespace TrainingCenterUI.Controllers
         // GET: InstructorAvailabilities
         public async Task<ActionResult> Index()
         {
-            //var instructorAvailabilities = db.InstructorAvailabilities.Include(i => i.Instructor).Include(i => i.TimeSlot);
             return View(await _instructorAvailabilityService.GetAllInstructorAvailabilitiesAsync());
         }
 
@@ -52,7 +51,8 @@ namespace TrainingCenterUI.Controllers
         {
             ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "FirstName");
             ViewBag.timeSlotID = new SelectList(db.TimeSlots, "TimeSlotID", "TimeSlotID");
-            return View();
+            InstructorAvailability instructorAvailability = new InstructorAvailability();
+            return View(instructorAvailability);
         }
 
         // POST: InstructorAvailabilities/Create
@@ -116,6 +116,19 @@ namespace TrainingCenterUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            
+            int Id = (int)id;
+            bool isReferenced = _instructorAvailabilityService.IsAttachedToAnother(Id);
+
+            if (isReferenced)
+            {
+                ModelState.AddModelError("", "Cannot delete this Instructor Availability as it is referenced by other records.");
+                TempData["ErrorMessage"] = "Cannot delete this Instructor Availability as it is referenced by other records.";
+                return RedirectToAction("Index");
+            }
+
+
             InstructorAvailability instructorAvailability = await db.InstructorAvailabilities.FindAsync(id);
             if (instructorAvailability == null)
             {
@@ -129,9 +142,13 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            //InstructorAvailability instructorAvailability = await db.InstructorAvailabilities.FindAsync(id);
+
+            
+            InstructorAvailability instructorAvailability = await db.InstructorAvailabilities.FindAsync(id);
             //db.InstructorAvailabilities.Remove(instructorAvailability);
             //await db.SaveChangesAsync();
+
+            
             await _instructorAvailabilityService.DeleteInstructorAvailabilityAsync(id);
             return RedirectToAction("Index");
         }

@@ -9,7 +9,7 @@ namespace TrainingCenterLib.Repository.Interfaces
 {
     public interface IRunningCourseService
     {
-        Task<List<RunningCours>> GetAllRunningCoursesAsync();
+        Task<IEnumerable<RunningCours>> GetAllRunningCoursesAsync();
         Task<RunningCours> GetRunningCourseByIdAsync(int id);
         Task CreateRunningCourseAsync(RunningCours runningCourse);
         Task UpdateRunningCourseAsync(RunningCours runningCourse);

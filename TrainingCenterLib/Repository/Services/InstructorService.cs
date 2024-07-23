@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -13,10 +14,12 @@ namespace TrainingCenterLib.Repository.Services
     public class InstructorService : IInstructorService
     {
         private readonly int _UserId;
+        public bool IsValid { get; set; }
 
         public InstructorService(int userId) 
         {
             _UserId = userId;
+            IsValid = true;
         }
 
         public InstructorService()
@@ -81,6 +84,7 @@ namespace TrainingCenterLib.Repository.Services
                     }
                     catch (Exception ex)
                     {
+                        IsValid = false;
                         transaction.Rollback();
                         throw new Exception(ex.Message);
                     }
@@ -127,8 +131,10 @@ namespace TrainingCenterLib.Repository.Services
                     }
                     catch (Exception ex)
                     {
+                        IsValid = false;
                         transaction.Rollback();
                         throw new Exception(ex.Message);
+
                     }
                 }
             }
@@ -155,9 +161,44 @@ namespace TrainingCenterLib.Repository.Services
                     }
                     catch (Exception ex)
                     {
+                        IsValid = false;
                         transaction.Rollback();
                         throw new Exception(ex.Message);
                     }
+                }
+            }
+        }
+
+        public void SoftDeleteInstructor(int instructorId)
+        {
+            using (var context = new TrainingCenterLibDbContext())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var instructor = context.Instructors.Find(instructorId);
+                        if (instructor == null)
+                        {
+                            IsValid = false;
+                            throw new KeyNotFoundException("Instructor not found.");
+                        }
+
+                        instructor.IsDeleted = true;
+                        context.SaveChanges();
+                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteInstructor, _UserId, MasterEntity.Instructor, "Instructor Deleted");
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        IsValid=false;
+                        transaction.Rollback();
+                        
+
+
+                    }
+                    
                 }
             }
         }
@@ -175,6 +216,26 @@ namespace TrainingCenterLib.Repository.Services
                     throw new Exception(ex.Message);
                 }
             }
+        }
+
+        public bool IsAttachedToAnother(int id)
+        {
+            using (var context = new TrainingCenterLibDbContext())
+            {
+                try
+                {
+                    var availableCourse = context.AvailableCourses.Find(id);
+
+                    bool isReferenced = context.AvailableCourses.Any(x => x.InstructorAvailabilityID == id);
+
+                    return availableCourse != null && isReferenced;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            return false;
         }
     }
 }

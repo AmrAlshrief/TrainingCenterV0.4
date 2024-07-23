@@ -107,11 +107,6 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        Task<List<RunningCours>> IRunningCourseService.GetAllRunningCoursesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         Task<RunningCours> IRunningCourseService.GetRunningCourseByIdAsync(int id)
         {
             throw new NotImplementedException();
