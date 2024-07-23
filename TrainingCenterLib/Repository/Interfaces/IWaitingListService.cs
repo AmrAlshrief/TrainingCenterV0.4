@@ -7,7 +7,7 @@ using TrainingCenterLib.Entities;
 
 namespace TrainingCenterLib.Repository.Interfaces
 {
-    internal interface IWaitingListService
+    public interface IWaitingListService
     {
         Task<IEnumerable<WaitingList>> GetAllWaitingListsAsync();
         Task<WaitingList> GetWaitingListByIdAsync(int id);

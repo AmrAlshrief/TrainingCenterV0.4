@@ -11,8 +11,8 @@ namespace TrainingCenterLib.Repository.Interfaces
     {
         Task<List<Room>> GetAllRoomsAsync();
         Task<Room> GetRoomByIdAsync(int id);
-        Task CreateRoomAsync(Room room, int UserId);
-        Task UpdateRoomAsync(Room room, int UserId);
-        Task DeleteRoomAsync(int id, int UserId);
+        Task CreateRoomAsync(Room room);
+        Task UpdateRoomAsync(Room room);
+        Task DeleteRoomAsync(int id);
     }
 }

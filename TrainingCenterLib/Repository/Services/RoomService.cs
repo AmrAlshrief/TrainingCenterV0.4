@@ -11,6 +11,11 @@ namespace TrainingCenterLib.Repository.Services
 {
     public class RoomService : IRoomService
     {
+        private readonly int _UserId;
+        public RoomService(int userId) 
+        {
+            _UserId = userId;
+        }    
 
         public async Task<List<Room>> GetAllRoomsAsync()
         {
@@ -32,7 +37,7 @@ namespace TrainingCenterLib.Repository.Services
             throw new NotImplementedException();
         }
 
-        public async Task CreateRoomAsync(Room room, int UserId)
+        public async Task CreateRoomAsync(Room room)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -43,7 +48,7 @@ namespace TrainingCenterLib.Repository.Services
 
                         context.Rooms.Add(room);
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Add, Action.AddRoom, UserId, MasterEntity.Room, "Room Added");
+                        UserInfo.CreateAudit(ActionType.Add, Action.AddRoom, _UserId, MasterEntity.Room, "Room Added");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -55,7 +60,7 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        public async Task UpdateRoomAsync(Room room, int UserId)
+        public async Task UpdateRoomAsync(Room room)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -65,7 +70,7 @@ namespace TrainingCenterLib.Repository.Services
                     {
                         context.Entry(room).State = EntityState.Modified;
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateRoom, UserId, MasterEntity.Room, "Room Info Updated");
+                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateRoom, _UserId, MasterEntity.Room, "Room Info Updated");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -78,7 +83,7 @@ namespace TrainingCenterLib.Repository.Services
         }
         
 
-        public async Task DeleteRoomAsync(int id, int UserId)
+        public async Task DeleteRoomAsync(int id)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -94,7 +99,7 @@ namespace TrainingCenterLib.Repository.Services
                         context.Rooms.Remove(Room);
 
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteRoom, UserId, MasterEntity.Room, "Room Deleted");
+                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteRoom, _UserId, MasterEntity.Room, "Room Deleted");
                         transaction.Commit();
                     }
                     catch (Exception ex)

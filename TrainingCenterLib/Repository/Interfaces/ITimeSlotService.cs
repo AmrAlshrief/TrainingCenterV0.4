@@ -7,11 +7,11 @@ using TrainingCenterLib.Entities;
 
 namespace TrainingCenterLib.Repository.Interfaces
 {
-    internal interface ITimeSlotService
+    public interface ITimeSlotService
     {
         Task<IEnumerable<TimeSlot>> GetAllAsync();
-        Task AddTimeAsync(TimeSlot timeSlot, int UserId);
-        Task UpdateTimeAsync(TimeSlot timeSlot, int UserId);
-        Task DeleteTimeAsync(int timeId, int UserId);
+        Task AddTimeAsync(TimeSlot timeSlot);
+        Task UpdateTimeAsync(TimeSlot timeSlot);
+        Task DeleteTimeAsync(int timeId);
     }
 }

@@ -8,18 +8,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrainingCenterLib.Entities;
+using WebMatrix.WebData;
+using TrainingCenterLib.Repository.Services;
+using TrainingCenterLib.Repository.Interfaces;
 
 namespace TrainingCenterUI.Controllers
 {
     public class InstructorAvailabilitiesController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly int _UserId;
+        private  IInstructorAvailabilityService _instructorAvailabilityService;
+        public InstructorAvailabilitiesController() 
+        {
+            _UserId = WebSecurity.CurrentUserId;
+            _instructorAvailabilityService = new InstructorAvailabilityService(_UserId);
+        }
 
         // GET: InstructorAvailabilities
         public async Task<ActionResult> Index()
         {
-            var instructorAvailabilities = db.InstructorAvailabilities.Include(i => i.Instructor).Include(i => i.TimeSlot);
-            return View(await instructorAvailabilities.ToListAsync());
+            //var instructorAvailabilities = db.InstructorAvailabilities.Include(i => i.Instructor).Include(i => i.TimeSlot);
+            return View(await _instructorAvailabilityService.GetAllInstructorAvailabilitiesAsync());
         }
 
         // GET: InstructorAvailabilities/Details/5
@@ -52,8 +62,9 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.InstructorAvailabilities.Add(instructorAvailability);
-                await db.SaveChangesAsync();
+                //db.InstructorAvailabilities.Add(instructorAvailability);
+                //await db.SaveChangesAsync();
+                await _instructorAvailabilityService.CreateInstructorAvailabilityAsync(instructorAvailability);
                 return RedirectToAction("Index");
             }
 
@@ -88,8 +99,9 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(instructorAvailability).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                //db.Entry(instructorAvailability).State = EntityState.Modified;
+                //await db.SaveChangesAsync();
+                await _instructorAvailabilityService.UpdateInstructorAvailabilityAsync(instructorAvailability);
                 return RedirectToAction("Index");
             }
             ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "FirstName", instructorAvailability.InstructorID);
@@ -117,9 +129,10 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            InstructorAvailability instructorAvailability = await db.InstructorAvailabilities.FindAsync(id);
-            db.InstructorAvailabilities.Remove(instructorAvailability);
-            await db.SaveChangesAsync();
+            //InstructorAvailability instructorAvailability = await db.InstructorAvailabilities.FindAsync(id);
+            //db.InstructorAvailabilities.Remove(instructorAvailability);
+            //await db.SaveChangesAsync();
+            await _instructorAvailabilityService.DeleteInstructorAvailabilityAsync(id);
             return RedirectToAction("Index");
         }
 

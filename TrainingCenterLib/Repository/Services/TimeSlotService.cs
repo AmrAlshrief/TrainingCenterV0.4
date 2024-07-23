@@ -11,7 +11,12 @@ namespace TrainingCenterLib.Repository.Services
 {
     public class TimeSlotService : ITimeSlotService
     {
+        private readonly int _UserId;
 
+        public TimeSlotService(int userId) 
+        {
+            _UserId = userId;
+        }
         public async Task<IEnumerable<TimeSlot>> GetAllAsync()
         {
             using (var context = new TrainingCenterLibDbContext())
@@ -27,7 +32,7 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        public async Task AddTimeAsync(TimeSlot timeSlot, int UserId)
+        public async Task AddTimeAsync(TimeSlot timeSlot)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -38,7 +43,7 @@ namespace TrainingCenterLib.Repository.Services
 
                         context.TimeSlots.Add(timeSlot);
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Add, Action.AddTime, UserId, MasterEntity.TimeSlot, "Time Slot  Added");
+                        UserInfo.CreateAudit(ActionType.Add, Action.AddTime, _UserId, MasterEntity.TimeSlot, "Time Slot  Added");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -50,7 +55,7 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        public async Task DeleteTimeAsync(int timeId, int UserId)
+        public async Task DeleteTimeAsync(int timeId)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -66,7 +71,7 @@ namespace TrainingCenterLib.Repository.Services
 
                         context.TimeSlots.Remove(TimeSlot);
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteTime, UserId, MasterEntity.TimeSlot, "Time Slot Deleted");
+                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteTime, _UserId, MasterEntity.TimeSlot, "Time Slot Deleted");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -78,7 +83,7 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
-        public async Task UpdateTimeAsync(TimeSlot timeSlot, int UserId)
+        public async Task UpdateTimeAsync(TimeSlot timeSlot)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -88,7 +93,7 @@ namespace TrainingCenterLib.Repository.Services
                     {
                         context.Entry(timeSlot).State = EntityState.Modified;
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateTime, UserId, MasterEntity.TimeSlot, "Time Slot  Info Updated");
+                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateTime, _UserId, MasterEntity.TimeSlot, "Time Slot  Info Updated");
                         transaction.Commit();
                     }
                     catch (Exception ex)

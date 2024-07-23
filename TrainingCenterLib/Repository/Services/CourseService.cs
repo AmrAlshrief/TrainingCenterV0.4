@@ -23,7 +23,7 @@ namespace TrainingCenterLib.Repository.Services
                     var courses = context.Courses.Include(c => c.Courses1);
 
                     return await courses
-                        .Where(i => !i.IsDeleted)
+                        .Where(i => !i.IsDeleted && i.CourseName != "N/A" && i.IsProgramming)
                         .ToListAsync();
                 }
 
@@ -44,7 +44,7 @@ namespace TrainingCenterLib.Repository.Services
                 {
                     var courses = context.Courses.Include(c => c.Courses1);
                     return await courses
-                        .Where(i => !i.IsDeleted && !i.IsProgramming)
+                        .Where(i => !i.IsDeleted && !i.IsProgramming && i.CourseName != "N/A")
                         .ToListAsync();
                 }
               

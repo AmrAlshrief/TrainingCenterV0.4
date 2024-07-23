@@ -10,23 +10,26 @@ using System.Web.Mvc;
 using TrainingCenterLib.Entities;
 using TrainingCenterLib.Repository.Services;
 using System.Security.Cryptography.X509Certificates;
+using TrainingCenterLib.Repository.Interfaces;
 
 namespace TrainingCenterUI.Controllers
 {
     public class TimeSlotsController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
-        private readonly TimeSlotService _timeSlotService;
+        private readonly int _UserId;
+        private readonly ITimeSlotService _timeSlotService;
 
         public TimeSlotsController() 
         {
-            _timeSlotService = new TimeSlotService();
+            _timeSlotService = new TimeSlotService(_UserId);
         }
 
         // GET: TimeSlots
         public async Task<ActionResult> Index()
         {
-            return View(await db.TimeSlots.ToListAsync());
+
+            return View(await _timeSlotService.GetAllAsync());
         }
 
         // GET: TimeSlots/Details/5
@@ -58,8 +61,9 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.TimeSlots.Add(timeSlot);
-                await db.SaveChangesAsync();
+                //db.TimeSlots.Add(timeSlot);
+                //await db.SaveChangesAsync();
+                await _timeSlotService.AddTimeAsync(timeSlot);
                 return RedirectToAction("Index");
             }
 
@@ -88,8 +92,9 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(timeSlot).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                //db.Entry(timeSlot).State = EntityState.Modified;
+                //await db.SaveChangesAsync();
+                await _timeSlotService.UpdateTimeAsync(timeSlot);
                 return RedirectToAction("Index");
             }
             return View(timeSlot);
@@ -115,9 +120,10 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            TimeSlot timeSlot = await db.TimeSlots.FindAsync(id);
-            db.TimeSlots.Remove(timeSlot);
-            await db.SaveChangesAsync();
+            //TimeSlot timeSlot = await db.TimeSlots.FindAsync(id);
+            //db.TimeSlots.Remove(timeSlot);
+            //await db.SaveChangesAsync();
+            await _timeSlotService.DeleteTimeAsync(id);
             return RedirectToAction("Index");
         }
 

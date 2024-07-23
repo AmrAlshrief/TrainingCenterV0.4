@@ -10,6 +10,12 @@ namespace TrainingCenterLib.Repository.Interfaces
 {
     public class AvailableCourseService : IAvailableCourseService
     {
+        private readonly int _UserId;
+
+        public AvailableCourseService(int userId) 
+        {
+            _UserId = userId;
+        }
         public async Task<IEnumerable<AvailableCours>> GetAllAvailableCoursesAsync()
         {
             try
@@ -36,7 +42,7 @@ namespace TrainingCenterLib.Repository.Interfaces
         }
 
 
-        public async Task CreateAvailableCourseAsync(AvailableCours availableCours, int UserId)
+        public async Task CreateAvailableCourseAsync(AvailableCours availableCours)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -48,7 +54,7 @@ namespace TrainingCenterLib.Repository.Interfaces
                         //availableCours.CreatedAt = DateTime.Now;
                         context.AvailableCourses.Add(availableCours);
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Add, Action.AddAvailableCourse, UserId, MasterEntity.AvailableCourse, "Available Course Added");
+                        UserInfo.CreateAudit(ActionType.Add, Action.AddAvailableCourse, _UserId, MasterEntity.AvailableCourse, "Available Course Added");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -60,7 +66,7 @@ namespace TrainingCenterLib.Repository.Interfaces
             }
         }
 
-        public async Task UpdateAvailableCourseAsync(AvailableCours availableCours, int UserId)
+        public async Task UpdateAvailableCourseAsync(AvailableCours availableCours)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -70,7 +76,7 @@ namespace TrainingCenterLib.Repository.Interfaces
                     {
                         context.Entry(availableCours).State = EntityState.Modified;
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateAvailableCourse, UserId, MasterEntity.AvailableCourse, "Available Course Info Updated");
+                        UserInfo.CreateAudit(ActionType.Update, Action.UpdateAvailableCourse, _UserId, MasterEntity.AvailableCourse, "Available Course Info Updated");
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -82,7 +88,7 @@ namespace TrainingCenterLib.Repository.Interfaces
             }
         }
 
-        public async Task DeleteAvailableCourseAsync(int id, int UserId)
+        public async Task DeleteAvailableCourseAsync(int id)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
@@ -97,7 +103,7 @@ namespace TrainingCenterLib.Repository.Interfaces
                         }
 
                         await context.SaveChangesAsync();
-                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteAvailableCourse, UserId, MasterEntity.AvailableCourse, "Available Course Deleted");
+                        UserInfo.CreateAudit(ActionType.Delete, Action.DeleteAvailableCourse, _UserId, MasterEntity.AvailableCourse, "Available Course Deleted");
                         transaction.Commit();
                     }
                     catch (Exception ex)

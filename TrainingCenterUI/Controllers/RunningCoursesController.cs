@@ -8,18 +8,30 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrainingCenterLib.Entities;
+using TrainingCenterLib.Repository.Interfaces;
+using WebMatrix.WebData;
+using TrainingCenterLib.Repository.Services;
 
 namespace TrainingCenterUI.Controllers
 {
     public class RunningCoursesController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly int _UserId;
+        private readonly IRunningCourseService _runningCourseService;
+
+        public RunningCoursesController() 
+        {
+            _UserId = WebSecurity.CurrentUserId;
+            _runningCourseService = new RunningCourseService(_UserId);
+        }
+
 
         // GET: RunningCourses
         public async Task<ActionResult> Index()
         {
-            var runningCourses = db.RunningCourses.Include(r => r.Room).Include(r => r.WaitingList);
-            return View(await runningCourses.ToListAsync());
+            //var runningCourses = db.RunningCourses.Include(r => r.Room).Include(r => r.WaitingList);
+            return View(await _runningCourseService.GetAllRunningCoursesAsync());
         }
 
         // GET: RunningCourses/Details/5
@@ -47,16 +59,15 @@ namespace TrainingCenterUI.Controllers
         }
 
         // POST: RunningCourses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "RunningCourseID,WaitingListID,StartAt,EndAt,RoomID,CreatedAt,UserID")] RunningCours runningCourse)
         {
             if (ModelState.IsValid)
             {
-                db.RunningCourses.Add(runningCourse);
-                await db.SaveChangesAsync();
+                //db.RunningCourses.Add(runningCourse);
+                //await db.SaveChangesAsync();
+                await _runningCourseService.CreateRunningCourseAsync(runningCourse);
                 return RedirectToAction("Index");
             }
 
@@ -83,16 +94,15 @@ namespace TrainingCenterUI.Controllers
         }
 
         // POST: RunningCourses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "RunningCourseID,WaitingListID,StartAt,EndAt,RoomID,CreatedAt,UserID")] RunningCours runningCours)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(runningCours).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                //db.Entry(runningCours).State = EntityState.Modified;
+                //await db.SaveChangesAsync();
+                await _runningCourseService.UpdateRunningCourseAsync(runningCours);
                 return RedirectToAction("Index");
             }
             ViewBag.RoomID = new SelectList(db.Rooms, "RoomID", "Name", runningCours.RoomID);
@@ -120,9 +130,10 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            RunningCours runningCours = await db.RunningCourses.FindAsync(id);
-            db.RunningCourses.Remove(runningCours);
-            await db.SaveChangesAsync();
+            //RunningCours runningCours = await db.RunningCourses.FindAsync(id);
+            //db.RunningCourses.Remove(runningCours);
+            //await db.SaveChangesAsync();
+            await _runningCourseService.DeleteRunningCourseAsync(id);
             return RedirectToAction("Index");
         }
 

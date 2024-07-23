@@ -8,12 +8,23 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrainingCenterLib.Entities;
+using TrainingCenterLib.Repository.Services;
+using TrainingCenterLib.Repository.Interfaces;
+using WebMatrix.WebData;
 
 namespace TrainingCenterUI.Controllers
 {
     public class RoomsController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly int _UserId;
+        private readonly IRoomService _roomService;
+
+        public RoomsController() 
+        {
+            _UserId = WebSecurity.CurrentUserId;
+            _roomService = new RoomService(_UserId);
+        }
 
         // GET: Rooms
         public async Task<ActionResult> Index()
@@ -43,17 +54,17 @@ namespace TrainingCenterUI.Controllers
             return View(room);
         }
 
-        // POST: Rooms/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Name,IsProgramming")] Room room)
         {
             if (ModelState.IsValid)
             {
-                db.Rooms.Add(room);
-                await db.SaveChangesAsync();
+                //db.Rooms.Add(room);
+                //await db.SaveChangesAsync();
+                await _roomService.CreateRoomAsync(room);
                 return RedirectToAction("Index");
             }
 
@@ -76,16 +87,15 @@ namespace TrainingCenterUI.Controllers
         }
 
         // POST: Rooms/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "RoomID,Name,IsProgramming")] Room room)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(room).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                //db.Entry(room).State = EntityState.Modified;
+                //await db.SaveChangesAsync();
+                await _roomService.UpdateRoomAsync(room);
                 return RedirectToAction("Index");
             }
             return View(room);
@@ -111,9 +121,10 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Room room = await db.Rooms.FindAsync(id);
-            db.Rooms.Remove(room);
-            await db.SaveChangesAsync();
+            //Room room = await db.Rooms.FindAsync(id);
+            //db.Rooms.Remove(room);
+            //await db.SaveChangesAsync();
+            await _roomService.DeleteRoomAsync(id);
             return RedirectToAction("Index");
         }
 

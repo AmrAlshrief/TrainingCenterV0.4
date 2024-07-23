@@ -7,7 +7,7 @@ using TrainingCenterLib.Entities;
 
 namespace TrainingCenterLib.Repository.Interfaces
 {
-    internal interface IInstructorAvailabilityService
+    public interface IInstructorAvailabilityService
     {
         Task<IEnumerable<InstructorAvailability>> GetAllInstructorAvailabilitiesAsync();
         Task<InstructorAvailability> GetInstructorAvailabilityByIdAsync(int id);

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using TrainingCenterLib.Entities;
 using Antlr.Runtime;
 using TrainingCenterLib.Repository.Services;
+using WebMatrix.WebData;
 
 namespace TrainingCenterUI.Controllers
 {
@@ -21,22 +22,24 @@ namespace TrainingCenterUI.Controllers
 
         public CourseController() 
         {
+            _UserId = WebSecurity.CurrentUserId;
             _CourseService = new CourseService();
+
         }
 
         // GET: Course
         public async Task<ActionResult> Index()
         {
 
-            var courses = db.Courses.Include(c => c.Courses1).Where(c=> c.CourseName != "N/A" && c.IsProgramming);
-            return View(await courses.ToListAsync());
+            //var courses = db.Courses.Include(c => c.Courses1).Where(c=> c.CourseName != "N/A" && c.IsProgramming);
+            return View(await _CourseService.GetAllProgCoursesAsync());
         }
 
         public async Task<ActionResult> IndexForLanguage()
         {
 
-            var courses = db.Courses.Include(c => c.Courses1).Where(c => c.CourseName != "N/A" &&  c.IsProgramming == false);
-            return View(await courses.ToListAsync());
+            //var courses = db.Courses.Include(c => c.Courses1).Where(c => c.CourseName != "N/A" &&  c.IsProgramming == false);
+            return View(await _CourseService.GetAllLanguageCoursesAsync());
         }
 
         // GET: Course/Details/5

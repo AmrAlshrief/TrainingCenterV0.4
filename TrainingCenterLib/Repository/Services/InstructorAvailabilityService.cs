@@ -24,7 +24,8 @@ namespace TrainingCenterLib.Repository.Services
             {
                 try
                 {
-                    return await context.InstructorAvailabilities.ToListAsync();
+                    var instructorAvailabilities = context.InstructorAvailabilities.Include(i => i.Instructor).Include(i => i.TimeSlot);
+                    return await instructorAvailabilities.ToListAsync();
                 }
                 catch (Exception ex)
                 {

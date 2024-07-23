@@ -8,12 +8,23 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrainingCenterLib.Entities;
+using TrainingCenterLib.Repository.Interfaces;
+using TrainingCenterLib.Repository.Services;
+using WebMatrix.WebData;
 
 namespace TrainingCenterUI.Controllers
 {
     public class AvailableCoursesController : Controller
     {
         private TrainingCenterLibDbContext db = new TrainingCenterLibDbContext();
+        private readonly AvailableCourseService _availableCourseService;
+        private readonly int _UserId;
+
+        public AvailableCoursesController()
+        {
+            _UserId = WebSecurity.CurrentUserId;
+            _availableCourseService = new AvailableCourseService(_UserId);
+        }
 
         // GET: AvailableCourses
         public async Task<ActionResult> Index()
@@ -54,8 +65,9 @@ namespace TrainingCenterUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AvailableCourses.Add(availableCours);
-                await db.SaveChangesAsync();
+                //db.AvailableCourses.Add(availableCours);
+                //await db.SaveChangesAsync();
+                await _availableCourseService.CreateAvailableCourseAsync(availableCours);
                 return RedirectToAction("Index");
             }
 
