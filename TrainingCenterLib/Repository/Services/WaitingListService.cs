@@ -120,6 +120,7 @@ namespace TrainingCenterLib.Repository.Services
                 {
                     var courses = from ac in context.AvailableCourses
                                   join c in context.Courses on ac.CourseID equals c.CourseID
+                                  where c.IsDeleted == false
                                   select new CourseDto
                                   {
                                       AvailableCourseID = ac.AvailableCourseID,

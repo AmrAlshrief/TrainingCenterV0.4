@@ -47,10 +47,11 @@ namespace TrainingCenterUI.Controllers
             return View(timeSlot);
         }
 
-        // GET: TimeSlots/Create
+        // GET: TimeSlots/Create 
         public ActionResult Create()
         {
-            return View();
+            TimeSlot timeSlot = new TimeSlot();
+            return View(timeSlot);
         }
 
         // POST: TimeSlots/Create

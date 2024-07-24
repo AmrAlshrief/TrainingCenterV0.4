@@ -25,11 +25,11 @@ namespace TrainingCenterLib.Entities
         public int TimeSlotID { get; set; }
 
         [Display(Name = "Start Time")]
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         public System.TimeSpan StartTime { get; set; }
 
         [Display(Name = "End Time")]
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         public System.TimeSpan EndTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

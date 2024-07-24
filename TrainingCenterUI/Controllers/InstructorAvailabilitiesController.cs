@@ -49,7 +49,8 @@ namespace TrainingCenterUI.Controllers
         // GET: InstructorAvailabilities/Create
         public ActionResult Create()
         {
-            ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "FirstName");
+            var activeInstructors = db.Instructors.Where(i => i.IsDeleted == false).ToList();
+            ViewBag.InstructorID = new SelectList(activeInstructors, "InstructorID", "FirstName");
             ViewBag.timeSlotID = new SelectList(db.TimeSlots, "TimeSlotID", "TimeSlotID");
             InstructorAvailability instructorAvailability = new InstructorAvailability();
             return View(instructorAvailability);
@@ -68,7 +69,8 @@ namespace TrainingCenterUI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "FirstName", instructorAvailability.InstructorID);
+            var activeInstructors = db.Instructors.Where(i => i.IsDeleted == false).ToList();
+            ViewBag.InstructorID = new SelectList(activeInstructors, "InstructorID", "FirstName", instructorAvailability.InstructorID);
             ViewBag.timeSlotID = new SelectList(db.TimeSlots, "TimeSlotID", "TimeSlotID", instructorAvailability.timeSlotID);
             return View(instructorAvailability);
         }
@@ -85,14 +87,13 @@ namespace TrainingCenterUI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "FirstName", instructorAvailability.InstructorID);
+            var activeInstructors = db.Instructors.Where(i => i.IsDeleted == false).ToList();
+            ViewBag.InstructorID = new SelectList(activeInstructors, "InstructorID", "FirstName", instructorAvailability.InstructorID);
             ViewBag.timeSlotID = new SelectList(db.TimeSlots, "TimeSlotID", "TimeSlotID", instructorAvailability.timeSlotID);
             return View(instructorAvailability);
         }
 
         // POST: InstructorAvailabilities/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "InstructorAvailabilityID,InstructorID,timeSlotID,IsGroupDays1")] InstructorAvailability instructorAvailability)
@@ -104,7 +105,8 @@ namespace TrainingCenterUI.Controllers
                 await _instructorAvailabilityService.UpdateInstructorAvailabilityAsync(instructorAvailability);
                 return RedirectToAction("Index");
             }
-            ViewBag.InstructorID = new SelectList(db.Instructors, "InstructorID", "FirstName", instructorAvailability.InstructorID);
+            var activeInstructors = db.Instructors.Where(i => i.IsDeleted == false).ToList();
+            ViewBag.InstructorID = new SelectList(activeInstructors, "InstructorID", "FirstName", instructorAvailability.InstructorID);
             ViewBag.timeSlotID = new SelectList(db.TimeSlots, "TimeSlotID", "TimeSlotID", instructorAvailability.timeSlotID);
             return View(instructorAvailability);
         }

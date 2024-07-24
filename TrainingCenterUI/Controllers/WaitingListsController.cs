@@ -53,7 +53,7 @@ namespace TrainingCenterUI.Controllers
         {
             var courses = _waitingListService.GetCourseName();
             ViewBag.AvailableCourseID = new SelectList(courses, "AvailableCourseID", "CourseName");
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName");
+            ViewBag.StudentID = new SelectList(db.Students.Where(i => !i.IsDeleted), "StudentID", "FirstName");
             WaitingList waitingList = new WaitingList();
             return View(waitingList);
         }

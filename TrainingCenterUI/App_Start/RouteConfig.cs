@@ -11,6 +11,7 @@ namespace TrainingCenterUI
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            //RouteDebug.RouteDebugger.RewriteRoutesForTesting(RouteTable.Routes);
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
