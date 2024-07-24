@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\vs\IceAlexFinalProject\TrainingCenterV0.4\TrainingCenterUI\Entities\TrainingCenterUIModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Programming\CS course\TrainingCenterV0.4-Amr2\TrainingCenterV0.4\TrainingCenterUI\Entities\TrainingCenterUIModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

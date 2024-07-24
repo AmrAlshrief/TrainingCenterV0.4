@@ -21,7 +21,17 @@ namespace TrainingCenterLib.Entities
         }
     
         public int TimeSlotID { get; set; }
+<<<<<<< Updated upstream
         public System.TimeSpan StartTime { get; set; }
+=======
+
+        [Display(Name = "Start Time")]
+        //[DataType(DataType.Date)]
+        public System.TimeSpan StartTime { get; set; }
+
+        [Display(Name = "End Time")]
+        //[DataType(DataType.Date)]
+>>>>>>> Stashed changes
         public System.TimeSpan EndTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

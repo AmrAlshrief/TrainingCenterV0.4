@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TrainingCenterLib.Entities.Cours>
+
+@{
+    ViewBag.Title = "IndexForLanguage";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<h2>Language Courses</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Course")" class="btn btn-primary">Create New</a>
+
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+
+<table class="table table-hover">
+    <tr class="table-dark">
+        <th>
+            @Html.DisplayNameFor(model => model.CourseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.CourseName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseName)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", new { id = item.CourseID })" class="btn btn-primary">Edit</a>
+            <a href="@Url.Action("Details", new { id = item.CourseID })" class="btn btn-info">Details</a>
+            <a href="@Url.Action("Delete", new { id = item.CourseID })" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>

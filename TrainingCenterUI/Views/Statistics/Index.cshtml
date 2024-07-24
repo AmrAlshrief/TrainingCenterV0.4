@@ -1,0 +1,53 @@
+﻿@model TrainingCenterLib.Entities.StatisticViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<h2>Statistics</h2>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="four col-md-3">
+            <div class="counter-box">
+                <i class="fa fa-thumbs-o-up"></i>
+                <span class="counter">@Model.NumberOfStudents</span>
+                <p>Number of Students</p>
+            </div>
+        </div>
+        <div class="four col-md-3">
+            <div class="counter-box">
+                <i class="fa fa-group"></i>
+                <span class="counter">@Model.NumberOfCourses</span>
+                <p>Number of Courses</p>
+            </div>
+        </div>
+        <div class="four col-md-3">
+            <div class="counter-box">
+                <i class="fa  fa-shopping-cart"></i>
+                <span class="counter">@Model.NumberOfInstructors</span>
+                <p>Number of Instructors</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('.counter').each(function () {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 2500,
+                easing: 'swing',
+                step: function (now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
+        });
+
+    });  
+</script>
