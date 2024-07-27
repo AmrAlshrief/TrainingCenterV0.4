@@ -17,14 +17,15 @@ namespace TrainingCenterLib.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Room()
         {
-            this.RunningCourses = new HashSet<RunningCours>();
+            this.ActiveCourseByGroups = new HashSet<ActiveCourseByGroup>();
         }
     
         public int RoomID { get; set; }
         public string Name { get; set; }
         public bool IsProgramming { get; set; }
+        public Nullable<bool> IsAvailable { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RunningCours> RunningCourses { get; set; }
+        public virtual ICollection<ActiveCourseByGroup> ActiveCourseByGroups { get; set; }
     }
 }

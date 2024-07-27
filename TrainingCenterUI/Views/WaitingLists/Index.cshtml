@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/Layout2.cshtml";
+    var groupCounts = ViewBag.GroupCounts as Dictionary<int, int>;
+
 }
 
 <h2>Index</h2>
@@ -30,29 +32,50 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsPaid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsCash)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AvailableCours.AvailableCourseID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Student.FirstName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.WaitingListID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.WaitingListID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.WaitingListID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCash)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvailableCours.AvailableCourseID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.FirstName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.WaitingListID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.WaitingListID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.WaitingListID })
+                <button type="button" class="btn btn-primary" onclick="getAvailableCourse(@item.WaitingListID)">Get Available Course</button>
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section Scripts {
+    <script type="text/javascript">
+        function getAvailableCourse(waitingListID) {
+            $.ajax({
+                url: '@Url.Action("GetAvailableCourse", "WaitingList")',
+                type: 'POST',
+                data: { waitingListID: waitingListID },
+                success: function (data) {
+                    // Handle the response (data)
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        }
+    </script>
+}

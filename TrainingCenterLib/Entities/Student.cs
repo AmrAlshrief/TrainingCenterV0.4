@@ -11,49 +11,21 @@ namespace TrainingCenterLib.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using TrainingCenterLib.Repository;
-    using TrainingCenterLib.Repository.CustomValidate;
-
+    
     public partial class Student
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Student()
         {
             this.WaitingLists = new HashSet<WaitingList>();
-            this.CreatedAt = DateTime.Now;
         }
     
         public int StudentID { get; set; }
-
-        [Required(ErrorMessage = "First Name is required.")]
-        [StringLength(50)]
-        [Display(Name = "First Name")]
         public string FirstName { get; set; }
-
-        [StringLength(50)]
-        [Display(Name = "Second Name")]
         public string SecondName { get; set; }
-
-        [Required(ErrorMessage = "Last Name is required.")]
-        [StringLength(50)]
-        [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
-        [Required(ErrorMessage = "Email is required.")]
-        [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = "Invalid Email Address.")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Phone number is required.")]
-        [DataType(DataType.PhoneNumber)]
-        [Phone(ErrorMessage = "Invalid Phone Number.")]
         public string Phone { get; set; }
-
-        [Required(ErrorMessage = "Birthdate is required.")]
-        [DataType(DataType.Date)]
-        [Display(Name = "Birth Date")]
-        [CustomBirthDateValidation(ErrorMessage = "You must be at least 16 years old.")]
         public System.DateTime BirthDate { get; set; }
         public bool IsDeleted { get; set; }
         public System.DateTime CreatedAt { get; set; }

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<TrainingCenterLib.Entities.WaitingList>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<h2>WaitingList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPaid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCash)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvailableCours.AvailableCourseID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Student.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActiveCourseByGroup.ActiveCourseID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GroupName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCash)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvailableCours.Cours.CourseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.FirstName)
+        </td>
+        <td>
+            @if (item.ActiveCourseID == null)
+            {
+                @:No Active Course
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.ActiveCourseByGroup.ActiveCourseID)
+
+            }
+        </td>
+    <td>
+        
+        <a href="@Url.Action( "Edit", new { id = item.WaitingListID })" class="btn btn-primary" style="border-radius:10px"><i class="fa-solid fa-pen-to-square"></i></a>
+        <a href="@Url.Action( "Details", new { id = item.WaitingListID })" class="btn btn-warning" style="border-radius:10px"><i class="fa-solid fa-circle-info"></i></a>
+        <a href="@Url.Action( "Delete", new { id = item.WaitingListID })" class="btn btn-danger" style="border-radius:10px"><i class="fa-solid fa-trash-can"></i></a>
+    </td>
+    </tr>
+}
+
+</table>

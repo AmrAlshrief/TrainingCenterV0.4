@@ -29,6 +29,14 @@ namespace TrainingCenterUI.Controllers
         // GET: AvailableCourses
         public async Task<ActionResult> Index()
         {
+            if (Session["login"] != null)
+            {
+                
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             var availableCourses = db.AvailableCourses.Include(a => a.Cours).Include(a => a.InstructorAvailability);
             return View(await availableCourses.ToListAsync());
         }
@@ -36,6 +44,14 @@ namespace TrainingCenterUI.Controllers
         // GET: AvailableCourses/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -51,7 +67,15 @@ namespace TrainingCenterUI.Controllers
         // GET: AvailableCourses/Create
         public ActionResult Create()
         {
-            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            ViewBag.CourseID = new SelectList(db.Courses.Where(i => !i.IsDeleted), "CourseID", "CourseName");
             ViewBag.InstructorAvailabilityID = new SelectList(db.InstructorAvailabilities, "InstructorAvailabilityID", "InstructorAvailabilityID");
             AvailableCours availableCourse = new AvailableCours();
             return View(availableCourse);
@@ -63,6 +87,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "AvailableCourseID,CourseID,InstructorAvailabilityID,StartAt")] AvailableCours availableCours)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 //db.AvailableCourses.Add(availableCours);
@@ -79,6 +111,14 @@ namespace TrainingCenterUI.Controllers
         // GET: AvailableCourses/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -99,6 +139,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "AvailableCourseID,CourseID,InstructorAvailabilityID,StartAt")] AvailableCours availableCours)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(availableCours).State = EntityState.Modified;
@@ -113,6 +161,14 @@ namespace TrainingCenterUI.Controllers
         // GET: AvailableCourses/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -130,6 +186,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             AvailableCours availableCours = await db.AvailableCourses.FindAsync(id);
             db.AvailableCourses.Remove(availableCours);
             await db.SaveChangesAsync();

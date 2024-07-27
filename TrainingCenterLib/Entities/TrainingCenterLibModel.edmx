@@ -21,6 +21,19 @@
           <Property Name="ActionTypeName" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="ActiveCourseByGroup">
+          <Key>
+            <PropertyRef Name="ActiveCourseID" />
+          </Key>
+          <Property Name="ActiveCourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AvailableCourseID" Type="int" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GroupDay" Type="bit" />
+          <Property Name="TimeSlotID" Type="int" />
+          <Property Name="StartAt" Type="datetime2" Precision="7" />
+          <Property Name="EndAt" Type="datetime2" Precision="7" />
+          <Property Name="RoomID" Type="int" />
+        </EntityType>
         <EntityType Name="AuditTrail">
           <Key>
             <PropertyRef Name="AuditTrailID" />
@@ -95,6 +108,7 @@
           <Property Name="RoomID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsProgramming" Type="bit" Nullable="false" />
+          <Property Name="IsAvailable" Type="bit" />
         </EntityType>
         <EntityType Name="RunningCourses">
           <Key>
@@ -102,11 +116,9 @@
           </Key>
           <Property Name="RunningCourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WaitingListID" Type="int" Nullable="false" />
-          <Property Name="StartAt" Type="date" />
-          <Property Name="EndAt" Type="date" />
-          <Property Name="RoomID" Type="int" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="AvailableCourseID" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Students">
           <Key>
@@ -151,6 +163,7 @@
           <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
           <Property Name="IsPaid" Type="bit" Nullable="false" />
           <Property Name="IsCash" Type="bit" Nullable="false" />
+          <Property Name="ActiveCourseID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TrainingCenter.dbo.AuditTrailView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -281,6 +294,30 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
           <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
           <Property Name="IsGroupDays1" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_ActiveCourseByGroup_AvailableCourses">
+          <End Role="AvailableCourses" Type="Self.AvailableCourses" Multiplicity="1" />
+          <End Role="ActiveCourseByGroup" Type="Self.ActiveCourseByGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvailableCourses">
+              <PropertyRef Name="AvailableCourseID" />
+            </Principal>
+            <Dependent Role="ActiveCourseByGroup">
+              <PropertyRef Name="AvailableCourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActiveCourseByGroup_Rooms">
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+          <End Role="ActiveCourseByGroup" Type="Self.ActiveCourseByGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rooms">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="ActiveCourseByGroup">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AuditTrail_Action">
           <End Role="Action" Type="Self.Action" Multiplicity="1" />
           <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
@@ -377,27 +414,15 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RunningCourses_Rooms">
-          <End Role="Rooms" Type="Self.Rooms" Multiplicity="1" />
-          <End Role="RunningCourses" Type="Self.RunningCourses" Multiplicity="*" />
+        <Association Name="FK_WaitingList_ActiveCourseByGroup">
+          <End Role="ActiveCourseByGroup" Type="Self.ActiveCourseByGroup" Multiplicity="0..1" />
+          <End Role="WaitingList" Type="Self.WaitingList" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Rooms">
-              <PropertyRef Name="RoomID" />
+            <Principal Role="ActiveCourseByGroup">
+              <PropertyRef Name="ActiveCourseID" />
             </Principal>
-            <Dependent Role="RunningCourses">
-              <PropertyRef Name="RoomID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RunningCourses_WaitingList">
-          <End Role="WaitingList" Type="Self.WaitingList" Multiplicity="1" />
-          <End Role="RunningCourses" Type="Self.RunningCourses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WaitingList">
-              <PropertyRef Name="WaitingListID" />
-            </Principal>
-            <Dependent Role="RunningCourses">
-              <PropertyRef Name="WaitingListID" />
+            <Dependent Role="WaitingList">
+              <PropertyRef Name="ActiveCourseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -428,6 +453,7 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
         <EntityContainer Name="TrainingCenterModelStoreContainer">
           <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActionType" EntityType="Self.ActionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActiveCourseByGroup" EntityType="Self.ActiveCourseByGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuditTrail" EntityType="Self.AuditTrail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AvailableCourses" EntityType="Self.AvailableCourses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
@@ -514,6 +540,14 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
     [WaitingListView].[IsGroupDays1] AS [IsGroupDays1]
     FROM [dbo].[WaitingListView] AS [WaitingListView]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_ActiveCourseByGroup_AvailableCourses" Association="Self.FK_ActiveCourseByGroup_AvailableCourses">
+            <End Role="AvailableCourses" EntitySet="AvailableCourses" />
+            <End Role="ActiveCourseByGroup" EntitySet="ActiveCourseByGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActiveCourseByGroup_Rooms" Association="Self.FK_ActiveCourseByGroup_Rooms">
+            <End Role="Rooms" EntitySet="Rooms" />
+            <End Role="ActiveCourseByGroup" EntitySet="ActiveCourseByGroup" />
+          </AssociationSet>
           <AssociationSet Name="FK_AuditTrail_Action" Association="Self.FK_AuditTrail_Action">
             <End Role="Action" EntitySet="Action" />
             <End Role="AuditTrail" EntitySet="AuditTrail" />
@@ -546,13 +580,9 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
             <End Role="TimeSlots" EntitySet="TimeSlots" />
             <End Role="InstructorAvailability" EntitySet="InstructorAvailability" />
           </AssociationSet>
-          <AssociationSet Name="FK_RunningCourses_Rooms" Association="Self.FK_RunningCourses_Rooms">
-            <End Role="Rooms" EntitySet="Rooms" />
-            <End Role="RunningCourses" EntitySet="RunningCourses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RunningCourses_WaitingList" Association="Self.FK_RunningCourses_WaitingList">
+          <AssociationSet Name="FK_WaitingList_ActiveCourseByGroup" Association="Self.FK_WaitingList_ActiveCourseByGroup">
+            <End Role="ActiveCourseByGroup" EntitySet="ActiveCourseByGroup" />
             <End Role="WaitingList" EntitySet="WaitingList" />
-            <End Role="RunningCourses" EntitySet="RunningCourses" />
           </AssociationSet>
           <AssociationSet Name="FK_WaitingList_AvailableCourses" Association="Self.FK_WaitingList_AvailableCourses">
             <End Role="AvailableCourses" EntitySet="AvailableCourses" />
@@ -612,6 +642,7 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
           <NavigationProperty Name="Cours" Relationship="Self.FK_AvailableCourses_Courses" FromRole="AvailableCourses" ToRole="Courses" />
           <NavigationProperty Name="InstructorAvailability" Relationship="Self.FK_AvailableCourses_InstructorAvailability" FromRole="AvailableCourses" ToRole="InstructorAvailability" />
           <NavigationProperty Name="WaitingLists" Relationship="Self.FK_WaitingList_AvailableCourses" FromRole="AvailableCourses" ToRole="WaitingList" />
+          <NavigationProperty Name="ActiveCourseByGroups" Relationship="TrainingCenterModel.FK_ActiveCourseByGroup_AvailableCourses" FromRole="AvailableCours" ToRole="ActiveCourseByGroup" />
         </EntityType>
         <EntityType Name="Cours">
           <Key>
@@ -673,7 +704,8 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
           <Property Name="RoomID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsProgramming" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="RunningCourses" Relationship="Self.FK_RunningCourses_Rooms" FromRole="Rooms" ToRole="RunningCourses" />
+          <NavigationProperty Name="ActiveCourseByGroups" Relationship="TrainingCenterModel.FK_ActiveCourseByGroup_Rooms" FromRole="Room" ToRole="ActiveCourseByGroup" />
+          <Property Name="IsAvailable" Type="Boolean" />
         </EntityType>
         <EntityType Name="RunningCours">
           <Key>
@@ -681,13 +713,10 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
           </Key>
           <Property Name="RunningCourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="WaitingListID" Type="Int32" Nullable="false" />
-          <Property Name="StartAt" Type="DateTime" Precision="0" />
-          <Property Name="EndAt" Type="DateTime" Precision="0" />
-          <Property Name="RoomID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Room" Relationship="Self.FK_RunningCourses_Rooms" FromRole="RunningCourses" ToRole="Rooms" />
           <NavigationProperty Name="WaitingList" Relationship="Self.FK_RunningCourses_WaitingList" FromRole="RunningCourses" ToRole="WaitingList" />
+          <Property Name="AvailableCourseID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -737,6 +766,8 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
           <NavigationProperty Name="AvailableCours" Relationship="Self.FK_WaitingList_AvailableCourses" FromRole="WaitingList" ToRole="AvailableCourses" />
           <NavigationProperty Name="RunningCourses" Relationship="Self.FK_RunningCourses_WaitingList" FromRole="WaitingList" ToRole="RunningCourses" />
           <NavigationProperty Name="Student" Relationship="Self.FK_WaitingList_Students" FromRole="WaitingList" ToRole="Students" />
+          <Property Name="ActiveCourseID" Type="Int32" />
+          <NavigationProperty Name="ActiveCourseByGroup" Relationship="TrainingCenterModel.FK_WaitingList_ActiveCourseByGroup" FromRole="WaitingList" ToRole="ActiveCourseByGroup" />
         </EntityType>
         <EntityType Name="AuditTrailView">
           <Key>
@@ -967,18 +998,6 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RunningCourses_Rooms">
-          <End Role="Rooms" Type="Self.Room" Multiplicity="1" />
-          <End Role="RunningCourses" Type="Self.RunningCours" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rooms">
-              <PropertyRef Name="RoomID" />
-            </Principal>
-            <Dependent Role="RunningCourses">
-              <PropertyRef Name="RoomID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RunningCourses_WaitingList">
           <End Role="WaitingList" Type="Self.WaitingList" Multiplicity="1" />
           <End Role="RunningCourses" Type="Self.RunningCours" Multiplicity="*" />
@@ -1058,10 +1077,6 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
             <End Role="TimeSlots" EntitySet="TimeSlots" />
             <End Role="InstructorAvailability" EntitySet="InstructorAvailabilities" />
           </AssociationSet>
-          <AssociationSet Name="FK_RunningCourses_Rooms" Association="Self.FK_RunningCourses_Rooms">
-            <End Role="Rooms" EntitySet="Rooms" />
-            <End Role="RunningCourses" EntitySet="RunningCourses" />
-          </AssociationSet>
           <AssociationSet Name="FK_RunningCourses_WaitingList" Association="Self.FK_RunningCourses_WaitingList">
             <End Role="WaitingList" EntitySet="WaitingLists" />
             <End Role="RunningCourses" EntitySet="RunningCourses" />
@@ -1070,7 +1085,72 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
             <End Role="Students" EntitySet="Students" />
             <End Role="WaitingList" EntitySet="WaitingLists" />
           </AssociationSet>
+          <EntitySet Name="ActiveCourseByGroups" EntityType="TrainingCenterModel.ActiveCourseByGroup" />
+          <AssociationSet Name="FK_ActiveCourseByGroup_AvailableCourses" Association="TrainingCenterModel.FK_ActiveCourseByGroup_AvailableCourses">
+            <End Role="AvailableCours" EntitySet="AvailableCourses" />
+            <End Role="ActiveCourseByGroup" EntitySet="ActiveCourseByGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActiveCourseByGroup_Rooms" Association="TrainingCenterModel.FK_ActiveCourseByGroup_Rooms">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="ActiveCourseByGroup" EntitySet="ActiveCourseByGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaitingList_ActiveCourseByGroup" Association="TrainingCenterModel.FK_WaitingList_ActiveCourseByGroup">
+            <End Role="ActiveCourseByGroup" EntitySet="ActiveCourseByGroups" />
+            <End Role="WaitingList" EntitySet="WaitingLists" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ActiveCourseByGroup">
+          <Key>
+            <PropertyRef Name="ActiveCourseID" />
+          </Key>
+          <Property Name="ActiveCourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AvailableCourseID" Type="Int32" Nullable="false" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroupDay" Type="Boolean" />
+          <Property Name="StartAt" Type="DateTime" Precision="7" />
+          <Property Name="EndAt" Type="DateTime" Precision="7" />
+          <Property Name="RoomID" Type="Int32" />
+          <NavigationProperty Name="AvailableCours" Relationship="TrainingCenterModel.FK_ActiveCourseByGroup_AvailableCourses" FromRole="ActiveCourseByGroup" ToRole="AvailableCours" />
+          <NavigationProperty Name="Room" Relationship="TrainingCenterModel.FK_ActiveCourseByGroup_Rooms" FromRole="ActiveCourseByGroup" ToRole="Room" />
+          <NavigationProperty Name="WaitingLists" Relationship="TrainingCenterModel.FK_WaitingList_ActiveCourseByGroup" FromRole="ActiveCourseByGroup" ToRole="WaitingList" />
+          <Property Name="TimeSlotID" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_ActiveCourseByGroup_AvailableCourses">
+          <End Type="TrainingCenterModel.AvailableCours" Role="AvailableCours" Multiplicity="1" />
+          <End Type="TrainingCenterModel.ActiveCourseByGroup" Role="ActiveCourseByGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvailableCours">
+              <PropertyRef Name="AvailableCourseID" />
+            </Principal>
+            <Dependent Role="ActiveCourseByGroup">
+              <PropertyRef Name="AvailableCourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActiveCourseByGroup_Rooms">
+          <End Type="TrainingCenterModel.Room" Role="Room" Multiplicity="0..1" />
+          <End Type="TrainingCenterModel.ActiveCourseByGroup" Role="ActiveCourseByGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="RoomID" />
+            </Principal>
+            <Dependent Role="ActiveCourseByGroup">
+              <PropertyRef Name="RoomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaitingList_ActiveCourseByGroup">
+          <End Type="TrainingCenterModel.ActiveCourseByGroup" Role="ActiveCourseByGroup" Multiplicity="0..1" />
+          <End Type="TrainingCenterModel.WaitingList" Role="WaitingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActiveCourseByGroup">
+              <PropertyRef Name="ActiveCourseID" />
+            </Principal>
+            <Dependent Role="WaitingList">
+              <PropertyRef Name="ActiveCourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1171,6 +1251,7 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
           <EntitySetMapping Name="Rooms">
             <EntityTypeMapping TypeName="TrainingCenterModel.Room">
               <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
                 <ScalarProperty Name="RoomID" ColumnName="RoomID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsProgramming" ColumnName="IsProgramming" />
@@ -1180,11 +1261,9 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
           <EntitySetMapping Name="RunningCourses">
             <EntityTypeMapping TypeName="TrainingCenterModel.RunningCours">
               <MappingFragment StoreEntitySet="RunningCourses">
+                <ScalarProperty Name="AvailableCourseID" ColumnName="AvailableCourseID" />
                 <ScalarProperty Name="RunningCourseID" ColumnName="RunningCourseID" />
                 <ScalarProperty Name="WaitingListID" ColumnName="WaitingListID" />
-                <ScalarProperty Name="StartAt" ColumnName="StartAt" />
-                <ScalarProperty Name="EndAt" ColumnName="EndAt" />
-                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
@@ -1229,6 +1308,7 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
           <EntitySetMapping Name="WaitingLists">
             <EntityTypeMapping TypeName="TrainingCenterModel.WaitingList">
               <MappingFragment StoreEntitySet="WaitingList">
+                <ScalarProperty Name="ActiveCourseID" ColumnName="ActiveCourseID" />
                 <ScalarProperty Name="WaitingListID" ColumnName="WaitingListID" />
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
                 <ScalarProperty Name="AvailableCourseID" ColumnName="AvailableCourseID" />
@@ -1317,6 +1397,20 @@ warning 6002: The table/view 'TrainingCenter.dbo.WaitingListView' does not have 
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="IsGroupDays1" ColumnName="IsGroupDays1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActiveCourseByGroups">
+            <EntityTypeMapping TypeName="TrainingCenterModel.ActiveCourseByGroup">
+              <MappingFragment StoreEntitySet="ActiveCourseByGroup">
+                <ScalarProperty Name="TimeSlotID" ColumnName="TimeSlotID" />
+                <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+                <ScalarProperty Name="EndAt" ColumnName="EndAt" />
+                <ScalarProperty Name="StartAt" ColumnName="StartAt" />
+                <ScalarProperty Name="GroupDay" ColumnName="GroupDay" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="AvailableCourseID" ColumnName="AvailableCourseID" />
+                <ScalarProperty Name="ActiveCourseID" ColumnName="ActiveCourseID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

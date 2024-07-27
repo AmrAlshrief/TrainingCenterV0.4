@@ -20,7 +20,7 @@
         <EntityTypeShape EntityType="TrainingCenterModel.TimeSlot" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingCenterModel.WaitingList" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingCenterModel.AuditTrailView" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TrainingCenterModel.AvailableCouresView" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingCenterModel.AvailableCouresView" Width="1.5" PointX="5.375" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingCenterModel.InstructorsAvailabilityView" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TrainingCenterModel.WaitingListView" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="TrainingCenterModel.FK_AuditTrail_Action" ManuallyRouted="false" />
@@ -32,9 +32,12 @@
         <AssociationConnector Association="TrainingCenterModel.FK_Courses_Courses" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingCenterModel.FK_InstructorAvailability_Instructors" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingCenterModel.FK_InstructorAvailability_TimeSlots" ManuallyRouted="false" />
-        <AssociationConnector Association="TrainingCenterModel.FK_RunningCourses_Rooms" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingCenterModel.FK_RunningCourses_WaitingList" ManuallyRouted="false" />
         <AssociationConnector Association="TrainingCenterModel.FK_WaitingList_Students" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TrainingCenterModel.ActiveCourseByGroup" Width="1.5" PointX="12.375" PointY="6.75" />
+        <AssociationConnector Association="TrainingCenterModel.FK_ActiveCourseByGroup_AvailableCourses" />
+        <AssociationConnector Association="TrainingCenterModel.FK_ActiveCourseByGroup_Rooms" />
+        <AssociationConnector Association="TrainingCenterModel.FK_WaitingList_ActiveCourseByGroup" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

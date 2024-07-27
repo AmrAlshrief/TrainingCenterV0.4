@@ -24,7 +24,7 @@ namespace TrainingCenterLib.Repository.Services
             {
                 try
                 {
-                    var runningCourses = context.RunningCourses.Include(r => r.Room).Include(r => r.WaitingList);
+                    var runningCourses = context.RunningCourses.Include(r => r.WaitingList);
                     return await runningCourses.ToListAsync();
                 }
                 catch (Exception ex)

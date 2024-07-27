@@ -18,6 +18,7 @@ namespace TrainingCenterLib.Entities
         public AvailableCours()
         {
             this.WaitingLists = new HashSet<WaitingList>();
+            this.ActiveCourseByGroups = new HashSet<ActiveCourseByGroup>();
         }
     
         public int AvailableCourseID { get; set; }
@@ -29,5 +30,7 @@ namespace TrainingCenterLib.Entities
         public virtual InstructorAvailability InstructorAvailability { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WaitingList> WaitingLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActiveCourseByGroup> ActiveCourseByGroups { get; set; }
     }
 }

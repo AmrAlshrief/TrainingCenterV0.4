@@ -28,14 +28,22 @@ namespace TrainingCenterUI.Controllers
         // GET: Statistics
         public async Task<ActionResult> Index()
         {
-            var viewModel = new StatisticViewModel
+            if (Session["login"] != null)
             {
-                NumberOfStudents = await _studentService.GetNumberOfStudentsAsync(),
-                NumberOfCourses = await _courseService.GetNumberOfCoursesAsync(),
-                NumberOfInstructors = await _instructorService.GetNumberOfInstructorsAsync()
-            };
+                var viewModel = new StatisticViewModel
+                {
+                    NumberOfStudents = await _studentService.GetNumberOfStudentsAsync(),
+                    NumberOfCourses = await _courseService.GetNumberOfCoursesAsync(),
+                    NumberOfInstructors = await _instructorService.GetNumberOfInstructorsAsync()
+                };
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
          
         }
     }

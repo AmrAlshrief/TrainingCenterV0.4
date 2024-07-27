@@ -5,13 +5,12 @@
     Layout = "~/Views/Shared/Layout2.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Available Courses</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
+<a href="@Url.Action("Create")" class="btn btn-primary">Create New</a>
+
+<table class="table active">
+    <tr class="table-hover row-cols-md-auto">
         <th>
             @Html.DisplayNameFor(model => model.StartAt)
         </th>
@@ -24,23 +23,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cours.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InstructorAvailability.InstructorAvailabilityID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AvailableCourseID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AvailableCourseID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AvailableCourseID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cours.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstructorAvailability.InstructorAvailabilityID)
+            </td>
+            <td>
+                <a href="@Url.Action( "Edit", new { id = item.AvailableCourseID })" class="btn btn-primary" style="border-radius:10px"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="@Url.Action( "Details", new { id = item.AvailableCourseID })" class="btn btn-warning" style="border-radius:10px"><i class="fa-solid fa-circle-info"></i></a>
+                <a href="@Url.Action( "Delete", new { id = item.AvailableCourseID })" class="btn btn-danger" style="border-radius:10px"><i class="fa-solid fa-trash-can"></i></a>
+            </td>
+        </tr>
+    }
 
 </table>
+

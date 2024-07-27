@@ -30,52 +30,83 @@ namespace TrainingCenterUI.Controllers
         // GET: Course
         public async Task<ActionResult> Index()
         {
+            if (Session["login"] != null) 
+            {
+                //var courses = db.Courses.Include(c => c.Courses1).Where(c=> c.CourseName != "N/A" && c.IsProgramming);
+                return View(await _CourseService.GetAllProgCoursesAsync());
+            }
+            else 
+            {
+                return RedirectToAction("Login", "Account");
+            }
 
-            //var courses = db.Courses.Include(c => c.Courses1).Where(c=> c.CourseName != "N/A" && c.IsProgramming);
-            return View(await _CourseService.GetAllProgCoursesAsync());
         }
 
         public async Task<ActionResult> IndexForLanguage()
         {
-
-            //var courses = db.Courses.Include(c => c.Courses1).Where(c => c.CourseName != "N/A" &&  c.IsProgramming == false);
-            return View(await _CourseService.GetAllLanguageCoursesAsync());
+            if (Session["login"] != null)
+            {
+                //var courses = db.Courses.Include(c => c.Courses1).Where(c => c.CourseName != "N/A" &&  c.IsProgramming == false);
+                return View(await _CourseService.GetAllLanguageCoursesAsync());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
         }
 
         // GET: Course/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
+            if (Session["login"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Cours cours = await db.Courses.FindAsync(id);
+                if (cours == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(cours);
             }
-            Cours cours = await db.Courses.FindAsync(id);
-            if (cours == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(cours);
+         
         }
 
         // GET: Course/Create
         public ActionResult Create()
         {
-            Cours course = new Cours();
+            if (Session["login"] != null)
+            {
+                //if (course.IsProgramming == true)
+                //{
+                //    var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
+                //    ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", course.Requirement_CourseID);
+                //    
+                //}
+                //else
+                //{
+                //    var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
+                //    ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", course.Requirement_CourseID);
+                //    return View(course);
+                //}
+                Cours course = new Cours();
+                ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
+                return View(course);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
 
-            //if (course.IsProgramming == true)
-            //{
-            //    var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
-            //    ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", course.Requirement_CourseID);
-            //    
-            //}
-            //else
-            //{
-            //    var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
-            //    ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", course.Requirement_CourseID);
-            //    return View(course);
-            //}
-            ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName");
-            return View(course);
+            
         }
 
         // POST: Course/Create
@@ -84,53 +115,69 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "CourseID,CourseName,Duration,Requirement_CourseID,IsProgramming,UserID")] Cours cours)
         {
-            if (ModelState.IsValid)
+            if (Session["login"] != null)
             {
-                cours.CreatedAt = DateTime.Now;
-                db.Courses.Add(cours);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            if (cours.IsProgramming == true)
-            {
-                var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
-                ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                if (ModelState.IsValid)
+                {
+                    cours.CreatedAt = DateTime.Now;
+                    db.Courses.Add(cours);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                if (cours.IsProgramming == true)
+                {
+                    var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
+                    ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                }
+                else
+                {
+                    var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
+                    ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                }
+                //ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                return View(cours);
             }
             else
             {
-                var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
-                ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                return RedirectToAction("Login", "Account");
             }
-            //ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
-            return View(cours);
+           
         }
 
         // GET: Course/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (Session["login"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cours cours = await db.Courses.FindAsync(id);
-            if (cours == null)
-            {
-                return HttpNotFound();
-            }
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Cours cours = await db.Courses.FindAsync(id);
+                if (cours == null)
+                {
+                    return HttpNotFound();
+                }
 
-            if (cours.IsProgramming == true)
-            {
-                var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
-                ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
-            }
-            else 
-            {
-                var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
-                ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
-            }
+                if (cours.IsProgramming == true)
+                {
+                    var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
+                    ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                }
+                else
+                {
+                    var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
+                    ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                }
 
-            //ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
-            return View(cours);
+                //ViewBag.Requirement_CourseID = new SelectList(db.Courses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                return View(cours);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
         }
 
         // POST: Course/Edit/5
@@ -139,40 +186,57 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "CourseID,CourseName,Duration,Requirement_CourseID,IsProgramming,IsDeleted,CreatedAt,UserID")] Cours cours)
         {
-            if (ModelState.IsValid)
+            if (Session["login"] != null)
             {
-                
-                db.Entry(cours).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+
+                    db.Entry(cours).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                if (cours.IsProgramming == true)
+                {
+                    var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
+                    ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                }
+                else
+                {
+                    var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
+                    ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                }
+
+                return View(cours);
             }
-            if (cours.IsProgramming == true ) 
+            else
             {
-                var ProgrammingCourses = _CourseService.GetAllProgrammingCourses();
-                ViewBag.Requirement_CourseID = new SelectList(ProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
+                return RedirectToAction("Login", "Account");
             }
-            else 
-            {
-                var nonProgrammingCourses = _CourseService.GetAllLanguageCourses();
-                ViewBag.Requirement_CourseID = new SelectList(nonProgrammingCourses, "CourseID", "CourseName", cours.Requirement_CourseID);
-            }
-            
-            return View(cours);
+      
         }
 
         // GET: Course/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (Session["login"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Cours cours = await db.Courses.FindAsync(id);
+                if (cours == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(cours);
             }
-            Cours cours = await db.Courses.FindAsync(id);
-            if (cours == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(cours);
+            
+           
         }
 
         // POST: Course/Delete/5
@@ -180,17 +244,25 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Cours cours = await db.Courses.FindAsync(id);
-            db.Courses.Remove(cours);
-            await db.SaveChangesAsync();
-            if (cours.IsProgramming) 
+            if (Session["login"] != null)
             {
-                return RedirectToAction("Index");
+                Cours cours = await db.Courses.FindAsync(id);
+                db.Courses.Remove(cours);
+                await db.SaveChangesAsync();
+                if (cours.IsProgramming)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("IndexForLanguage");
+                }
             }
-            else 
+            else
             {
-                return RedirectToAction("IndexForLanguage");
+                return RedirectToAction("Login", "Account");
             }
+        
             
         }
 

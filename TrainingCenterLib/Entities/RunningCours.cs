@@ -11,38 +11,15 @@ namespace TrainingCenterLib.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class RunningCours
     {
-
-        public RunningCours() 
-        {
-            this.CreatedAt = DateTime.Now;
-        }
         public int RunningCourseID { get; set; }
-
-        [ForeignKey("WaitingList")]
         public int WaitingListID { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public Nullable<System.DateTime> StartAt { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public Nullable<System.DateTime> EndAt { get; set; }
-
-        [ForeignKey ("Room")]
-        public int RoomID { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime CreatedAt { get; set; }
         public int UserID { get; set; }
+        public string AvailableCourseID { get; set; }
     
-        public virtual Room Room { get; set; }
         public virtual WaitingList WaitingList { get; set; }
     }
 }

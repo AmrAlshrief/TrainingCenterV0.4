@@ -98,6 +98,8 @@ namespace TrainingCenterUI.Controllers
                         TempData["ErrorMessage"] = "Unable to Update Instructor";
                         RedirectToAction("Index");
                     }
+                    return RedirectToAction("Index");
+
                 }
                 return View(instructor);
             }

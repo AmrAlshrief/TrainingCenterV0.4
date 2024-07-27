@@ -28,12 +28,28 @@ namespace TrainingCenterUI.Controllers
         // GET: InstructorAvailabilities
         public async Task<ActionResult> Index()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View(await _instructorAvailabilityService.GetAllInstructorAvailabilitiesAsync());
         }
 
         // GET: InstructorAvailabilities/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -49,6 +65,14 @@ namespace TrainingCenterUI.Controllers
         // GET: InstructorAvailabilities/Create
         public ActionResult Create()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             var activeInstructors = db.Instructors.Where(i => i.IsDeleted == false).ToList();
             ViewBag.InstructorID = new SelectList(activeInstructors, "InstructorID", "FirstName");
             ViewBag.timeSlotID = new SelectList(db.TimeSlots, "TimeSlotID", "TimeSlotID");
@@ -61,6 +85,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "InstructorAvailabilityID,InstructorID,timeSlotID,IsGroupDays1")] InstructorAvailability instructorAvailability)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 //db.InstructorAvailabilities.Add(instructorAvailability);
@@ -78,6 +110,14 @@ namespace TrainingCenterUI.Controllers
         // GET: InstructorAvailabilities/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -98,6 +138,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "InstructorAvailabilityID,InstructorID,timeSlotID,IsGroupDays1")] InstructorAvailability instructorAvailability)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 //db.Entry(instructorAvailability).State = EntityState.Modified;
@@ -114,6 +162,14 @@ namespace TrainingCenterUI.Controllers
         // GET: InstructorAvailabilities/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -145,7 +201,14 @@ namespace TrainingCenterUI.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
 
-            
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             InstructorAvailability instructorAvailability = await db.InstructorAvailabilities.FindAsync(id);
             //db.InstructorAvailabilities.Remove(instructorAvailability);
             //await db.SaveChangesAsync();

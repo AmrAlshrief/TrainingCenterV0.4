@@ -11,32 +11,23 @@ namespace TrainingCenterLib.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class InstructorAvailability
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public InstructorAvailability()
         {
             this.AvailableCourses = new HashSet<AvailableCours>();
-
         }
     
         public int InstructorAvailabilityID { get; set; }
         public int InstructorID { get; set; }
         public int timeSlotID { get; set; }
-
-        [Required]
-        [Display(Name = "Is Group Days 1")]
         public bool IsGroupDays1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-        [Required]
         public virtual ICollection<AvailableCours> AvailableCourses { get; set; }
-        [Required]
         public virtual Instructor Instructor { get; set; }
-        [Required]
         public virtual TimeSlot TimeSlot { get; set; }
     }
 }

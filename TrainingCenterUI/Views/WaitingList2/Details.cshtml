@@ -1,0 +1,49 @@
+﻿@model  TrainingCenterLib.Entities.WaitingList
+
+@{
+    ViewBag.Title = "WaitingList Details";
+}
+
+<h2>WaitingList Details</h2>
+
+<div>
+    <h4>WaitingList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudentID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AvailableCourseID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AvailableCourseID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPaid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsPaid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCash)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsCash)
+        </dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WaitingListID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

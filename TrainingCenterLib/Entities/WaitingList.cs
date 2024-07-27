@@ -12,7 +12,6 @@ namespace TrainingCenterLib.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class WaitingList
     {
@@ -20,30 +19,21 @@ namespace TrainingCenterLib.Entities
         public WaitingList()
         {
             this.RunningCourses = new HashSet<RunningCours>();
-            
         }
     
         public int WaitingListID { get; set; }
-
-        [ForeignKey("Student")]
         public int StudentID { get; set; }
-
-        [ForeignKey("AvailableCours")]
         public int AvailableCourseID { get; set; }
-
-        [StringLength(50)]
-        [Display(Name = "Group Name")]
+        [Required]
         public string GroupName { get; set; }
-
-        [Display(Name = "Is Paid")]
         public bool IsPaid { get; set; }
-
-        [Display(Name = "Is Cash")]
         public bool IsCash { get; set; }
+        public Nullable<int> ActiveCourseID { get; set; }
     
         public virtual AvailableCours AvailableCours { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RunningCours> RunningCourses { get; set; }
         public virtual Student Student { get; set; }
+        public virtual ActiveCourseByGroup ActiveCourseByGroup { get; set; }
     }
 }

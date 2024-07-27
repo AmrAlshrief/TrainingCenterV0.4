@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/Layout2.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Instructors Available Time</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create")" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <tr>
@@ -36,9 +36,10 @@
             @Html.DisplayFor(modelItem => item.TimeSlot.TimeSlotID)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.InstructorAvailabilityID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.InstructorAvailabilityID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.InstructorAvailabilityID })
+         
+            <a href="@Url.Action( "Edit", new { id = item.InstructorAvailabilityID })" class="btn btn-primary" style="border-radius:10px"><i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="@Url.Action( "Details", new { id = item.InstructorAvailabilityID })" class="btn btn-warning" style="border-radius:10px"><i class="fa-solid fa-circle-info"></i></a>
+            <a href="@Url.Action( "Delete", new { id = item.InstructorAvailabilityID })" class="btn btn-danger" style="border-radius:10px"><i class="fa-solid fa-trash-can"></i></a>
         </td>
     </tr>
 }

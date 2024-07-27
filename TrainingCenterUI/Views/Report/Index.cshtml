@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<h2>Reports</h2>
+
+@*<div class="d-grid gap-2">
+        <button class="btn btn-primary" type="button">Button</button>
+        <button class="btn btn-primary" type="button">Button</button>
+    </div>*@
+
+<div class="container centered-container">
+    <div class="button-group">
+        <a href="@Url.Action("UsersReport", "Report")" class="btn btn-primary btn-lg" target="_blank">Users Report</a>
+        <a href="@Url.Action("AvailableCoursesReport", "Report")" class="btn btn-primary btn-lg" target="_blank">Courses Report</a>
+        <a href="@Url.Action("WaitingListReport", "Report")" class="btn btn-primary btn-lg" target="_blank">WaitingList Report</a>
+
+    </div>
+</div>
+
+<style>
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        height: 30vh;
+        justify-content: space-around;
+        width: 50%;
+        margin: auto;
+    }
+</style>
+
+@*<a href="#" class="btn btn-primary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Primary link</a>*@
+@*<a href="#" class="btn btn-primary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Primary link</a>*@

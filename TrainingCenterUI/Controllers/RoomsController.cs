@@ -29,12 +29,28 @@ namespace TrainingCenterUI.Controllers
         // GET: Rooms
         public async Task<ActionResult> Index()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View(await db.Rooms.ToListAsync());
         }
 
         // GET: Rooms/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -50,6 +66,14 @@ namespace TrainingCenterUI.Controllers
         // GET: Rooms/Create
         public ActionResult Create()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             Room room = new Room();
             return View(room);
         }
@@ -60,6 +84,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Name,IsProgramming")] Room room)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 //db.Rooms.Add(room);
@@ -74,6 +106,14 @@ namespace TrainingCenterUI.Controllers
         // GET: Rooms/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,6 +131,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "RoomID,Name,IsProgramming")] Room room)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 //db.Entry(room).State = EntityState.Modified;
@@ -104,6 +152,14 @@ namespace TrainingCenterUI.Controllers
         // GET: Rooms/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -121,6 +177,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             //Room room = await db.Rooms.FindAsync(id);
             //db.Rooms.Remove(room);
             //await db.SaveChangesAsync();

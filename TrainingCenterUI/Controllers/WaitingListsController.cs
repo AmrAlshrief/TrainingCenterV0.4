@@ -29,13 +29,42 @@ namespace TrainingCenterUI.Controllers
         }
         public async Task<ActionResult> Index()
         {
-            var waitingLists = db.WaitingLists.Include(w => w.AvailableCours).Include(w => w.Student);
-            return View(await waitingLists.ToListAsync());
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            //var waitingLists = db.WaitingLists.Include(w => w.AvailableCours).Include(w => w.Student);
+            //var waitingLists = db.WaitingLists.Include(w => w.AvailableCours).Include(w => w.Student).ToList();
+            var waitingLists = db.WaitingLists.Include(w => w.AvailableCours).Include(w => w.Student).Include(w => w.ActiveCourseByGroup).ToList();
+            var groupCounts = waitingLists
+                .GroupBy(w => w.AvailableCours.AvailableCourseID)
+                .Select(g => new
+                {
+                    AvailableCourseID = g.Key,
+                    Count = g.Count()
+                })
+                .ToDictionary(g => g.AvailableCourseID, g => g.Count);
+
+            ViewBag.GroupCounts = groupCounts;
+
+            return View(waitingLists);
         }
 
         // GET: WaitingLists/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -51,6 +80,15 @@ namespace TrainingCenterUI.Controllers
         // GET: WaitingLists/Create
         public ActionResult Create()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             var courses = _waitingListService.GetCourseName();
             ViewBag.AvailableCourseID = new SelectList(courses, "AvailableCourseID", "CourseName");
             ViewBag.StudentID = new SelectList(db.Students.Where(i => !i.IsDeleted), "StudentID", "FirstName");
@@ -63,6 +101,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "WaitingListID,StudentID,AvailableCourseID,GroupName,IsPaid,IsCash")] WaitingList waitingList)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             var isAlreadyEnrolled = _waitingListService.IsAlreadyEnrolled(waitingList.StudentID, waitingList.AvailableCourseID);
 
             if (isAlreadyEnrolled)
@@ -86,6 +132,14 @@ namespace TrainingCenterUI.Controllers
         // GET: WaitingLists/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -107,6 +161,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "WaitingListID,StudentID,AvailableCourseID,GroupName,IsPaid,IsCash")] WaitingList waitingList)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             var isAlreadyEnrolled = _waitingListService.IsAlreadyEnrolled(waitingList.StudentID, waitingList.AvailableCourseID);
 
             if (isAlreadyEnrolled)
@@ -130,6 +192,14 @@ namespace TrainingCenterUI.Controllers
         // GET: WaitingLists/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -147,9 +217,46 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             await _waitingListService.DeleteWaitingListAsync(id);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        //public JsonResult GetAvailableCourse(int waitingListID)
+        //{
+        //    // Assuming you have a DbContext instance called _context
+        //    var availableCourse = db.AvailableCourses
+        //        .Include(ac => ac.InstructorAvailability) // Assuming there's a navigation property
+        //        .FirstOrDefault(ac => ac.WaitingListID == waitingListID);
+
+        //    if (availableCourse == null)
+        //    {
+        //        return Json(new { success = false, message = "No available course found." });
+        //    }
+
+        //    // Extract necessary information
+        //    var availableCourseID = availableCourse.AvailableCourseID;
+        //    var isGroupDay = availableCourse.InstructorAvailability.IsGroupDay; // Adjust based on your model
+        //    var timeSlot = availableCourse.InstructorAvailability.TimeSlot; // Adjust based on your model
+
+        //    // Prepare the data to return
+        //    var data = new
+        //    {
+        //        AvailableCourseID = availableCourseID,
+        //        IsGroupDay = isGroupDay,
+        //        TimeSlot = timeSlot
+        //    };
+
+        //    return Json(new { success = true, data = data });
+        //}
 
         protected override void Dispose(bool disposing)
         {

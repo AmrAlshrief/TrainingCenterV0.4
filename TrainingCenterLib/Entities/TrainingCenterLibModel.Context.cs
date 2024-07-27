@@ -43,5 +43,6 @@ namespace TrainingCenterLib.Entities
         public virtual DbSet<AvailableCouresView> AvailableCouresViews { get; set; }
         public virtual DbSet<InstructorsAvailabilityView> InstructorsAvailabilityViews { get; set; }
         public virtual DbSet<WaitingListView> WaitingListViews { get; set; }
+        public virtual DbSet<ActiveCourseByGroup> ActiveCourseByGroups { get; set; }
     }
 }

@@ -24,11 +24,27 @@ namespace TrainingCenterUI.Controllers
         // GET: Report
         public ActionResult Index()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 
         public async Task<ActionResult> UsersReport()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             // Fetch the data for the report
             var reportData = await _Db.AuditTrailView2.ToListAsync();
 
@@ -67,6 +83,14 @@ namespace TrainingCenterUI.Controllers
 
         public async Task<ActionResult> AvailableCoursesReport()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             // Fetch the data for the report
             var reportData = await _Db.AvailableCouresViews.ToListAsync();
 
@@ -123,6 +147,14 @@ namespace TrainingCenterUI.Controllers
 
         public async Task<ActionResult> WaitingListReport()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             // Fetch the data for the report
             var reportData = await _Db.WaitingListViews.ToListAsync();
 

@@ -11,25 +11,17 @@ namespace TrainingCenterLib.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class TimeSlot
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TimeSlot()
         {
             this.InstructorAvailabilities = new HashSet<InstructorAvailability>();
-            
         }
     
         public int TimeSlotID { get; set; }
-
-        [Display(Name = "Start Time")]
-        //[DataType(DataType.Date)]
         public System.TimeSpan StartTime { get; set; }
-
-        [Display(Name = "End Time")]
-        //[DataType(DataType.Date)]
         public System.TimeSpan EndTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

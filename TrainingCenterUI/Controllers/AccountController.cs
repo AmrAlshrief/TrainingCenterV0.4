@@ -57,7 +57,7 @@ namespace TrainingCenterUI.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            if (Session != null)
+            if (Session["login"] != null)
             {
                 return RedirectToAction("Index", "Home");
             }

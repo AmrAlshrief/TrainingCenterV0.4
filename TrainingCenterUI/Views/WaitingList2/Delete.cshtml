@@ -1,0 +1,24 @@
+﻿@model TrainingCenterLib.Entities.WaitingList
+
+@{
+    ViewBag.Title = "Delete WaitingList";
+}
+
+<h2>Delete WaitingList</h2>
+
+<div class="alert alert-danger">
+    <h4>Are you sure you want to delete this?</h4>
+    <p>
+        <strong>Student ID:</strong> @Model.StudentID<br />
+        <strong>Available Course ID:</strong> @Model.AvailableCourseID<br />
+        <strong>Group Name:</strong> @Model.GroupName<br />
+        <strong>Is Paid:</strong> @Model.IsPaid<br />
+        <strong>Is Cash:</strong> @Model.IsCash<br />
+    </p>
+</div>
+
+<form action="@Url.Action("Delete", "WaitingLists", new { id = Model.WaitingListID })" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="@Url.Action("Index", "WaitingList2")" class="btn btn-default">Cancel</a>
+</form>

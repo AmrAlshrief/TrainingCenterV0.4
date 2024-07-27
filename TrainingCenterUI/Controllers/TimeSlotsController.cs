@@ -28,13 +28,28 @@ namespace TrainingCenterUI.Controllers
         // GET: TimeSlots
         public async Task<ActionResult> Index()
         {
+            if (Session["login"] != null)
+            {
 
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View(await _timeSlotService.GetAllAsync());
         }
 
         // GET: TimeSlots/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -50,6 +65,14 @@ namespace TrainingCenterUI.Controllers
         // GET: TimeSlots/Create 
         public ActionResult Create()
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             TimeSlot timeSlot = new TimeSlot();
             return View(timeSlot);
         }
@@ -60,6 +83,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "TimeSlotID,StartTime,EndTime")] TimeSlot timeSlot)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 //db.TimeSlots.Add(timeSlot);
@@ -74,6 +105,14 @@ namespace TrainingCenterUI.Controllers
         // GET: TimeSlots/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,6 +130,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "TimeSlotID,StartTime,EndTime")] TimeSlot timeSlot)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 //db.Entry(timeSlot).State = EntityState.Modified;
@@ -104,6 +151,14 @@ namespace TrainingCenterUI.Controllers
         // GET: TimeSlots/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -121,6 +176,14 @@ namespace TrainingCenterUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+            if (Session["login"] != null)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
             //TimeSlot timeSlot = await db.TimeSlots.FindAsync(id);
             //db.TimeSlots.Remove(timeSlot);
             //await db.SaveChangesAsync();
