@@ -11,7 +11,8 @@ namespace TrainingCenterLib.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Cours
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,10 @@ namespace TrainingCenterLib.Entities
         }
     
         public int CourseID { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Course Name")]
         public string CourseName { get; set; }
         public Nullable<int> Duration { get; set; }
         public Nullable<int> Requirement_CourseID { get; set; }

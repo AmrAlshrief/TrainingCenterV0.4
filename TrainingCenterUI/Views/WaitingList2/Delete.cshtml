@@ -16,9 +16,17 @@
         <strong>Is Cash:</strong> @Model.IsCash<br />
     </p>
 </div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<form action="@Url.Action("Delete", "WaitingLists", new { id = Model.WaitingListID })" method="post">
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+<@*form action="@Url.Action("Delete", "WaitingList2", new { id = Model.WaitingListID })" method="post">
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-danger">Delete</button>
     <a href="@Url.Action("Index", "WaitingList2")" class="btn btn-default">Cancel</a>
-</form>
+</form>*@

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TrainingCenterLib.Entities;
 using TrainingCenterLib.Repository.Interfaces;
+using System.Runtime.Remoting.Contexts;
 
 namespace TrainingCenterLib.Repository.Services
 {
@@ -62,27 +63,69 @@ namespace TrainingCenterLib.Repository.Services
             }
         }
 
+        public void UpdateActiveCourseSituation(TrainingCenterLibDbContext context, WaitingList waitingList) 
+        {
+            if (waitingList.IsPaid)
+            {
+                var activeCourse = context.ActiveCourseByGroups
+                .Where(ac => ac.AvailableCourseID == waitingList.AvailableCourseID && DbFunctions.DiffDays(ac.StartAt, DateTime.Now) <= 1)
+                .FirstOrDefault();
+
+                if (activeCourse != null && waitingList.AvailableCourseID == activeCourse.AvailableCourseID)
+                {
+                    waitingList.ActiveCourseID = activeCourse.ActiveCourseID;
+                    waitingList.GroupName = activeCourse.GroupName;
+                    context.SaveChanges();
+                }
+
+
+
+                else if (activeCourse == null)
+                {
+
+                    var waitingListCount = context.WaitingLists
+                    .Count(w => w.AvailableCourseID == waitingList.AvailableCourseID && w.ActiveCourseID == null && waitingList.IsPaid == true);
+                    if (waitingListCount >= 3)
+                    {
+                        NewWaitingListService newWaiting = new NewWaitingListService();
+
+
+                        newWaiting.CreateActiveCourse(waitingList.AvailableCourseID, "Group" + waitingList.AvailableCourseID);
+
+
+
+                    }
+                }
+
+            }
+        }
+
         public async Task UpdateWaitingListAsync(WaitingList waitingList)
         {
             using (var context = new TrainingCenterLibDbContext())
             {
                 using (var transaction = context.Database.BeginTransaction())
                 {
-                    try
-                    {
+                    //try
+                    //{
                         context.Entry(waitingList).State = EntityState.Modified;
                         await context.SaveChangesAsync();
                         UserInfo.CreateAudit(ActionType.Update, Action.UpdateWaitingList, _UserId, MasterEntity.WaitingList, "Waiting List Info Updated");
                         transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        throw new Exception(ex.Message);
-                    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    transaction.Rollback();
+                    //    throw new Exception(ex.Message.ToString());
+                    //}
                 }
+
+                UpdateActiveCourseSituation(context, waitingList);
             }
+
+
         }
+
 
         public async Task DeleteWaitingListAsync(int id)
         {

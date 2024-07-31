@@ -28,5 +28,12 @@ namespace TrainingCenterUI
                 autoCreateTables: true);
             }
         }
+
+        protected void Application_Error()
+        {
+            Exception exception = Server.GetLastError();
+            Server.ClearError();
+            Response.Redirect("~/Error");
+        }
     }
 }

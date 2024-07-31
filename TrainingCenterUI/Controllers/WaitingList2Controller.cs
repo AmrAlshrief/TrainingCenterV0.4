@@ -229,16 +229,17 @@ namespace TrainingCenterUI.Controllers
             }
             var isAlreadyEnrolled = _WaitingListService.IsAlreadyEnrolled(waitingList.StudentID, waitingList.AvailableCourseID);
 
-            if (isAlreadyEnrolled)
-            {
-                ModelState.AddModelError("", "You cannot enroll twice in the same course.");
-                TempData["ErrorMessage"] = "You cannot enroll twice in the same course.";
+            //if (isAlreadyEnrolled)
+            //{
+            //    ModelState.AddModelError("", "You cannot enroll twice in the same course.");
+            //    TempData["ErrorMessage"] = "You cannot enroll twice in the same course.";
 
-                return RedirectToAction("Edit");
-            }
+            //    return RedirectToAction("Edit");
+            //}
 
             if (ModelState.IsValid)
             {
+                waitingList.ActiveCourseID = null;
                 await _WaitingListService.UpdateWaitingListAsync(waitingList);
                 return RedirectToAction("Index");
             }

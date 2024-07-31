@@ -128,7 +128,7 @@ namespace TrainingCenterLib.Repository.Services
 
             if (waitingListEntries.Count < 3)
             {
-                throw new InvalidOperationException("The waiting list does not contain enough students.");
+                throw new InvalidOperationException("The waiting list does not contain enough students Or some not paid.");
             }
 
             var groupDay = instructorAvailability.IsGroupDays1; 

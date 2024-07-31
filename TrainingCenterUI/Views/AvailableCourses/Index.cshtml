@@ -11,9 +11,7 @@
 
 <table class="table active">
     <tr class="table-hover row-cols-md-auto">
-        <th>
-            @Html.DisplayNameFor(model => model.StartAt)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.Cours.CourseName)
         </th>
@@ -26,9 +24,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartAt)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Cours.CourseName)
             </td>
